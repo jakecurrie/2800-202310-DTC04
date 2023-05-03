@@ -1,2 +1,5 @@
 # 2800-202310-DTC04
-Vishav Josan
+#Ivan Cheng
+# SeungJae Baek
+# Jake Currie
+#Vishav Josan
