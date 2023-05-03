@@ -1,2 +1,4 @@
 # 2800-202310-DTC04
-Jake Currie
+
+# SeungJae Baek
+# Jake Currie
