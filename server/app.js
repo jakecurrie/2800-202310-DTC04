@@ -3,6 +3,19 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const indexRouter = require('./routes/index');
+const mongoose = require('mongoose');
+require("dotenv").config();
+
+const userModel = require('./model/users')
+
+async function main() {
+  await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@artificialgains.9i0vt1r.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`)
+
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
 
 const app = express();
 
@@ -24,8 +37,18 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+main()
 
+// Creating dummy user
+// const user = new userModel({
+//   name: 'test',
+//   email: 'test@gmail.com',
+//   password: 'test',
+// })
+
+// user.save()
+// .then((result) => {
+//   console.log(result);
+// }).catch((error) => {
+//   console.log(error);
+// })
