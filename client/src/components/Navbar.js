@@ -42,11 +42,11 @@ const Navbar = () => {
       {isMobile ? (
         <AppBar position="fixed" color="primary" style={{ top: 'auto', bottom: 0 }}>
           <Toolbar sx={{ justifyContent: 'center', padding: 0 }}>
-            <IconButton edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
-              <HomeIcon />
-            </IconButton>
             <IconButton edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <FitnessCenterIcon />
+            </IconButton>
+            <IconButton edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <HomeIcon />
             </IconButton>
             <IconButton edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <RestaurantMenuIcon />
