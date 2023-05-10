@@ -1,15 +1,20 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Profile from './components/Profile';
+import Register from './components/Register';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to the React.js frontend</h1>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/register" element={< Register/>} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
+
 

@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const indexRouter = require('./routes/index');
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const userModel = require('./model/users')
@@ -22,15 +23,32 @@ const app = express();
 // Enable CORS for cross-origin requests
 app.use(cors());
 
+
 // Body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.json());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Routes
 app.use('/api', indexRouter);
+
+app.post('/register', (req, res) => {
+  console.log(req.body);
+  const user = new userModel({
+    'name' : req.body.name,
+    'email' : req.body.email,
+    'password' : bcrypt.hashSync(req.body.password, 10),
+  }) 
+
+  user.save()
+  .then((result) => console.log(result))
+  .catch((err) => console.log(err))
+
+  res.json({})
+})
 
 // Catch-all handler for any requests not caught by other routes
 app.get('*', (req, res) => {
