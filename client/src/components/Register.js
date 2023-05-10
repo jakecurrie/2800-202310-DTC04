@@ -36,15 +36,15 @@ const Register = () => {
             <form id="register-form">
                 <div id="name-container">
                     <input ref={userName} type="text" name="name" />
-                    <label for="name" >Your Name</label>
+                    <label htmlFor="name" >Your Name</label>
                 </div>
                 <div id="email-container">
                     <input ref={userEmail} type="text" name="email" />
-                    <label for="email" >Your Email</label>
+                    <label htmlFor="email" >Your Email</label>
                 </div>
                 <div id="password-container">
                     <input ref={userPassword} type="password" name="password" />
-                    <label for="password" >Your Password</label>
+                    <label htmlFor="password" >Your Password</label>
                 </div>
                 <div onClick={submitUserCreation}>
                     <input type="button" name="submit" value="Submit"/>
