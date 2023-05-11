@@ -11,6 +11,7 @@ labelmap_url = "https://www.gstatic.com/aihub/tfhub/labelmaps/aiy_food_V1_labelm
 input_shape = (224, 224)
 
 image = cv2.imread(image_path)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 image = cv2.resize(image, dsize=input_shape, interpolation=cv2.INTER_CUBIC)
 image = image / 255.0
 images = np.expand_dims(image, 0)
