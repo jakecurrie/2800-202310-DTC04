@@ -22,7 +22,7 @@ const Register = () => {
             body: JSON.stringify(newUserData),
             headers: {
                 "Content-Type": "application/json"
-              }
+            }
         }).then((res) => {
             navigate("/login");
             return res.json();

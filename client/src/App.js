@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Profile from './components/Profile';
 import Register from './components/Register';
 import Navbar from './components/Navbar';
+import FitnessPlan from './components/FitnessPlan';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/fitness" element={<FitnessPlan />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </>
@@ -17,7 +19,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
