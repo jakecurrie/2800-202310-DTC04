@@ -14,6 +14,18 @@ const userModel = require('./model/users');
 const { error } = require('console');
 const upload = multer({ dest: 'uploads/' });
 
+const app = express();
+
+// Enable CORS for cross-origin requests
+app.use(cors({ origin: 'http://localhost:3000', credentials: true, optionSuccessStatus: 200,})) // allows cookies to go to the client
+
+// Body-parser middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 async function accessSecretVersion(secretName) {
   const name = `projects/artificialgains/secrets/${secretName}/versions/latest`;
   const client = new SecretManagerServiceClient();
@@ -32,42 +44,23 @@ async function main() {
 
   await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`)
 
-  const PORT = process.env.PORT || 3001;
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-  });
-}
-
-const app = express();
-
-// Enable CORS for cross-origin requests
-app.use(cors({ origin: 'http://localhost:3000', credentials: true, optionSuccessStatus: 200,})) // allows cookies to go to the client
-
-// Body-parser middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-let mongoStore = MongoStore.create({ 
-  mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`,
-  collectionName: "sessions",
-  crypto: {
-    secret: sessionSecret
-  }
-})
-
-app.use(
-  session({
-    secret: sessionSecret,
-    store: mongoStore,
-    saveUninitialized: false,
-    resave: true,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+  let mongoStore = MongoStore.create({ 
+    mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`,
+    collectionName: "sessions",
+    crypto: {
+      secret: sessionSecret
+    }
   })
-);
 
+  app.use(
+    session({
+      secret: sessionSecret,
+      store: mongoStore,
+      saveUninitialized: false,
+      resave: true,
+      cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    })
+  );
 
 // Routes
 app.use('/api', indexRouter);
@@ -185,11 +178,16 @@ app.post('/logout', (req, res) => {
 
 })
 
-
 // Catch-all handler for any requests not caught by other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
+const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
 
 main()
 
