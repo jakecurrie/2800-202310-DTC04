@@ -32,6 +32,7 @@ const Register = () => {
     }
 
     return (
+        <>
         <div id="register-container">
             <form id="register-form">
                 <div id="name-container">
@@ -51,6 +52,7 @@ const Register = () => {
                 </div>
             </form>
         </div>
+        </>
     );
 };
 
