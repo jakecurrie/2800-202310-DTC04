@@ -5,9 +5,13 @@ function MealClassifier() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [mealOptions, setMealOptions] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState('');
+  const [nutritionInfo, setNutritionInfo] = useState(null);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+    setMealOptions([]);
+    setSelectedMeal('');
+    setNutritionInfo(null);
   }
 
   const handleMealChange = (event) => {
@@ -47,6 +51,7 @@ function MealClassifier() {
     axios.post('/api/fetchNutrition', { meal: selectedMeal })
     .then(response => {
         console.log(response.data);
+        setNutritionInfo(response.data);
     })
     .catch(error => {
         console.error('Error during API call', error);
@@ -68,9 +73,15 @@ function MealClassifier() {
       </select>
 
       <button onClick={fetchNutritionInfo}>Fetch Nutrition Info</button>
+
+      {nutritionInfo && (
+        <div>
+          <h2>Nutrition Info:</h2>
+          <p>{JSON.stringify(nutritionInfo)}</p>
+        </div>
+      )}
     </div>
   );
 }
 
 export default MealClassifier;
-
