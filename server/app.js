@@ -7,10 +7,14 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
+const multer = require('multer');
+const { spawn } = require('child_process');
 require("dotenv").config();
 
 const userModel = require('./model/users');
 const { error } = require('console');
+
+const upload = multer({ dest: 'uploads/' });
 
 async function main() {
   await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@artificialgains.9i0vt1r.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`)
@@ -53,6 +57,66 @@ app.use(
 
 // Routes
 app.use('/api', indexRouter);
+
+app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
+  const image = req.file;
+  const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
+
+  let scriptOutput = "";
+  python.stdout.on('data', function (data) {
+    console.log('Pipe data from python script...');
+    scriptOutput += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  python.on('close', (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    if (code !== 0) {
+      res.status(500).send('Error executing Python script');
+    } else {
+      try {
+        res.json(JSON.parse(scriptOutput));
+      } catch (e) {
+        console.error("Parsing error: ", e);
+        res.status(500).send('Error parsing Python script output');
+      }
+    }
+  });
+});
+
+app.post('/api/fetchNutrition', (req, res) => {
+  const meal = req.body.meal;
+  const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
+
+  let scriptOutput = "";
+  python.stdout.on('data', function (data) {
+    console.log('Pipe data from python script...');
+    scriptOutput += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  python.on('close', (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    if (code !== 0) {
+      res.status(500).send('Error executing Python script');
+    } else {
+      try {
+        res.json(JSON.parse(scriptOutput));
+      } catch (e) {
+        console.error("Parsing error: ", e);
+        res.status(500).send('Error parsing Python script output');
+      }
+    }
+  });
+});
+
+
 
 app.post('/register', (req, res) => {
   console.log(req.body);
