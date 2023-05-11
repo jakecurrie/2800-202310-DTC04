@@ -2,7 +2,7 @@
 
 var equipmentAvailable = ""
 const { Configuration, OpenAIApi } = require("openai");
-const apiKey = "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";
+const apiKey = "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";
 const configuration = new Configuration({
   apiKey: apiKey
 });
@@ -13,7 +13,7 @@ async function getCompletion(formData) {
   } else {
     equipmentAvailable  = "no access to equipment"
   }
-  const prePrompt= "Imagine you are a nutrition guru. Someone is coming to you for a diet plan because they don't know how to make one themselves. Create a diet plan using these specifications: "
+  const prePrompt= "Imagine you are a fitness guru. Someone is coming to you for a workout plan because they don't know how to make one themselves. Create a workout plan using these specifications: "
   const answerOne = `Their primary focus is ${formData.fitnessGoals}.`  
   const answerTwo= `They are ${formData.fitnessLevel}.`
   const answerThree = `They want to workout on ${formData.selectedDays}.`

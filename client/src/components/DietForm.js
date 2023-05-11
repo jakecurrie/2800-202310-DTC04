@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import getCompletion from '../openai/openAI';
+import getCompletion from '../openai/OpenAI';
 import { useHistory, useNavigate } from 'react-router-dom';
 
 function DietForm() {
@@ -74,9 +74,9 @@ function DietForm() {
       <h1>Fitness Questionaire</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          What are your current fitness goals?
+          What are your current diet goals?
           <select value={fitnessGoals} onChange={handleFitnessGoalsChange}>
-            <option value="">Select a fitness goal</option>
+            <option value="">Select a diet goal</option>
             <option value="weight-loss">Weight Loss</option>
             <option value="muscle-building">Muscle Building</option>
             <option value="strength-gain">Strength Gain</option>
@@ -84,16 +84,16 @@ function DietForm() {
           </select>
         </label>
         <label>
-          What is your current fitness level?
+          What is your current diet level in terms of being healthy?
           <select value={fitnessLevel} onChange={handleFitnessLevelChange}>
-            <option value="">Select your fitness level</option>
+            <option value="">Select your diet level</option>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
           </select>
         </label>
         <label>
-          What days of the week would you like to work out?
+          What days of the week would you like to eat healthy?
           <div>
             <label>
               <input type="checkbox" name="monday" value="monday" checked={selectedDays.includes('monday')} onChange={handleDaySelection} />
@@ -126,7 +126,7 @@ function DietForm() {
           </div>
         </label>
       <label>
-        Do you have any equipment available for your workouts, or do you prefer exercises that require little to no equipment?
+        Do you have any equipment available for your diet, or do you prefer easy diet that require little to no kitchen equipment?
         <select value={equipmentAvailable} onChange={handleEquipmentAvailable}>
           <option value="">Select an option</option>
           <option value="yes">Yes</option>
