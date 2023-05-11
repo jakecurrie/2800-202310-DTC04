@@ -1,13 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Profile from './components/Profile';
 import Register from './components/Register';
+import Login from './components/Login';
+import Logout from './components/Logout';
 
 function App() {
   return (
       <Routes>
         <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={< Register/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
   );
 }
