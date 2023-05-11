@@ -1,13 +1,8 @@
-# General
 node_modules
 npm-debug.log
 yarn-error.log
 .DS_Store
-
-# Client
-client/.env
+.env
 client/build
-
-# Server
 server/.env
 server/logs
