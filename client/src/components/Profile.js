@@ -6,7 +6,10 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/profile');
+        const response = await fetch('/api/profile', {
+          method: 'GET',
+          credentials: 'include', // to ensure cookies are sent with the request
+        });
         const data = await response.json();
         setUser(data);
       } catch (error) {

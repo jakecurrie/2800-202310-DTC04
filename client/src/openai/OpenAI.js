@@ -1,13 +1,25 @@
-require("dotenv").config();
-const { Configuration, OpenAIApi } = require("openai");
+// require("dotenv").config();
 
+var equipmentAvailable = ""
+const { Configuration, OpenAIApi } = require("openai");
+const apiKey = "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";
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: apiKey
 });
 const openai = new OpenAIApi(configuration);
-const prompt = "Imagine you are a fitness guru. Someone is coming to you for a workout plan because they don't know how to make one themselves. Create a workout plan based on these specifications: Sunday, Tuesday and Wednesday are their only days available. They want to train their entire body and to split their training into 3 days."
-async function getCompletion() {
-  console.log("getting completion");
+async function getCompletion(formData) {
+  if (formData.equipmentAvailable == "yes") {
+    equipmentAvailable  = "access to equipment"
+  } else {
+    equipmentAvailable  = "no access to equipment"
+  }
+  const prePrompt= "Imagine you are a fitness guru. Someone is coming to you for a workout plan because they don't know how to make one themselves. Create a workout plan using these specifications: "
+  const answerOne = `Their primary focus is ${formData.fitnessGoals}.`  
+  const answerTwo= `They are ${formData.fitnessLevel}.`
+  const answerThree = `They want to workout on ${formData.selectedDays}.`
+  const answerFour = `They have ${equipmentAvailable}.`
+  const prompt = prePrompt + answerOne + answerTwo + answerThree + answerFour;
+  console.log(prompt);
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: prompt,
@@ -15,4 +27,7 @@ async function getCompletion() {
     temperature: 1
   });
   console.log(completion.data.choices[0].text);
+  return completion.data.choices[0].text;
 }
+
+module.exports = getCompletion;
