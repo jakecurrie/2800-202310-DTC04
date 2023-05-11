@@ -16,6 +16,3 @@ resources:
 network: 
   forwarded_ports:
     - 3001/tcp
-
-health_check:
-  enable_health_check: False
