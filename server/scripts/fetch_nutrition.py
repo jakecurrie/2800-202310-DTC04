@@ -1,7 +1,7 @@
 import openai
 import sys
 
-openai.api_key = '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'
+
 
 meal = sys.argv[1]
 
