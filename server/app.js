@@ -45,13 +45,26 @@ app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
-      console.log('Pipe data from python script...');
-      scriptOutput += data.toString();
+    console.log('Pipe data from python script...');
+    scriptOutput += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
   });
 
   python.on('close', (code) => {
-      console.log(`child process close all stdio with code ${code}`);
-      res.json(JSON.parse(scriptOutput));
+    console.log(`child process close all stdio with code ${code}`);
+    if (code !== 0) {
+      res.status(500).send('Error executing Python script');
+    } else {
+      try {
+        res.json(JSON.parse(scriptOutput));
+      } catch (e) {
+        console.error("Parsing error: ", e);
+        res.status(500).send('Error parsing Python script output');
+      }
+    }
   });
 });
 
@@ -61,15 +74,29 @@ app.post('/api/fetchNutrition', (req, res) => {
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
-      console.log('Pipe data from python script...');
-      scriptOutput += data.toString();
+    console.log('Pipe data from python script...');
+    scriptOutput += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
   });
 
   python.on('close', (code) => {
-      console.log(`child process close all stdio with code ${code}`);
-      res.json(JSON.parse(scriptOutput));
+    console.log(`child process close all stdio with code ${code}`);
+    if (code !== 0) {
+      res.status(500).send('Error executing Python script');
+    } else {
+      try {
+        res.json(JSON.parse(scriptOutput));
+      } catch (e) {
+        console.error("Parsing error: ", e);
+        res.status(500).send('Error parsing Python script output');
+      }
+    }
   });
 });
+
 
 
 app.post('/register', (req, res) => {
