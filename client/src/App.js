@@ -6,6 +6,8 @@ import MealClassifier from './components/MealClassifier';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import DietForm from './components/DietForm';
+import DietPlan from './components/DietPlan';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/mealclassifier" element={<MealClassifier />} />
+        <Route path="/nutrition" element={<DietForm />} />
+        <Route path="/dietPlan" element={<DietPlan />} />
       </Routes>
     </>
   );
