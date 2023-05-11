@@ -6,3 +6,4 @@ yarn-error.log
 client/build
 server/.env
 server/logs
+.idea

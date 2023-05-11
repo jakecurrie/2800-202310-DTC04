@@ -7,7 +7,7 @@ COPY server/scripts/ ./
 
 # Stage 2: Node environment for server and client
 FROM node:14
-WORKDIR /app
+WORKDIR /2800-202310-DTC04
 
 # Prepare server
 COPY server/package*.json ./server/
