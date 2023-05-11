@@ -9,15 +9,28 @@ const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const multer = require('multer');
 const { spawn } = require('child_process');
-require("dotenv").config();
-
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const userModel = require('./model/users');
 const { error } = require('console');
-
 const upload = multer({ dest: 'uploads/' });
 
+async function accessSecretVersion(secretName) {
+  const name = `projects/artificialgains/secrets/${secretName}/versions/latest`;
+  const client = new SecretManagerServiceClient();
+  const [version] = await client.accessSecretVersion({
+    name,
+  });
+  const secret = version.payload.data.toString();
+  return secret;
+}
+
 async function main() {
-  await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@artificialgains.9i0vt1r.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`)
+  const mongodbUser = await accessSecretVersion('MONGODB_USER');
+  const mongodbPassword = await accessSecretVersion('MONGODB_PASSWORD');
+  const mongodbDB = await accessSecretVersion('MONGODB_DB');
+  const sessionSecret = await accessSecretVersion('SESSION_SECRET');
+
+  await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`)
 
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
@@ -38,22 +51,23 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 let mongoStore = MongoStore.create({ 
-  mongoUrl: `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@artificialgains.9i0vt1r.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`,
+  mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`,
   collectionName: "sessions",
   crypto: {
-		secret: process.env.SESSION_SECRET
-	}
+    secret: sessionSecret
+  }
 })
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
-    store: mongoStore, // stores cookies into mongoDB
+    secret: sessionSecret,
+    store: mongoStore,
     saveUninitialized: false,
     resave: true,
     cookie: { maxAge: 24 * 60 * 60 * 1000 },
   })
 );
+
 
 // Routes
 app.use('/api', indexRouter);
