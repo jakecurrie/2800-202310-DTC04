@@ -1,11 +1,17 @@
 import openai
 import sys
-import dotenv
 import os
 import json
+from google.cloud import secretmanager
 
-dotenv.load_dotenv('../../.env')
-openai.api_key = os.getenv('GPT_API_KEY')
+def access_secret_version(secret_id):
+    client = secretmanager.SecretManagerServiceClient()
+    name = f"projects/artificialgains/secrets/{secret_id}/versions/latest"
+    response = client.access_secret_version(request={"name": name})
+    return response.payload.data.decode('UTF-8')
+
+openai.api_key = access_secret_version('GPT_API_KEY')
+
 meal = sys.argv[1]
 
 try:
@@ -22,4 +28,5 @@ try:
 except Exception as e:
     error_message = {"error": str(e)}
     print(json.dumps(error_message))
+
 
