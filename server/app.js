@@ -120,8 +120,6 @@ app.post('/api/fetchNutrition', (req, res) => {
   });
 });
 
-
-
 app.post('/register', (req, res) => {
   console.log(req.body);
   const user = new userModel({

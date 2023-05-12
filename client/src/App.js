@@ -26,6 +26,8 @@ function App() {
         <Route path="/mealclassifier" element={<MealClassifier />} />
         <Route path="/nutrition" element={<DietForm />} />
         <Route path="/dietPlan" element={<DietPlan />} />
+        <Route path="/request-reset" element={<ResetPasswordRequest />} />
+        <Route path="/reset-password/:userID/:token" element={<ResetPassword />} />
       </Routes>
     </>
   );
