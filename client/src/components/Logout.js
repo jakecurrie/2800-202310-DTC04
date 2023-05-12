@@ -1,6 +1,6 @@
 function Logout() {
     function endSession() {
-        fetch('http://localhost:3001/logout', {
+        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/logout', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({'endSession' : true}),

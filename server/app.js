@@ -14,10 +14,16 @@ const userModel = require('./model/users');
 const { error } = require('console');
 const upload = multer({ dest: 'uploads/' });
 
+
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 // Enable CORS for cross-origin requests
-app.use(cors({ origin: 'https://artificialgains.uw.r.appspot.com', credentials: true, optionSuccessStatus: 200,})) 
+app.use(cors({
+  origin: 'https://artificialgains.uw.r.appspot.com', 
+  credentials: true, 
+  methods: ['GET', 'POST'], 
+}));
 
 // Body-parser middleware
 app.use(express.urlencoded({ extended: false }));
@@ -62,7 +68,7 @@ async function main() {
 // Routes
 app.use('/api', indexRouter);
 
-app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
+app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/classifyMeal', upload.single('image'), (req, res) => {
   const image = req.file;
   const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
 
@@ -91,7 +97,7 @@ app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
   });
 });
 
-app.post('/api/fetchNutrition', (req, res) => {
+app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/fetchNutrition', (req, res) => {
   const meal = req.body.meal;
   const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
 
@@ -122,7 +128,7 @@ app.post('/api/fetchNutrition', (req, res) => {
 
 
 
-app.post('/register', (req, res) => {
+app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/register', (req, res) => {
   console.log(req.body);
   const user = new userModel({
     'name': req.body.name,
@@ -137,7 +143,7 @@ app.post('/register', (req, res) => {
   res.json({});
 });
 
-app.post('/login', async (req, res) => {
+app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/login', async (req, res) => {
   console.log(req.body);
   const schema = Joi.object(
     {
@@ -169,7 +175,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/logout', (req, res) => {
+app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/logout', (req, res) => {
   if (req.body.endSession) {
     req.session.destroy();
   }
@@ -180,7 +186,11 @@ app.get('/', (req, res) => {
   res.send('Backend service is running');
 });
 
-const PORT = process.env.PORT || 8080;
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+const PORT = 8080;
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });

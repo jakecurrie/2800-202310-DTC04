@@ -22,8 +22,7 @@ const Login = () => {
             mode: 'cors',
             body: JSON.stringify(newUserData),
             headers: {
-                "Content-Type": "application/json",
-                'credentials': 'include'
+                "Content-Type": "application/json"
             },
             credentials: 'include' // enables cookies
 

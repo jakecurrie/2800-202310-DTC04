@@ -16,7 +16,7 @@ const Register = () => {
             'password': userPassword.current.value
         }
 
-        fetch('http://localhost:3001/register', {
+        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/register', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(newUserData),
