@@ -2,7 +2,7 @@
 
 var equipmentAvailable = ""
 const { Configuration, OpenAIApi } = require("openai");
-const apiKey = "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";
+const apiKey = "";
 const configuration = new Configuration({
   apiKey: apiKey
 });
