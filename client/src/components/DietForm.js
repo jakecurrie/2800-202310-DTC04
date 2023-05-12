@@ -52,14 +52,15 @@ function DietForm() {
       // Other form fields...
     };
     // You can perform any further processing or data handling here
-    // try {
-    //   // const response = await axios.post('http://localhost:5500', formData);
-    //   console.log('Response from API:', response.data);
-    //   // Handle the response as needed
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   // Handle the error as needed
-    // }
+    try {
+      const response = await axios.post('http://server-service-dot-artificialgains.uw.r.appspot.com/api/fitness/generate-plan', formData);
+      console.log('Response from API:', response.data.workoutPlan);
+      // Handle the response as needed
+      navigate('/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle the error as needed
+    }
     console.log(fitnessGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
     console.log('loading...')
