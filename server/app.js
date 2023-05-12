@@ -182,7 +182,7 @@ app.post('/api/logout', (req, res) => {
 
 })
 
-app.get('api/profile', async (req, res) => {
+app.get('/api/profile', async (req, res) => {
   try {
     const userId = req.session.USER_ID;
 
