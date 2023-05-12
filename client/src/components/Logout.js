@@ -1,6 +1,10 @@
-import React, { navigate, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 function Logout({ setIsLoggedIn }) {
+
+    const navigate = useNavigate();
+
     async function endSession() {
         await fetch('http://localhost:3001/logout', {
             method: 'POST',
