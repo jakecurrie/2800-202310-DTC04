@@ -1,6 +1,6 @@
-openai==0.27.4
-python-dotenv==1.0.0
-numpy==1.23.5
-pandas==1.5.2
-opencv-python==4.7.0.72
-tensorflow-hub==0.13.0
+openai<=0.27.4
+numpy<=1.23.5
+pandas<=1.5.2
+opencv-python<=4.7.0.72
+tensorflow-hub<=0.13.0
+google-cloud-secret-manager<=2.16.1

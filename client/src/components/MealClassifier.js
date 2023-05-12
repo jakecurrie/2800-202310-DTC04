@@ -24,11 +24,13 @@ function MealClassifier() {
     let formData = new FormData();
     formData.append('image', selectedFile);
 
-    axios.post('/api/classifyMeal', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-    })
+    axios.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/classifymeal', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      withCredentials: true
+  })
+  
     .then(response => {
         console.log(response.data);
         if (Array.isArray(response.data)) {

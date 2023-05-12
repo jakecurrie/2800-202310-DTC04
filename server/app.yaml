@@ -1,22 +1,17 @@
 runtime: custom
 env: flex
+service: server-service
 
 automatic_scaling:
-  target_cpu_utilization: 0.65
   min_num_instances: 1
   max_num_instances: 10
 
 env_variables:
   NODE_ENV: "production"
+  CLIENT_ORIGIN: "https://artificialgains.uw.r.appspot.com/"
 
 resources:
   cpu: 1
   memory_gb: 2
   disk_size_gb: 10
 
-network: 
-  forwarded_ports:
-    - 3001/tcp
-
-health_check:
-  enable_health_check: False
