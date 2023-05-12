@@ -17,7 +17,7 @@ const Login = () => {
             'password': userPassword.current.value
         }
 
-        fetch('http://localhost:3001/login', {
+        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/login', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(newUserData),

@@ -1,13 +1,10 @@
-# Stage 1: Build React application
-FROM node:14 AS build
+# Build React application
+FROM node:14
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . ./
 RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
 
-# Stage 2: Serve React application with Nginx
-FROM nginx:1.19.0-alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]

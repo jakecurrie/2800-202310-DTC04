@@ -17,14 +17,11 @@ const upload = multer({ dest: 'uploads/' });
 const app = express();
 
 // Enable CORS for cross-origin requests
-app.use(cors({ origin: 'http://localhost:3000', credentials: true, optionSuccessStatus: 200,})) // allows cookies to go to the client
+app.use(cors({ origin: 'https://artificialgains.uw.r.appspot.com', credentials: true, optionSuccessStatus: 200,})) 
 
 // Body-parser middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
 
 async function accessSecretVersion(secretName) {
   const name = `projects/artificialgains/secrets/${secretName}/versions/latest`;
@@ -139,6 +136,7 @@ app.post('/register', (req, res) => {
 
   res.json({});
 });
+
 app.post('/login', async (req, res) => {
   console.log(req.body);
   const schema = Joi.object(
@@ -178,12 +176,11 @@ app.post('/logout', (req, res) => {
 
 })
 
-// Catch-all handler for any requests not caught by other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get('/', (req, res) => {
+  res.send('Backend service is running');
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });

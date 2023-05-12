@@ -7,3 +7,4 @@ client/build
 server/.env
 server/logs
 .idea
+path.txt
