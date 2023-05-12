@@ -1,16 +1,20 @@
 # Stage 1: Python environment for scripts
 FROM python:3.9 AS scripts-env
 WORKDIR /scripts
-COPY scripts/requirements.txt ./
+COPY ./scripts/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-COPY scripts/ ./
+COPY ./scripts/ ./ 
 
 # Stage 2: Node environment for server
 FROM node:14
 WORKDIR /app
+
+# Prepare server
 COPY package*.json ./
 RUN npm install
-COPY . .
+
+# Copy server source code
+COPY . ./
 
 # Copy python scripts from the first stage
 COPY --from=scripts-env /scripts ./scripts
@@ -20,3 +24,4 @@ EXPOSE 8080
 
 # Start server
 CMD ["node", "app.js"]
+
