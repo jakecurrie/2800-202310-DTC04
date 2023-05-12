@@ -2,7 +2,6 @@ const express = require('express');
 const session = require("express-session");
 const cors = require('cors');
 const path = require('path');
-const indexRouter = require('./routes/index');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const bcrypt = require("bcrypt");
@@ -13,6 +12,10 @@ require("dotenv").config();
 
 const userModel = require('./model/users');
 const { error } = require('console');
+
+// routers
+const indexRouter = require('./routes/index');
+const passwordRouter = require('./routes/passwordReset');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -57,6 +60,7 @@ app.use(
 
 // Routes
 app.use('/api', indexRouter);
+app.use('/api/reset-password', passwordRouter);
 
 app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
   const image = req.file;
@@ -132,6 +136,7 @@ app.post('/register', (req, res) => {
 
   res.json({});
 });
+
 app.post('/login', async (req, res) => {
   console.log(req.body);
   const schema = Joi.object(
