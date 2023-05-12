@@ -1,6 +1,6 @@
 //require("dotenv").config();
 
-var equipmentAvailable = "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"
+var equipmentAvailable = ""
 const { Configuration, OpenAIApi } = require("openai");
 const apiKey = process.env.API;
 const configuration = new Configuration({
