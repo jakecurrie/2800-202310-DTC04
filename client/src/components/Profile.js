@@ -6,7 +6,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/profile', {
+        const response = await fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/profile', {
           method: 'GET',
           credentials: 'include', // to ensure cookies are sent with the request
         });
