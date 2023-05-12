@@ -182,6 +182,30 @@ app.post('/api/logout', (req, res) => {
 
 })
 
+app.get('api/profile', async (req, res) => {
+  try {
+    const userId = req.session.USER_ID;
+
+    const user = await userModel.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const userResponse = {
+      name: user.name,
+      email: user.email,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    };
+
+    res.json(userResponse);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Error fetching user data' });
+  }
+});
+
 app.get('/', (req, res) => {
   res.send('Backend service is running');
 });
