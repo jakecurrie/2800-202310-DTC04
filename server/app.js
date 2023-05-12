@@ -75,7 +75,7 @@ app.use('/api', indexRouter);
 app.use('/api/fitness', fitnessRouter)
 app.use('/api/reset-password', passwordRouter);
 
-app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
+app.post('/classifyMeal', upload.single('image'), (req, res) => {
   const image = req.file;
   const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
 
@@ -104,7 +104,7 @@ app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
   });
 });
 
-app.post('/api/fetchNutrition', (req, res) => {
+app.post('/fetchNutrition', (req, res) => {
   const meal = req.body.meal;
   const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
 
@@ -180,7 +180,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/api/logout', (req, res) => {
+app.post('/logout', (req, res) => {
   if (req.body.endSession) {
     res.sendStatus(200)
     req.session.destroy();
@@ -188,7 +188,7 @@ app.post('/api/logout', (req, res) => {
 
 })
 
-app.get('/api/profile', async (req, res) => {
+app.get('/profile', async (req, res) => {
   try {
     const userId = req.session.USER_ID;
 
