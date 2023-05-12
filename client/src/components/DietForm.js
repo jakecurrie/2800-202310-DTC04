@@ -71,7 +71,7 @@ function DietForm() {
 
   return (
     <div>
-      <h1>Fitness Questionaire</h1>
+      <h1>Diet Questionaire</h1>
       <form onSubmit={handleSubmit}>
         <label>
           What are your current diet goals?
