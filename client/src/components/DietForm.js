@@ -54,7 +54,7 @@ function DietForm() {
     };
     // You can perform any further processing or data handling here
     try {
-      const response = await axios.post('http://server-service-dot-artificialgains.uw.r.appspot.com/api/fitness/generate-plan', formData);
+      const response = await axios.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/fitness/generate-plan', formData);
       console.log('Response from API:', response.data.workoutPlan);
       // Handle the response as needed
       navigate('/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );
