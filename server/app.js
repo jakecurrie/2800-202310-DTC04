@@ -169,6 +169,7 @@ app.post('/login', async (req, res) => {
 
 app.post('/logout', (req, res) => {
   if (req.body.endSession) {
+    res.sendStatus(200)
     req.session.destroy();
   }
 
