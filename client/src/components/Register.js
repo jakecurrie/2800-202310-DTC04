@@ -18,7 +18,7 @@ const Register = () => {
 
         console.log(newUserData);
 
-        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/register', {
+        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/register', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(newUserData),

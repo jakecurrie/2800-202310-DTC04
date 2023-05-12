@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
             }).save();
         }
 
-        const link = `http://localhost:3000/reset-password/${user._id}/${token.token}`;
+        const link = `https://artificialgains.uw.r.appspot.com/reset-password/${user._id}/${token.token}`;
         await sendEmail(user.email, "password reset", link);
 
         res.send("password reset has been sent successfully");
