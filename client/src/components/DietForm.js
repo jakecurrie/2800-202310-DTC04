@@ -66,7 +66,7 @@ function DietForm() {
     console.log('loading...')
     const dietPlanResult = await getCompletion(formData);
     setCompletionResult(dietPlanResult);
-    navigate('/DietPlan', { state: { completionResult: dietPlanResult } } );
+    navigate('/DietPlan', { state: { completionResult: dietPlanResult } });
   };
 
   return (
@@ -125,15 +125,15 @@ function DietForm() {
             </label>
           </div>
         </label>
-      <label>
-        Do you have any equipment available for your diet, or do you prefer easy diet that require little to no kitchen equipment?
-        <select value={equipmentAvailable} onChange={handleEquipmentAvailable}>
-          <option value="">Select an option</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </label>
-        
+        <label>
+          Do you have any equipment available for your diet, or do you prefer easy diet that require little to no kitchen equipment?
+          <select value={equipmentAvailable} onChange={handleEquipmentAvailable}>
+            <option value="">Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+
         {/* Add more form fields for the remaining questions */}
         {/* ... */}
         <button type="submit">Submit</button>

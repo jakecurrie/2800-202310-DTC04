@@ -24,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/mealclassifier" element={<MealClassifier />} />
+        <Route path="/nutrition" element={<DietForm />} />
       </Routes>
     </>
   );
