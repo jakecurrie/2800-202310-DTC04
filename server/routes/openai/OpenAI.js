@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 async function accessSecretVersion(secretName) {
-  const name = projects/artificialgains/secrets/${secretName}/versions/latest;
+  const name = 'projects/artificialgains/secrets/${secretName}/versions/latest';
   const client = new SecretManagerServiceClient();
   const [version] = await client.accessSecretVersion({
     name,
