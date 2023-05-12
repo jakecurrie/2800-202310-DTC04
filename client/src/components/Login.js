@@ -48,6 +48,7 @@ const Login = () => {
     return (
         <>
         <div id="login-container">
+            <h1>Login Page</h1>
             <form id="login-form">
                 <div id="email-container">
                     <input ref={userEmail} type="text" name="email" />
@@ -62,6 +63,9 @@ const Login = () => {
                 </div>
                 <div id="register-container">
                     <Link to="/register" >Register</Link>
+                </div>
+                <div id="forgot-container">
+                    <Link to="/request-reset" >Forgot Password?</Link>
                 </div>
                 <div onClick={submitUserCreation}>
                     <input type="button" name="submit" value="Submit"/>

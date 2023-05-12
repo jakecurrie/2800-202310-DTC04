@@ -34,6 +34,7 @@ const Register = () => {
     return (
         <>
         <div id="register-container">
+            <h1>Register Page</h1>
             <form id="register-form">
                 <div id="name-container">
                     <input ref={userName} type="text" name="name" />
