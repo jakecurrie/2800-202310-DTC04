@@ -68,7 +68,7 @@ async function main() {
 // Routes
 app.use('/api', indexRouter);
 
-app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/classifyMeal', upload.single('image'), (req, res) => {
+app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
   const image = req.file;
   const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
 
@@ -97,7 +97,7 @@ app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/classi
   });
 });
 
-app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/fetchNutrition', (req, res) => {
+app.post('/api/fetchNutrition', (req, res) => {
   const meal = req.body.meal;
   const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
 
@@ -128,7 +128,7 @@ app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/fetchN
 
 
 
-app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/register', (req, res) => {
+app.post('/api/register', (req, res) => {
   console.log(req.body);
   const user = new userModel({
     'name': req.body.name,
@@ -143,7 +143,7 @@ app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/regist
   res.json({});
 });
 
-app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   console.log(req.body);
   const schema = Joi.object(
     {
@@ -175,7 +175,7 @@ app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/login'
   }
 });
 
-app.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   if (req.body.endSession) {
     req.session.destroy();
   }
