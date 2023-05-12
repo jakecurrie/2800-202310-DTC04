@@ -16,13 +16,15 @@ const Register = () => {
             'password': userPassword.current.value
         }
 
+        console.log(newUserData);
+
         fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/register', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(newUserData),
             headers: {
                 "Content-Type": "application/json"
-              }
+            }
         }).then((res) => {
             navigate("/login");
             return res.json();
