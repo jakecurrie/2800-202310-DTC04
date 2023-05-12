@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import getCompletion from '../openai/OpenAI';
 import { useHistory, useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 function FitnessForm() {
   const navigate = useNavigate();
+  
   const [completionResult, setCompletionResult] = useState('');
   const [fitnessGoals, setFitnessGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
   const [selectedDays, setSelectedDays] = useState([]);
-  const [exerciseTypes, setExerciseTypes] = useState('');
-  const [preferences, setPreferences] = useState('');
-  const [focusAreas, setFocusAreas] = useState('');
+  // const [exerciseTypes, setExerciseTypes] = useState('');
+  // const [preferences, setPreferences] = useState('');
+  // const [focusAreas, setFocusAreas] = useState('');
   const [equipmentAvailable, setEquipmentAvailable] = useState('');
-  const [interests, setInterests] = useState('');
-  const [workoutEnvironment, setWorkoutEnvironment] = useState('');
-  const [dietaryRestrictions, setDietaryRestrictions] = useState('');
-  const [existingRoutines, setExistingRoutines] = useState('');
-  const [progressTracking, setProgressTracking] = useState('');
-  const [milestones, setMilestones] = useState('');
-  const [fitnessPlanDuration, setFitnessPlanDuration] = useState('');
-  const [motivations, setMotivations] = useState('');
+  // const [interests, setInterests] = useState('');
+  // const [workoutEnvironment, setWorkoutEnvironment] = useState('');
+  // const [dietaryRestrictions, setDietaryRestrictions] = useState('');
+  // const [existingRoutines, setExistingRoutines] = useState('');
+  // const [progressTracking, setProgressTracking] = useState('');
+  // const [milestones, setMilestones] = useState('');
+  // const [fitnessPlanDuration, setFitnessPlanDuration] = useState('');
+  // const [motivations, setMotivations] = useState('');
 
   const handleFitnessGoalsChange = (e) => {
     setFitnessGoals(e.target.value);
@@ -45,6 +45,7 @@ function FitnessForm() {
 
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     const formData = {
       fitnessGoals,
@@ -54,20 +55,20 @@ function FitnessForm() {
       // Other form fields...
     };
     // You can perform any further processing or data handling here
-    // try {
-    //   // const response = await axios.post('http://localhost:5500', formData);
-    //   console.log('Response from API:', response.data);
-    //   // Handle the response as needed
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   // Handle the error as needed
-    // }
+    try {
+      const response = await axios.post('http://localhost:3001/api/fitness/generate-plan', formData);
+      console.log('Response from API:', response.data.workoutPlan);
+      // Handle the response as needed
+      navigate('/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle the error as needed
+    }
     console.log(fitnessGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
     console.log('loading...')
-    const fitnessPlanResult = await getCompletion(formData);
-    setCompletionResult(fitnessPlanResult);
-    navigate('/FitnessPlan', { state: { completionResult: fitnessPlanResult } } );
+    // const fitnessPlanResult = await getCompletion(formData);
+    // setCompletionResult(fitnessPlanResult);
   };
 
   return (

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import getCompletion from '../openai/OpenAI';
+import React, { useState } from 'react'
 import { useHistory, useNavigate } from 'react-router-dom';
 
 function DietForm() {
@@ -64,9 +63,6 @@ function DietForm() {
     console.log(fitnessGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
     console.log('loading...')
-    const dietPlanResult = await getCompletion(formData);
-    setCompletionResult(dietPlanResult);
-    navigate('/DietPlan', { state: { completionResult: dietPlanResult } });
   };
 
   return (

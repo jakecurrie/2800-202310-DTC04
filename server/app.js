@@ -16,6 +16,7 @@ const { error } = require('console');
 // routers
 const indexRouter = require('./routes/index');
 const passwordRouter = require('./routes/passwordReset');
+const fitnessRouter = require('./routes/fitness');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -60,6 +61,7 @@ app.use(
 
 // Routes
 app.use('/api', indexRouter);
+app.use('/api/fitness', fitnessRouter)
 app.use('/api/reset-password', passwordRouter);
 
 app.post('/api/classifyMeal', upload.single('image'), (req, res) => {

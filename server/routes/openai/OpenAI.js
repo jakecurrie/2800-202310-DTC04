@@ -1,8 +1,9 @@
-//require("dotenv").config();
+require("dotenv").config();
+
 
 var equipmentAvailable = ""
 const { Configuration, OpenAIApi } = require("openai");
-const apiKey = process.env.API;
+const apiKey = process.env.OPENAI_API_KEY;  
 const configuration = new Configuration({
   apiKey: apiKey
 });
@@ -29,5 +30,6 @@ async function getCompletion(formData) {
   console.log(completion.data.choices[0].text);
   return completion.data.choices[0].text;
 }
+
 
 module.exports = getCompletion;
