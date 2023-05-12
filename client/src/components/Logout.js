@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { navigate, useState, useEffect } from 'react';
 
 function Logout({ setIsLoggedIn }) {
     async function endSession() {
@@ -14,6 +14,7 @@ function Logout({ setIsLoggedIn }) {
         }).then(() => {
             setIsLoggedIn(false);
             localStorage.setItem('isLoggedIn', false)
+            return navigate("/login");
         });
     }
 
