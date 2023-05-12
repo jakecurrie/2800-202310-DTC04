@@ -1,6 +1,8 @@
-function Logout() {
-    function endSession() {
-        fetch('http://localhost:3001/logout', {
+import React, { navigate, useState, useEffect } from 'react';
+
+function Logout({ setIsLoggedIn }) {
+    async function endSession() {
+        await fetch('http://localhost:3001/logout', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({'endSession' : true}),
@@ -9,7 +11,11 @@ function Logout() {
                 'credentials': 'include'
             },
             credentials: 'include' // enables cookies
-        })
+        }).then(() => {
+            setIsLoggedIn(false);
+            localStorage.setItem('isLoggedIn', false)
+            return navigate("/login");
+        });
     }
 
     return (

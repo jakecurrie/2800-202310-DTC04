@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
     
     const navigate = useNavigate();
     
@@ -30,6 +30,7 @@ const Login = () => {
         }).then((res) => {
             console.log(res.status);
             if (res.status === 202) {
+                setIsLoggedIn(true)
                 return navigate("/profile");
             } else if (res.status === 401) {
                 setLoginErrorStyle({display: "block", marginBottom: 0})
