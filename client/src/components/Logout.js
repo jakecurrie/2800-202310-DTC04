@@ -6,7 +6,7 @@ function Logout({ setIsLoggedIn }) {
     const navigate = useNavigate();
 
     async function endSession() {
-        await fetch('http://localhost:3001/logout', {
+        await fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/api/logout', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({'endSession' : true}),

@@ -8,8 +8,7 @@ const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const multer = require('multer');
 const { spawn } = require('child_process');
-require("dotenv").config();
-
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const userModel = require('./model/users');
 const { error } = require('console');
 
@@ -20,51 +19,63 @@ const fitnessRouter = require('./routes/fitness');
 
 const upload = multer({ dest: 'uploads/' });
 
-async function main() {
-  await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@artificialgains.9i0vt1r.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`)
-
-  const PORT = process.env.PORT || 3001;
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-  });
-}
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 // Enable CORS for cross-origin requests
-app.use(cors({ origin: 'http://localhost:3000', credentials: true, optionSuccessStatus: 200,})) // allows cookies to go to the client
+app.use(cors({
+  origin: 'https://artificialgains.uw.r.appspot.com', 
+  credentials: true, 
+  methods: ['GET', 'POST'], 
+}));
 
 // Body-parser middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
+async function accessSecretVersion(secretName) {
+  const name = `projects/artificialgains/secrets/${secretName}/versions/latest`;
+  const client = new SecretManagerServiceClient();
+  const [version] = await client.accessSecretVersion({
+    name,
+  });
+  const secret = version.payload.data.toString();
+  return secret;
+}
 
-let mongoStore = MongoStore.create({ 
-  mongoUrl: `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@artificialgains.9i0vt1r.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`,
-  collectionName: "sessions",
-  crypto: {
-		secret: process.env.SESSION_SECRET
-	}
-})
+async function main() {
+  const mongodbUser = await accessSecretVersion('MONGODB_USER');
+  const mongodbPassword = await accessSecretVersion('MONGODB_PASSWORD');
+  const mongodbDB = await accessSecretVersion('MONGODB_DB');
+  const sessionSecret = await accessSecretVersion('SESSION_SECRET');
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    store: mongoStore, // stores cookies into mongoDB
-    saveUninitialized: false,
-    resave: true,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+  await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`)
+
+  let mongoStore = MongoStore.create({ 
+    mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`,
+    collectionName: "sessions",
+    crypto: {
+      secret: sessionSecret
+    }
   })
-);
+
+  app.use(
+    session({
+      secret: sessionSecret,
+      store: mongoStore,
+      saveUninitialized: false,
+      resave: true,
+      cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    })
+  );
 
 // Routes
 app.use('/api', indexRouter);
 app.use('/api/fitness', fitnessRouter)
 app.use('/api/reset-password', passwordRouter);
 
-app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
+app.post('/classifyMeal', upload.single('image'), (req, res) => {
   const image = req.file;
   const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
 
@@ -93,7 +104,7 @@ app.post('/api/classifyMeal', upload.single('image'), (req, res) => {
   });
 });
 
-app.post('/api/fetchNutrition', (req, res) => {
+app.post('/fetchNutrition', (req, res) => {
   const meal = req.body.meal;
   const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
 
@@ -177,11 +188,43 @@ app.post('/logout', (req, res) => {
 
 })
 
+app.get('/profile', async (req, res) => {
+  try {
+    const userId = req.session.USER_ID;
 
-// Catch-all handler for any requests not caught by other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+    const user = await userModel.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const userResponse = {
+      name: user.name,
+      email: user.email,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    };
+
+    res.json(userResponse);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Error fetching user data' });
+  }
 });
+
+app.get('/', (req, res) => {
+  res.send('Backend service is running');
+});
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+const PORT = 8080;
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
 
 main()
 
