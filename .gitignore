@@ -5,6 +5,6 @@ yarn-error.log
 client/build
 server/logs
 .idea
-.env
+.**/.env
 node_modules
 uploads
