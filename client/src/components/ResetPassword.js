@@ -15,7 +15,7 @@ function ResetPassword() {
             token: token,
         }
 
-        fetch(`https://server-service-dot-artificialgains.uw.r.appspot.com/${userID}/${token}`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/${userID}/${token}`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(resetData),

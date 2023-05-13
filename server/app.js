@@ -11,6 +11,8 @@ const { spawn } = require('child_process');
 const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const userModel = require('./model/users');
 const { error } = require('console');
+require('dotenv').config()
+
 
 // routers
 const indexRouter = require('./routes/index');
@@ -25,7 +27,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 // Enable CORS for cross-origin requests
 app.use(cors({
-  origin: 'https://artificialgains.uw.r.appspot.com', 
+  origin: process.env.CORS_ORIGIN, 
   credentials: true, 
   methods: ['GET', 'POST'], 
 }));
@@ -35,13 +37,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 async function accessSecretVersion(secretName) {
-  const name = `projects/artificialgains/secrets/${secretName}/versions/latest`;
-  const client = new SecretManagerServiceClient();
-  const [version] = await client.accessSecretVersion({
-    name,
-  });
-  const secret = version.payload.data.toString();
-  return secret;
+  if (process.env.GAE_APPLICATION) {
+    const name = `projects/artificialgains/secrets/${secretName}/versions/latest`;
+    const client = new SecretManagerServiceClient();
+    const [version] = await client.accessSecretVersion({
+      name,
+    });
+    return version.payload.data.toString();
+  } else {
+    return process.env[secretName];
+  }
 }
 
 async function main() {
@@ -220,7 +225,7 @@ app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });

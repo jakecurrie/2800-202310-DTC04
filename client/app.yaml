@@ -8,6 +8,8 @@ automatic_scaling:
 
 env_variables:
   NODE_ENV: "production"
+  WDS_SOCKET_PORT: 0
+  REACT_APP_API_BASE_URL: https://server-service-dot-artificialgains.uw.r.appspot.com
 
 resources:
   cpu: 1

@@ -8,7 +8,9 @@ automatic_scaling:
 
 env_variables:
   NODE_ENV: "production"
-  CLIENT_ORIGIN: "https://artificialgains.uw.r.appspot.com/"
+  CORS_ORIGIN: "https://artificialgains.uw.r.appspot.com/"
+  PORT: 8080
+  WDS_SOCKET_PORT: 0
 
 resources:
   cpu: 1

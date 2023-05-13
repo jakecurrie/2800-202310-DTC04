@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+
 function MealClassifier() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [mealOptions, setMealOptions] = useState([]);
@@ -24,7 +26,7 @@ function MealClassifier() {
     let formData = new FormData();
     formData.append('image', selectedFile);
 
-    axios.post('https://server-service-dot-artificialgains.uw.r.appspot.com/api/classifymeal', formData, {
+    axios.post('api/classifymeal', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },

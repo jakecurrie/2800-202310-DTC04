@@ -18,7 +18,7 @@ const Register = () => {
 
         console.log(newUserData);
 
-        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/register', {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/register`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(newUserData),

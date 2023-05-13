@@ -17,7 +17,7 @@ const Login = ({ setIsLoggedIn }) => {
             'password': userPassword.current.value
         }
 
-        fetch('https://server-service-dot-artificialgains.uw.r.appspot.com/login', {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/login`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(newUserData),

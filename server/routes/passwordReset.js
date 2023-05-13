@@ -5,6 +5,7 @@ const Joi = require('joi');
 const sendEmail = require('../util/sendEmail');
 const bcrypt = require("bcrypt");
 
+
 const userModel = require('../model/users');
 const tokenModel = require('../model/token');
 
@@ -26,7 +27,7 @@ router.post("/", async (req, res) => {
             }).save();
         }
 
-        const link = `https://artificialgains.uw.r.appspot.com/reset-password/${user._id}/${token.token}`;
+        const link = `${process.env.CORS_ORIGIN}/${user._id}/${token.token}`;
         await sendEmail(user.email, "password reset", link);
 
         res.send("password reset has been sent successfully");
