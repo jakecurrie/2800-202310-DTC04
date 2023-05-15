@@ -1,0 +1,19 @@
+runtime: custom
+env: flex
+service: server-service
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 10
+
+env_variables:
+  NODE_ENV: "production"
+  CORS_ORIGIN: "https://artificialgains.uw.r.appspot.com/"
+  PORT: 8080
+  WDS_SOCKET_PORT: 0
+
+resources:
+  cpu: 1
+  memory_gb: 2
+  disk_size_gb: 10
+

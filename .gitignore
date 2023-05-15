@@ -1,6 +1,11 @@
-.env
 node_modules
-.idea
-uploads
+npm-debug.log
+yarn-error.log
+.DS_Store
 client/build
-```
+server/logs
+.idea
+client/.env
+server/.env
+node_modules
+uploads
