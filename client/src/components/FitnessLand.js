@@ -12,6 +12,10 @@ const FitnessLand = () => {
     const navigateToFitnessPlanGenerator = () => {
         navigate('/fitnessgenerator');
     }
+    
+    const navigateToStartWorkout = () => {
+        navigate('/startworkout');
+    }
 
     return (
         <div>
@@ -23,6 +27,10 @@ const FitnessLand = () => {
             <div className="card" onClick={navigateToFitnessPlanGenerator}>
                 <h2>Fitness Plan Generator</h2>
                 <p>Click to generate a new fitness plan.</p>
+            </div>
+            <div className="card" onClick={navigateToStartWorkout}>
+                <h2>Start Workout</h2>
+                <p>Lets get started! </p>
             </div>
         </div>
     );
