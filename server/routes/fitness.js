@@ -5,6 +5,31 @@ const getCompletion = require('./openai/OpenAI');
 const userModel = require('../model/users');
 const fetch = require('node-fetch');
 
+router.post('/record-workout', async (req, res) => {
+    const date = new Date();
+    const currentDay = date.getDay();
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    try {
+        console.log(req.session.USER_ID);
+        // i want to save the personal best into the user schema the personal best is the data passed in from the post request
+        const { exerciseName, personalBest } = req.body;
+        // i want to look up the user in the database using the req.session.user_id and then select the fitness plan and then add a key to it personalbest
+        const user = await userModel.findOneAndUpdate(
+            { _id: req.session.USER_ID, "fitnessPlan.day": daysOfWeek[currentDay], "fitnessPlan.exerciseName": exerciseName },
+            { $set: { "fitnessPlan.$.personalBest" : personalBest } },
+            { new: true }
+        ); 
+
+        if (!user) return res.status(400).send("user does not exist");
+        // Handle the generated workout plan (e.g., send it as a response)
+        console.log(personalBest)
+        res.json(user.fitnessPlan);
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 router.get('/start-workout', async (req, res) => {
     const date = new Date();
@@ -13,8 +38,8 @@ router.get('/start-workout', async (req, res) => {
     try {
         console.log(req.session.USER_ID);
         // i want to save the work out plan into the user schema the work out plan is the data passed in from the post request
-        const { data } = req.body;
-        console.log(data);
+        
+        
         const user = await userModel.findById(req.session.USER_ID).select('fitnessPlan').exec();
 
         // const user = await userModel.findById(req.session.USER_ID);
