@@ -15,13 +15,12 @@ function ResetPassword() {
             token: token,
         }
 
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/${userID}/${token}`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/api/reset-password/${userID}/${token}`, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(resetData),
             headers: {
-                "Content-Type": "application/json",
-                'credentials': 'include'
+                "Content-Type": "application/json"
             },
             credentials: 'include' // enables cookies
         })
