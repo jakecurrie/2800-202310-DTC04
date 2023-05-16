@@ -17,7 +17,6 @@ require('dotenv').config()
 // routers
 const indexRouter = require('./routes/index');
 const passwordRouter = require('./routes/passwordReset');
-const fitnessRouter = require('./routes/fitness');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -54,9 +53,9 @@ async function main() {
   const mongodbPassword = await accessSecretVersion('MONGODB_PASSWORD');
   const mongodbDB = await accessSecretVersion('MONGODB_DB');
   const sessionSecret = await accessSecretVersion('SESSION_SECRET');
-
+  
   await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`)
-
+  
   let mongoStore = MongoStore.create({ 
     mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@artificialgains.9i0vt1r.mongodb.net/${mongodbDB}?retryWrites=true&w=majority`,
     collectionName: "sessions",
@@ -64,7 +63,7 @@ async function main() {
       secret: sessionSecret
     }
   })
-
+  
   app.use(
     session({
       secret: sessionSecret,
@@ -73,16 +72,17 @@ async function main() {
       resave: true,
       cookie: { maxAge: 24 * 60 * 60 * 1000 },
     })
-  );
-
-// Routes
-app.use('/api', indexRouter);
-app.use('/api/fitness', fitnessRouter)
-app.use('/api/reset-password', passwordRouter);
-
-app.post('/classifyMeal', upload.single('image'), (req, res) => {
-  const image = req.file;
-  const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
+    );
+    
+    // Routes
+    const fitnessRouter = require('./routes/fitness');
+    app.use('/api', indexRouter);
+    app.use('/api/fitness', fitnessRouter)
+    app.use('/api/reset-password', passwordRouter);
+    
+    app.post('/classifyMeal', upload.single('image'), (req, res) => {
+      const image = req.file;
+      const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
@@ -194,9 +194,10 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/profile', async (req, res) => {
+  
   try {
+    
     const userId = req.session.USER_ID;
-
     const user = await userModel.findById(userId);
     
     if (!user) {
@@ -219,6 +220,24 @@ app.get('/profile', async (req, res) => {
 
 app.get('/', (req, res) => {
   res.send('Backend service is running');
+});
+
+app.get('/viewfitnessplan', async (req, res) => {
+  try {
+    const userId = req.session.USER_ID;
+    const currentUser = await userModel.findById(userId)
+    if (!currentUser) {
+      console.log("user not found");
+    }
+    const fitnessPlan = currentUser.fitnessPlan;
+    fitnessPlan.array.forEach(element => {
+      console.log(element.name);
+    });
+    res.json(fitnessPlan);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Error fetching user data' });
+  }
 });
 
 app.get('/*', function(req, res) {

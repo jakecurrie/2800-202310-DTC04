@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
-
+axios.defaults.withCredentials = true;
 function FitnessForm() {
   const navigate = useNavigate();
   
@@ -59,7 +59,7 @@ function FitnessForm() {
     };
     // You can perform any further processing or data handling here
     try {
-      const response = await axios.post('api/fitness/generate-plan', formData);
+      const response = await axios.post('/api/fitness/generate-plan', formData);
       console.log('Response from API:', response.data.workoutPlan);
       // Handle the response as needed
       navigate('/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );

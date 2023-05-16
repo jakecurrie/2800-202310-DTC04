@@ -13,6 +13,8 @@ import ResetPasswordRequest from './components/ResetPasswordRequest';
 import ResetPassword from './components/ResetPassword';
 import FitnessForm from './components/FitnessForm';
 import NotFound from './components/NotFound';
+import FitnessLand from './components/FitnessLand';
+import ViewFitnessPlan from './components/ViewFitnessPlan';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -36,8 +38,10 @@ function App() {
 
         {/* need for auth */}
         <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login'/>} />
-        <Route path="/fitness" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login'/>} />
+        <Route path="/fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login'/>} />
+        <Route path="/fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login'/>} />
         <Route path="/fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <Navigate to='/login'/>} />
+        <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login'/>} />
         <Route path="/nutrition" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
         <Route path="/dietPlan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
         <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
