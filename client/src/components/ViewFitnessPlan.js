@@ -33,7 +33,6 @@ const ViewFitnessPlan = () => {
 
     const fetchYouTubeVideo = async (exerciseName) => {
         try {
-          const apiKey = 'AIzaSyBfMmi52oCKZcfqCagFOtTWNJo2GT9B05I'; // Replace with your YouTube API key
             console.log(exerciseName)
           // Make a request to search for videos related to the exercise
             const response = await axios.get('/api/fitness/exercise-video', {
