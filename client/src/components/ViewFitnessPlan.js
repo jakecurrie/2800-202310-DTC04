@@ -31,8 +31,30 @@ const ViewFitnessPlan = () => {
     ? fitnessPlan.filter(workout => workout.day === daysOfWeek[currentDayIndex])
     : [];
 
-    
+    const fetchYouTubeVideo = async (exerciseName) => {
+        try {
+          const apiKey = 'AIzaSyBfMmi52oCKZcfqCagFOtTWNJo2GT9B05I'; // Replace with your YouTube API key
+            console.log(exerciseName)
+          // Make a request to search for videos related to the exercise
+            const response = await axios.get('/api/fitness/exercise-video', {
+                params: {
+                    exerciseName: exerciseName,
+                    part: 'snippet',
+                    maxResults: 1,
+                    q: `exercise and fitness how to properly do ${exerciseName}`,
+                }
+            });
+          // Extract the video ID
+          console.log(response);
+          const videoId = response.data.videoId;
+      
+          // Open the video in a new tab
+          window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        } catch (error) {
+          console.error('Error fetching YouTube video:', error);
+        } 
 
+    };
 
     return (
         <div>
@@ -40,11 +62,11 @@ const ViewFitnessPlan = () => {
         {filteredWorkouts.length > 0 ? (
           <div className="card">
             {filteredWorkouts.map((workout, index) => (
-              <div key={index}>
+                <div key={index} onClick={() => fetchYouTubeVideo(workout.exerciseName)}>
                 <h2>{workout.exerciseName}</h2>
                 <p>Sets: {workout.sets}</p>
                 <p>Reps: {workout.reps}</p>
-              </div>
+                </div>
             ))}
           </div>
         ) : (
