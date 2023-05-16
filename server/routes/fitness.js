@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 const getCompletion = require('./openai/OpenAI');
 const userModel = require('../model/users');
+const fetch = require('node-fetch');
+
+
 
 router.get('/view-plan', async (req, res) => {
     
@@ -60,6 +63,38 @@ router.post('/save-plan', async (req, res) => {
         // Handle the generated workout plan (e.g., send it as a response)
         console.log(user);
         console.log("completed");
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+
+
+});
+
+router.get('/exercise-video', async (req, res) => {
+    const API_KEY = process.env.YOUTUBE_API_KEY;
+    try {
+        const { exerciseName, q } = req.query;
+        console.log(exerciseName)
+
+        // Make a request to the YouTube API to fetch videos related to the exercise
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&q=${q}&type=video&maxResults=1`);
+  
+        // Convert the response to JSON
+        const data = await response.json();
+  
+        // Extract the video ID
+        if (data.items && data.items.length > 0) {
+            const videoId = data.items[0].id.videoId;
+            console.log(videoId)
+            // Return the video ID as the response
+            res.json({ videoId });
+        } else {
+            // Handle the case where no videos were found
+            res.status(404).json({ error: 'No videos found' });
+        }
     } catch (error) {
         // Handle errors
         console.error(error);
