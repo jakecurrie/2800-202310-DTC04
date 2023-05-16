@@ -13,8 +13,8 @@ const tokenSchema = ({
     },
     createdAt: {
         type: Date,
+        expires: 3600, // expires in an hour
         default: Date.now,
-        expires: 3600 // expires in an hour
     }
 });
 
