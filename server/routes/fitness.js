@@ -6,6 +6,30 @@ const userModel = require('../model/users');
 const fetch = require('node-fetch');
 
 
+router.get('/start-workout', async (req, res) => {
+    const date = new Date();
+    const currentDay = date.getDay();
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    try {
+        console.log(req.session.USER_ID);
+        // i want to save the work out plan into the user schema the work out plan is the data passed in from the post request
+        const { data } = req.body;
+        console.log(data);
+        const user = await userModel.findById(req.session.USER_ID).select('fitnessPlan').exec();
+
+        // const user = await userModel.findById(req.session.USER_ID);
+
+        if (!user) return res.status(400).send("user does not exist");
+
+        // Handle the generated workout plan (e.g., send it as a response)
+        console.log(user.fitnessPlan);
+        res.json(user.fitnessPlan);
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 router.get('/view-plan', async (req, res) => {
     
