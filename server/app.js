@@ -16,6 +16,7 @@ require('dotenv').config()
 
 
 // routers
+const fitnessRouter = require('./routes/fitness');
 const indexRouter = require('./routes/index');
 const passwordRouter = require('./routes/passwordReset');
 
@@ -76,7 +77,6 @@ async function main() {
     );
     
     // Routes
-    const fitnessRouter = require('./routes/fitness');
     app.use('/api', indexRouter);
     app.use('/api/fitness', fitnessRouter)
     app.use('/api/reset-password', passwordRouter);
@@ -241,9 +241,9 @@ app.get('/viewfitnessplan', async (req, res) => {
   }
 });
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/*', function(req, res) {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {
