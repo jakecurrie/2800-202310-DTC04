@@ -34,7 +34,6 @@ function App() {
       <Routes>
         {/* no need for auth */}
         <Route path="/" element={<Landing setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/login-register" element={isLoggedIn ? <Profile /> : <LoginOrRegister />} />
         <Route path="/login" element={isLoggedIn ? <Profile /> : <Login setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/register" element={isLoggedIn ? <Profile /> : <Register />} />
