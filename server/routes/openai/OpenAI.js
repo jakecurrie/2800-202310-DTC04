@@ -68,4 +68,8 @@ async function getDietPlanCompletion(req, formData) {
 }
 
 
-module.exports = getCompletion;
+module.exports = {
+  getDietPlanCompletion,
+  getCompletion
+};
+

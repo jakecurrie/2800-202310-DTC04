@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const getCompletion = require('./openai/OpenAI'); // refer to openai2.js file for diet plan
+const { getDietPlanCompletion } = require('./openai/OpenAI'); // refer to openai2.js file for diet plan
 const userModel = require('../model/users');
 
 router.post('/generate-plan', async (req, res) => {
     try {
-        const dietPlan = await getCompletion(req, req.body);
+        const dietPlan = await getDietPlanCompletion(req, req.body);
         res.send({ dietPlan });
     } catch (error) {
         console.error(error);

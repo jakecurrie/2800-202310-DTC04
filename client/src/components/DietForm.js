@@ -7,7 +7,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 function DietForm() {
   const navigate = useNavigate();
   const [completionResult, setCompletionResult] = useState('');
-  const [dietGoals, setdietGoals] = useState('');
+  const [dietGoals, setDietGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
   const [selectedDays, setSelectedDays] = useState([]);
   const [exerciseTypes, setExerciseTypes] = useState('');
@@ -23,8 +23,9 @@ function DietForm() {
   const [fitnessPlanDuration, setFitnessPlanDuration] = useState('');
   const [motivations, setMotivations] = useState('');
 
-  const handledietGoalsChange = (e) => {
-    setdietGoals(e.target.value);
+
+  const handleDietGoalsChange = (e) => {
+    setDietGoals(e.target.value);
   };
 
   const handleFitnessLevelChange = (e) => {
@@ -44,6 +45,9 @@ function DietForm() {
     setEquipmentAvailable(e.target.value);
   };
 
+  const handleDietaryRestrictions = (e) => {
+    setDietaryRestrictions(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,10 +60,10 @@ function DietForm() {
     };
     // You can perform any further processing or data handling here
     try {
-      const response = await axios.post('/api/fitness/generate-plan', formData);
+      const response = await axios.post('/api/nutrition/generate-plan', formData);
       console.log('Response from API:', response.data.workoutPlan);
       // Handle the response as needed
-      navigate('/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );
+      navigate('/dietPlan', { state: { completionResult: response.data.workoutPlan } } );
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed
@@ -75,12 +79,20 @@ function DietForm() {
       <form onSubmit={handleSubmit}>
         <label>
           What are your current diet goals?
-          <select value={dietGoals} onChange={handledietGoalsChange}>
+          <select value={dietGoals} onChange={handleDietGoalsChange}>
             <option value="">Select a diet goal</option>
             <option value="weight-loss">Weight Loss</option>
             <option value="muscle-building">Muscle Building</option>
             <option value="strength-gain">Strength Gain</option>
             <option value="general-health">General Health</option>
+          </select>
+        </label>
+        <label>
+          Do you have any food allergies or sensitivities?
+          <select value={dietaryRestrictions} onChange={handleDietaryRestrictions}>
+            <option value="">Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
           </select>
         </label>
         <label>

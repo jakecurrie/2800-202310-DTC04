@@ -1,7 +1,7 @@
 // router.js
 const express = require('express');
 const router = express.Router();
-const getCompletion = require('./openai/OpenAI');
+const { getCompletion } = require('./openai/OpenAI');
 const userModel = require('../model/users');
 const fetch = require('node-fetch');
 
