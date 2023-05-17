@@ -67,9 +67,24 @@ async function getDietPlanCompletion(req, formData) {
   return completion.data.choices[0].text;
 }
 
+async function getNutritionEstimate(mealDescription) {
+  const prompt = `Provide nutritional information for a typical serving of ${mealDescription} in json format.`;
+  console.log(prompt);
+  const nutritionEstimate = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: prompt,
+    max_tokens: 200,
+    temperature: 0.3
+  });
+  console.log(nutritionEstimate.data.choices[0].text);
+  return nutritionEstimate.data.choices[0].text;
+}
+
+
 
 module.exports = {
   getDietPlanCompletion,
-  getCompletion
+  getCompletion,
+  getNutritionEstimate
 };
 
