@@ -26,7 +26,7 @@ function MealClassifier() {
     let formData = new FormData();
     formData.append('image', selectedFile);
 
-    axios.post('api/classifymeal', formData, {
+    axios.post('/classifymeal', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
@@ -52,7 +52,7 @@ function MealClassifier() {
       return;
     }
 
-    axios.post('/api/fetchNutrition', { meal: selectedMeal })
+    axios.post('/fetchNutrition', { meal: selectedMeal })
     .then(response => {
         console.log(response.data);
         setNutritionInfo(response.data);
