@@ -24,8 +24,10 @@ const openai = new OpenAIApi(configuration);
   const answerTwo= `Their experience level is ${formData.fitnessLevel}. `
   const answerThree = `They want to workout on ${formData.selectedDays}. `
   const answerFour = `They have ${equipmentAvailable}. `
-  const postPrompt = "only provide a RFC8259 compliant JSON response following this format without deviation {data: {exerciseName: String, sets: Number, reps: Number, day: String, order: Number,}} where order is the order of the exercise in the workout. Make sure the keys are surrounded by quotes because this will be parsed by JSON.parse. Do not begin your response with '()'"
-  const prompt = prePrompt + answerOne + answerTwo + answerThree + answerFour + postPrompt;
+  const answerFive = `The workout will be of ${formData.intensityLevel} intensity. Low means 3 exercises per day, Medium means 4 exercises per day and High means 5 exercises per day. `
+  const answerSix = `The plan duration should be ${formData.planDuration} weeks. `
+  const postPrompt = "only provide a RFC8259 compliant JSON response following this format without deviation\n data: {\n  duration: Number,\n  exercises: [\n    {\n      exerciseName: String,\n      sets: Number,\n      reps: Number,\n      day: String,\n      order: Number\n    }\n  ]\n}\nwhere order is the order of the exercise in the workout. Make sure the keys are surrounded by quotes because this will be parsed by JSON.parse. Do not begin your response with '()'"
+  const prompt = prePrompt + answerOne + answerTwo + answerThree + answerFour + answerFive + answerSix + postPrompt;
   console.log(prompt);
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
