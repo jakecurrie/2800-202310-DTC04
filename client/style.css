@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #cedbcb;
+}
+
+.hero-image {
+    margin: 15px 0 0 0;
+    width: 558px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 10%;
+    background-color: #c6f0bd;
+}
+
+.choice-container {
+    width: 450px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title {
+    margin: 15 px 0 0 0;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+}
+
+.button-container {
+    margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    position: relative;
+    border: 2px solid white;
+    background-color: rgb(240, 240, 240);
+    border-radius: 18px;
+}
+
+button {
+    cursor: pointer;
+    margin: 0;
+    width: 200px;
+    height: 60px;
+    border: transparent;
+    border-radius: 15px;
+    background-color: rgb(240, 240, 240);
+    transition: 500ms ease;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+#register-button {
+    background-color: white;
+}
