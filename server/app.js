@@ -19,6 +19,7 @@ require('dotenv').config()
 const fitnessRouter = require('./routes/fitness');
 const indexRouter = require('./routes/index');
 const passwordRouter = require('./routes/passwordReset');
+const nutritionRouter = require('./routes/nutrition');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -80,6 +81,7 @@ async function main() {
     app.use('/api', indexRouter);
     app.use('/api/fitness', fitnessRouter)
     app.use('/api/reset-password', passwordRouter);
+    app.use('/api/nutrition', nutritionRouter)
     
     app.post('/classifyMeal', upload.single('image'), (req, res) => {
       const image = req.file;

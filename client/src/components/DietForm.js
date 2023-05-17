@@ -7,7 +7,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 function DietForm() {
   const navigate = useNavigate();
   const [completionResult, setCompletionResult] = useState('');
-  const [fitnessGoals, setFitnessGoals] = useState('');
+  const [dietGoals, setdietGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
   const [selectedDays, setSelectedDays] = useState([]);
   const [exerciseTypes, setExerciseTypes] = useState('');
@@ -23,8 +23,8 @@ function DietForm() {
   const [fitnessPlanDuration, setFitnessPlanDuration] = useState('');
   const [motivations, setMotivations] = useState('');
 
-  const handleFitnessGoalsChange = (e) => {
-    setFitnessGoals(e.target.value);
+  const handledietGoalsChange = (e) => {
+    setdietGoals(e.target.value);
   };
 
   const handleFitnessLevelChange = (e) => {
@@ -48,7 +48,7 @@ function DietForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
-      fitnessGoals,
+      dietGoals,
       fitnessLevel,
       selectedDays,
       equipmentAvailable
@@ -64,7 +64,7 @@ function DietForm() {
       console.error('Error:', error);
       // Handle the error as needed
     }
-    console.log(fitnessGoals, fitnessLevel, selectedDays, equipmentAvailable);
+    console.log(dietGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
     console.log('loading...')
   };
@@ -75,7 +75,7 @@ function DietForm() {
       <form onSubmit={handleSubmit}>
         <label>
           What are your current diet goals?
-          <select value={fitnessGoals} onChange={handleFitnessGoalsChange}>
+          <select value={dietGoals} onChange={handledietGoalsChange}>
             <option value="">Select a diet goal</option>
             <option value="weight-loss">Weight Loss</option>
             <option value="muscle-building">Muscle Building</option>

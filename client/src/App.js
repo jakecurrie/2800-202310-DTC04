@@ -16,6 +16,7 @@ import NotFound from './components/NotFound';
 import FitnessLand from './components/FitnessLand';
 import ViewFitnessPlan from './components/ViewFitnessPlan';
 import StartWorkout from './components/StartWorkout';
+import NutritionLand from './components/NutritionLand';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -40,12 +41,14 @@ function App() {
         {/* need for auth */}
         <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login'/>} />
         <Route path="/fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login'/>} />
+        <Route path="/nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login'/>} />
         <Route path="/fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login'/>} />
         <Route path="/startworkout" element={isLoggedIn ? <StartWorkout /> : <Navigate to='/login'/>} />
         <Route path="/fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <Navigate to='/login'/>} />
         <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login'/>} />
-        <Route path="/nutrition" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
-        <Route path="/dietPlan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
+        <Route path="/dietplangenerator" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
+        <Route path="/dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
+        <Route path="/viewdietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
         <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
 
         {/* 404 not found */}
