@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/core';
 require('dotenv').config()
+axios.defaults.withCredentials = true;
 
 function NutritionByDesc() {
   const [description, setDescription] = useState('');
@@ -18,7 +19,8 @@ function NutritionByDesc() {
 
     try {
       // Get nutrition estimate
-      const response = await axios.post('/api/getNutritionEstimate', { description });
+      const response = await axios.post('api/nutrition/getNutritionEstimate', { description });
+      
       if (response.data && response.data.nutritionEstimate) {
         setNutritionEstimate(response.data.nutritionEstimate);
       } else {
@@ -92,4 +94,3 @@ function NutritionByDesc() {
 }
 
 export default NutritionByDesc;
-

@@ -52,7 +52,6 @@ function App() {
         <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <LoginOrRegister/>} />
         <Route path="/dietplangenerator" element={isLoggedIn ? <DietForm /> : <LoginOrRegister/>} />
         <Route path="/dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
-        <Route path="/viewdietplan" element={isLoggedIn ? <DietPlan /> : <LoginOrRegister/>} />
         <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <LoginOrRegister/>} />
         <Route path="/nutritionbydesc" element={isLoggedIn ? <NutritionByDesc /> : <LoginOrRegister/>} />
 
