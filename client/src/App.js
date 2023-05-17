@@ -1,4 +1,4 @@
-import { React, useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Profile from './components/Profile';
 import Register from './components/Register';
@@ -16,6 +16,8 @@ import NotFound from './components/NotFound';
 import FitnessLand from './components/FitnessLand';
 import ViewFitnessPlan from './components/ViewFitnessPlan';
 import StartWorkout from './components/StartWorkout';
+import NutritionTimeSeries from './components/NutritionalIntakeTS';
+import MacronutrientBreakdown from './components/MacronutrientBreakdown';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -47,6 +49,9 @@ function App() {
         <Route path="/nutrition" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
         <Route path="/dietPlan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
         <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
+        <Route path="/timeseries" element={isLoggedIn ? <NutritionTimeSeries /> : <Navigate to='/login'/>} />
+        <Route path="/macronutrients" element={isLoggedIn ? <MacronutrientBreakdown /> : <Navigate to='/login'/>} />
+
 
         {/* 404 not found */}
         <Route path="*" element={<NotFound />} />
