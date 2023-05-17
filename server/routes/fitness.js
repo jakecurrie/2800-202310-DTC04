@@ -12,24 +12,85 @@ router.post('/record-workout', async (req, res) => {
     try {
         console.log(req.session.USER_ID);
         // i want to save the personal best into the user schema the personal best is the data passed in from the post request
-        const { exerciseName, personalBest } = req.body;
+        const { exerciseName, personalBest, setsRemaining } = req.body;
+        console.log(setsRemaining);
+        console.log(exerciseName);
+
+        const weeksArray = [{ week: 1, setsRemaining: 4, isCompleted: false }];
         // i want to look up the user in the database using the req.session.user_id and then select the fitness plan and then add a key to it personalbest
         const user = await userModel.findOneAndUpdate(
-            { _id: req.session.USER_ID, "fitnessPlan.day": daysOfWeek[currentDay], "fitnessPlan.exerciseName": exerciseName },
-            { $set: { "fitnessPlan.$.personalBest" : personalBest } },
-            { new: true }
-        ); 
+            {
+                _id: req.session.USER_ID,
+                "fitnessPlan.day": daysOfWeek[currentDay],
+                "fitnessPlan.exerciseName": exerciseName,
+            },
+            {
+                $set: {
+                    "fitnessPlan.$.personalBest": personalBest,
+                    "fitnessPlan.$.weeksCompleted.$[week].setsRemaining": setsRemaining,
+                },
+                // $push: {
+                //     "fitnessPlan.$.weeksCompleted": { $each: weeksArray }, // Replace `weeksArray` with the array of week objects for that exercise
+                // },
+                // $unset: { 'fitnessPlan.$[].weeksCompleted': 1 } 
+            },
+            { 
+                new: true,
+                arrayFilters: [
+                    { "week.week": 1 } // Provide the condition for filtering the specific week
+                ] 
+            }
+        );
 
         if (!user) return res.status(400).send("user does not exist");
         // Handle the generated workout plan (e.g., send it as a response)
         console.log(personalBest)
         res.json(user.fitnessPlan);
-    } catch (error) {
+    } catch(error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}); 
+
+router.post('/complete-exercise', async (req, res) => {
+    const day = new Date().getDay();
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    try {
+        console.log(req.session.USER_ID);
+        //i want to toggle the isCompleted boolean inside the fitnessPlan weeksCompleted array for the current day and week
+        const { exerciseName } = req.body;
+        console.log(exerciseName);
+        const user = await userModel.findOneAndUpdate(
+            {
+                _id: req.session.USER_ID,
+                "fitnessPlan.day": daysOfWeek[day],
+                "fitnessPlan.exerciseName": exerciseName,
+            },
+            {
+                $set: {
+                    "fitnessPlan.$.weeksCompleted.$[week].isCompleted": true,
+                },
+            },
+            {
+                new: true,
+                arrayFilters: [
+                    { "week.week": 1 } // Provide the condition for filtering the specific week
+                ]
+            }
+        );
+
+        if (!user) return res.status(400).send("user does not exist");
+        // Handle the generated workout plan (e.g., send it as a response)
+        console.log(user.fitnessPlan);
+        res.json(user.fitnessPlan);
+    } catch(error) {
         // Handle errors
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 router.get('/start-workout', async (req, res) => {
     const date = new Date();

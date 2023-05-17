@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const fitnessPlanModel = require('./fitness'); // Import the fitnessPlanSchema from the other file
 
 const userSchema = ({
     'name': { type: String, required: true },
@@ -6,7 +7,7 @@ const userSchema = ({
     'password': { type: String, required: true },
     'created_at': { type: Date, default: Date.now },
     'updated_at': { type: Date, default: Date.now },
-    'fitnessPlan': { type: Array, default: [] }
+    'fitnessPlan': [fitnessPlanModel.schema]
 })
 
 const userModel = mongoose.model('users', userSchema);

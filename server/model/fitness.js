@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 
-const workoutSchema = new mongoose.Schema({
-    exercise_name: String,
+const fitnessPlanSchema = new mongoose.Schema({
+    exerciseName: String,
     sets: Number,
     reps: Number,
     day: String,
     order: Number,
+    personalBest: Number,
+    weeksCompleted: [{
+        week: Number,
+        setsRemaining: Number,
+        isCompleted: Boolean
+    }],
 });
+ 
+const FitnessPlanModel = mongoose.model('FitnessPlan', fitnessPlanSchema);
 
-module.exports = mongoose.model('fitness', workoutSchema);
+module.exports = FitnessPlanModel;
