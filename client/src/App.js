@@ -16,6 +16,7 @@ import NotFound from './components/NotFound';
 import FitnessLand from './components/FitnessLand';
 import ViewFitnessPlan from './components/ViewFitnessPlan';
 import StartWorkout from './components/StartWorkout';
+import NutritionByDesc from './components/NutritionByDesc';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -47,6 +48,7 @@ function App() {
         <Route path="/nutrition" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
         <Route path="/dietPlan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
         <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
+        <Route path="/nutritionbydesc" element={isLoggedIn ? <NutritionByDesc /> : <Navigate to='/login'/>} />
 
         {/* 404 not found */}
         <Route path="*" element={<NotFound />} />
