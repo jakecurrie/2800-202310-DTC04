@@ -12,11 +12,11 @@ function FitnessForm() {
   const [fitnessGoals, setFitnessGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
   const [selectedDays, setSelectedDays] = useState([]);
-  // const [exerciseTypes, setExerciseTypes] = useState('');
+  const [intensityLevel, setIntensityLevel] = useState('');
   // const [preferences, setPreferences] = useState('');
   // const [focusAreas, setFocusAreas] = useState('');
   const [equipmentAvailable, setEquipmentAvailable] = useState('');
-  // const [interests, setInterests] = useState('');
+  const [planDuration, setPlanDuration] = useState('');
   // const [workoutEnvironment, setWorkoutEnvironment] = useState('');
   // const [dietaryRestrictions, setDietaryRestrictions] = useState('');
   // const [existingRoutines, setExistingRoutines] = useState('');
@@ -24,6 +24,10 @@ function FitnessForm() {
   // const [milestones, setMilestones] = useState('');
   // const [fitnessPlanDuration, setFitnessPlanDuration] = useState('');
   // const [motivations, setMotivations] = useState('');
+
+  const handlePlanDurationChange = (e) => {
+    setPlanDuration(e.target.value);
+  };
 
   const handleFitnessGoalsChange = (e) => {
     setFitnessGoals(e.target.value);
@@ -46,6 +50,9 @@ function FitnessForm() {
     setEquipmentAvailable(e.target.value);
   };
 
+  const handleIntensityLevelChange = (e) => {
+    setIntensityLevel(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     
@@ -54,7 +61,9 @@ function FitnessForm() {
       fitnessGoals,
       fitnessLevel,
       selectedDays,
-      equipmentAvailable
+      equipmentAvailable,
+      intensityLevel,
+      planDuration
       // Other form fields...
     };
     // You can perform any further processing or data handling here
@@ -138,7 +147,33 @@ function FitnessForm() {
           <option value="no">No</option>
         </select>
       </label>
-        
+      <label>
+        What is your intensity level?
+        <select value={intensityLevel} onChange={handleIntensityLevelChange}>
+          <option value="">Select an option</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <label>
+        How long would you like your fitness plan to be?
+        <select value={planDuration} onChange={handlePlanDurationChange}>
+          <option value="">Select an option</option>
+          <option value="1">1 week</option>
+          <option value="2">2 weeks</option>
+          <option value="3">3 weeks</option>
+          <option value="4">4 weeks</option>
+          <option value="5">5 weeks</option>
+          <option value="6">6 weeks</option>
+          <option value="7">7 weeks</option>
+          <option value="8">8 weeks</option>
+          <option value="9">9 weeks</option>
+          <option value="10">10 weeks</option>
+          <option value="11">11 weeks</option>
+          <option value="12">12 weeks</option>
+        </select>
+      </label>
         {/* Add more form fields for the remaining questions */}
         {/* ... */}
         <button type="submit">Submit</button>

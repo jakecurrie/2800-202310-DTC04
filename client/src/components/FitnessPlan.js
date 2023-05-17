@@ -9,8 +9,9 @@ const FitnessPlan = () => {
     const navigate = useNavigate();
     const completionResult = (location.state?.completionResult || '[]').trim();
     console.log(completionResult)
-    const data = JSON.parse(completionResult).data;
-    console.log(data)
+    const data = JSON.parse(completionResult).exercises;
+    const dataTwo = JSON.parse(completionResult);
+    console.log(dataTwo)
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const [currentDayIndex, setCurrentDayIndex] = useState(0);
@@ -32,11 +33,11 @@ const FitnessPlan = () => {
         navigate('/fitness');
     };
 
-    const acceptPlan = async (data) => {
+    const acceptPlan = async (dataTwo) => {
         // i want to take the completionResult and put it into the mongoose database for the current user
         
         try {
-            const response = await axios.post('/api/fitness/save-plan', { data });
+            const response = await axios.post('/api/fitness/save-plan', { dataTwo });
             console.log('Response from API:', response.data);
             navigate('/');
         } catch (error) {
@@ -66,7 +67,7 @@ const FitnessPlan = () => {
                 <button onClick={() => setCurrentDayIndex((currentDayIndex + 1) % 7)}>Next</button>
             </div>
             <div>
-                <button onClick={() => acceptPlan(data)}>Accept</button>
+                <button onClick={() => acceptPlan(dataTwo)}>Accept</button>
                 <button onClick={regeneratePlan}>Regenerate Plan</button>
             </div>
         </div>
