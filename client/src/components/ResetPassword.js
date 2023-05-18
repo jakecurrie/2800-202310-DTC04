@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../style/ResetPasswordRequest.css'
 
 function ResetPassword() {
     const navigate = useNavigate();
-    const {userID, token} = useParams();
+    const { userID, token } = useParams();
 
-    const [loginErrorStyle, setLoginErrorStyle] = React.useState({display: "none"});
+    const [loginErrorStyle, setLoginErrorStyle] = React.useState({ display: "none" });
     let userPassword = useRef(null)
 
     function resetPassword() {
@@ -24,36 +25,40 @@ function ResetPassword() {
             },
             credentials: 'include' // enables cookies
         })
-        .then(async (res) => {
-          const awaitRes = await res.json()
-          if (awaitRes.errorMessage) {
-            return setLoginErrorStyle({display: "block"})
-          } else {
-            return navigate("/login");
-          }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then(async (res) => {
+                const awaitRes = await res.json()
+                if (awaitRes.errorMessage) {
+                    return setLoginErrorStyle({ display: "block" })
+                } else {
+                    return navigate("/login");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
-    return(
+    return (
         <>
-        <div id="reset-password-containier">
-            <h1>Reset Password</h1>
-            <form>
-                <div>
-                    <input ref={userPassword} type="password" name="password" />
-                    <label htmlFor="password" >Your New Password</label>
+            <div id="reset-password-container">
+                <div id="reset-top-section"></div>
+                <div id="reset-bottom-section"></div>
+                <div id="reset-container">
+                    <h1 id="reset-title">Reset Password</h1>
+                    <form id="reset-password-form">
+                        <div id="reset-label-input">
+                            <label id="reset-password-label" >Your New Password</label>
+                            <input id="reset-password-input" ref={userPassword} type="password" name="password" />
+                        </div>
+                        <div onClick={resetPassword}>
+                            <input id="reset-password-submit" type="button" name="submit" value="Submit" />
+                        </div>
+                        <div id="error-messages" style={loginErrorStyle}>
+                            <p>Invalid Link or Expired</p>
+                        </div>
+                    </form>
                 </div>
-                <div onClick={resetPassword}>
-                    <input type="button" name="submit" value="Submit"/>
-                </div>
-                <div id="error messages" style={loginErrorStyle}>
-                    <p>Invalid Link or Expired</p>
-                </div>
-            </form>
-        </div>
+            </div>
         </>
     )
 }

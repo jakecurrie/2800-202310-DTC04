@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import '../style/Register.css'
 
 const Register = () => {
 
     const navigate = useNavigate();
 
-    let userName = useRef(null)     
-    let userEmail = useRef(null)     
+    let userName = useRef(null)
+    let userEmail = useRef(null)
     let userPassword = useRef(null)
 
     function submitUserCreation() {
@@ -35,26 +36,35 @@ const Register = () => {
 
     return (
         <>
-        <div id="register-container">
-            <h1>Register Page</h1>
-            <form id="register-form">
-                <div id="name-container">
-                    <input ref={userName} type="text" name="name" />
-                    <label htmlFor="name" >Your Name</label>
+            <div id="register-container">
+                <div id="register-title-container">
+                    <h1 id="register-title">ArtificialGains</h1>
+                    <p id="register-title-description">Start your Fitness Journey here</p>
                 </div>
-                <div id="email-container">
-                    <input ref={userEmail} type="text" name="email" />
-                    <label htmlFor="email" >Your Email</label>
-                </div>
-                <div id="password-container">
-                    <input ref={userPassword} type="password" name="password" />
-                    <label htmlFor="password" >Your Password</label>
-                </div>
-                <div onClick={submitUserCreation}>
-                    <input type="button" name="submit" value="Submit"/>
-                </div>
-            </form>
-        </div>
+                <div id="register-bottom-container"></div>
+                <form id="register-register-form">
+                    <div id="register-email-password">
+                        <div id="register-name-container">
+                            <label className="register-input-label" >Name</label>
+                            <input className="register-input-box" ref={userName} type="text" name="name" />
+                        </div>
+                        <div id="register-email-container">
+                            <label className="register-input-label" >Email</label>
+                            <input className="register-input-box" ref={userEmail} type="text" name="email" />
+                        </div>
+                        <div id="register-password-container">
+                            <label className="register-input-label" >Password</label>
+                            <input className="register-input-box" ref={userPassword} type="password" name="password" />
+                        </div>
+                    </div>
+                    <div id="register-submit-container" onClick={submitUserCreation}>
+                        <input id="register-submit-button" type="button" name="submit" value="Sign Up" />
+                    </div>
+                    <div id="register-login-container">
+                        <Link id="register-login-link" to="/login" >Already have an account? <span id="register-login">Login</span></Link>
+                    </div>
+                </form>
+            </div>
         </>
     );
 };

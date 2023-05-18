@@ -1,0 +1,273 @@
+#register-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+}
+
+#register-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0eae3;
+    min-height: 50vh;
+    width: 100%;
+}
+
+#register-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 65pt;
+    font-weight: 700;
+    color: #181818;
+}
+
+#register-title-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 17pt;
+    font-weight: 300;
+    color: #181818;
+}
+
+#register-bottom-container {
+    background-color: #181818;
+    min-height: 50vh;
+    width: 100%;
+}
+
+#register-register-form {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #aaaaaa;
+    width: 450px;
+    height: 475px;
+    bottom: 50px;
+    padding: 50px 10px 25px 10px;
+    border-radius: 30px;
+}
+
+#register-email-password,
+#register-email-container,
+#register-name-container,
+#register-password-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#register-email-password {
+    margin-bottom: 100px;
+}
+
+.register-input-box {
+    width: 350px;
+    height: 40px;
+    margin: 0 0 25px 0;
+    border: none;
+    background-color: #e2e2e2;
+    border-radius: 5px;
+    font-size: 15pt;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    padding: 0 5px 0 5px;
+}
+
+.register-input-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 13pt;
+    font-weight: 300;
+    margin: 0;
+}
+
+#register-forgot-link {
+    position: absolute;
+    top: 215px;
+    right: 60px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11pt;
+    font-weight: 400;
+    color: #5c5c5c;
+}
+
+#register-submit-button {
+    background-color: #181818;
+    color: #f0eae3;
+    font-family: 'Inter', sans-serif;
+    font-size: 14pt;
+    font-weight: 200;
+    border-radius: 5px;
+    width: 350px;
+    height: 40px;
+    border: none;
+}
+
+#register-login-link {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 223px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #5c5c5c;
+}
+
+#register-login {
+    color: #181818;
+}
+
+@media screen and (max-height: 900px) {
+    #register-register-form {
+        height: 400px;
+    }
+
+    
+    #register-email-password {
+        margin-bottom: 25px;
+    }
+
+}
+
+@media screen and (max-height: 800px) {
+    #register-title-container {
+        justify-content: unset;
+    }
+
+    #register-title {
+        margin-top: 100px;
+    }
+
+    #register-register-form {
+        height: 350px;
+    }
+
+    .register-input-box {
+        margin-bottom: 15px;
+    }
+} 
+
+@media screen and (max-height: 750px) {
+    #register-title-container {
+        justify-content: unset;
+    }
+
+    #register-title {
+        margin-top: 70px;
+    }
+
+    #register-register-form {
+        height: 350px;
+    }
+}
+
+@media screen and (max-height: 690px) {
+    #register-title-container {
+        justify-content: unset;
+    }
+
+    #register-title {
+        margin-top: 35px;
+    }
+
+    #register-register-form {
+        height: 350px;
+    }
+} 
+
+@media screen and (max-width: 700px) {
+    #register-title {
+        font-size: 50pt;
+    }
+
+    #register-title-description {
+        font-size: 15pt;
+    }
+
+    #register-email-password {
+        margin-bottom: 15px;
+    }
+
+    #register-register-form {
+        padding: 35px 10px 25px 10px;
+        width: 350px;
+        height: 350px;
+        bottom: 20vh;
+    }
+
+    .register-input-box {
+        width: 280px;
+        margin-bottom: 10px;
+        font-size: 12pt;
+    }
+
+    #register-submit-button {
+        width: 275px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #register-title {
+        font-size: 40pt;
+    }
+
+    #register-title-description {
+        font-size: 13pt;
+    }
+
+    #register-register-form {
+        padding: 35px 10px 25px 10px;
+        width: 350px;
+        height: 350px;
+        bottom: 20vh;
+    }
+
+    .register-input-box {
+        width: 280px;
+        font-size: 10pt;
+    }
+
+    #register-submit-button {
+        width: 275px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #register-title {
+        font-size: 30pt;
+    }
+
+    #register-title-description {
+        font-size: 11pt;
+    }
+
+    #register-register-form {
+        padding: 35px 10px 25px 10px;
+        width: 250px;
+        height: 350px;
+    }
+
+    .register-input-box {
+        width: 200px;
+    }
+
+    .register-input-label {
+        font-size: 11pt;
+    }
+
+    #register-submit-button {
+        font-size: 11pt;
+        width: 200px;
+    }
+
+    #register-login-link {
+        width: 181px;
+        font-size: 9pt;
+    }
+}
