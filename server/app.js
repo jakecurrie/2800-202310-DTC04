@@ -27,6 +27,8 @@ const upload = multer({ dest: 'uploads/' });
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Enable CORS for cross-origin requests
 app.use(cors({
   origin: process.env.CORS_ORIGIN, 
@@ -197,12 +199,10 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/profile', async (req, res) => {
-  
   try {
-    
     const userId = req.session.USER_ID;
     const user = await userModel.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -210,6 +210,7 @@ app.get('/profile', async (req, res) => {
     const userResponse = {
       name: user.name,
       email: user.email,
+      profilePicture: user.profilePicture,
       created_at: user.created_at,
       updated_at: user.updated_at,
     };
@@ -220,6 +221,7 @@ app.get('/profile', async (req, res) => {
     res.status(500).json({ message: 'Error fetching user data' });
   }
 });
+
 
 app.get('/', (req, res) => {
   res.send('Backend service is running');
