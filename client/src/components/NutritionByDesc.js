@@ -58,15 +58,16 @@ function NutritionByDesc() {
           <CardActionArea>
             <CardMedia
               component="img"
-              height="140"
+              height={200} // Adjust the height value as needed
               image={image}
               alt={description}
+              sx={{ objectFit: 'contain' }}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {description}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body2" color="textSecondary" component="div">
                 {Object.entries(nutritionEstimate).map(([key, value]) => (
                   <div key={key}>{`${key}: ${value}`}</div>
                 ))}
