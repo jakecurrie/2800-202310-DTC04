@@ -1,4 +1,4 @@
-import { React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Profile from './components/Profile';
 import Register from './components/Register';
@@ -28,32 +28,35 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('isLoggedIn', isLoggedIn);
-  }, [isLoggedIn]); 
+  }, [isLoggedIn]);
 
   return (
     <>
-      <Navbar />
       <Routes>
         {/* no need for auth */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={isLoggedIn ? <Profile /> : <Login setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/register" element={isLoggedIn ? <Profile /> : <Register />} />
-        <Route path="/request-reset" element={isLoggedIn ? <Profile /> : <ResetPasswordRequest />} />
-        <Route path="/reset-password/:userID/:token" element={<ResetPassword />} />
+        <Route path="/" >
+          <Route index element={<Landing />} />
+          <Route path="login" element={isLoggedIn ? <Navigate to='/app/profile' /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="register" element={isLoggedIn ? <Navigate to='/app/profile' />  : <Register />} />
+          <Route path="request-reset" element={isLoggedIn ? <Navigate to='/app/profile' />  : <ResetPasswordRequest />} />
+          <Route path="reset-password/:userID/:token" element={<ResetPassword />} />
+        </Route>
 
         {/* need for auth */}
-        <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login'/>} />
-        <Route path="/fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login'/>} />
-        <Route path="/nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login'/>} />
-        <Route path="/fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login'/>} />
-        <Route path="/startworkout" element={isLoggedIn ? <StartWorkout /> : <Navigate to='/login'/>} />
-        <Route path="/fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <Navigate to='/login'/>} />
-        <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login'/>} />
-        <Route path="/dietplangenerator" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
-        <Route path="/dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
-        <Route path="/viewdietplan" element={isLoggedIn ? <ViewDietPlan /> : <Navigate to='/login'/>} />
-        <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
+        <Route path="/app" element={<Navbar />}>
+          <Route path="profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login' />} />
+          <Route path="fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login' />} />
+          <Route path="nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login' />} />
+          <Route path="fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login' />} />
+          <Route path="startworkout" element={isLoggedIn ? <StartWorkout /> : <Navigate to='/login' />} />
+          <Route path="fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <Navigate to='/login' />} />
+          <Route path="viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login' />} />
+          <Route path="dietplangenerator" element={isLoggedIn ? <DietForm /> : <Navigate to='/login' />} />
+          <Route path="dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login' />} />
+          <Route path="viewdietplan" element={isLoggedIn ? <ViewDietPlan /> : <Navigate to='/login' />} />
+          <Route path="mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login' />} />
+        </Route>
 
         {/* 404 not found */}
         <Route path="*" element={<NotFound />} />

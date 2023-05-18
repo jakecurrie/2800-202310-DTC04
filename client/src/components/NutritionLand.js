@@ -6,15 +6,15 @@ const NutritionLand = () => {
     const navigate = useNavigate();
 
     const navigateToViewDietPlan = () => {
-        navigate('/viewdietplan');
+        navigate('/app/viewdietplan');
     }
 
     const navigateToDietPlanGenerator = () => {
-        navigate('/dietplangenerator');
+        navigate('/app/dietplangenerator');
     }
     
     const navigateToMealClassifier = () => {
-        navigate('/mealClassifier');
+        navigate('/app/mealClassifier');
     }
 
     return (

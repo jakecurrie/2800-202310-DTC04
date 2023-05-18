@@ -6,15 +6,15 @@ const FitnessLand = () => {
     const navigate = useNavigate();
 
     const navigateToViewPlan = () => {
-        navigate('/viewfitnessplan');
+        navigate('/app/viewfitnessplan');
     }
 
     const navigateToFitnessPlanGenerator = () => {
-        navigate('/fitnessgenerator');
+        navigate('/app/fitnessgenerator');
     }
     
     const navigateToStartWorkout = () => {
-        navigate('/startworkout');
+        navigate('/app/startworkout');
     }
 
     return (

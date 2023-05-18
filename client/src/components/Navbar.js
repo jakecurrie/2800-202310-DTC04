@@ -35,7 +35,7 @@ const Navbar = () => {
             ArtificialGains
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Button color="inherit" component={Link} to="/profile">Profile</Button>
+          <Button color="inherit" component={Link} to="/app/profile">Profile</Button>
           <Button color="inherit" component={Link} to="/register">Register</Button>
         </Toolbar>
       </AppBar>
@@ -43,13 +43,13 @@ const Navbar = () => {
       {isMobile ? (
         <AppBar position="fixed" color="primary" style={{ top: 'auto', bottom: 0 }}>
           <Toolbar sx={{ justifyContent: 'center', padding: 0 }}>
-            <IconButton onClick={handleMenuClose} component={Link} to="/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+            <IconButton onClick={handleMenuClose} component={Link} to="/app/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <FitnessCenterIcon />
             </IconButton>
             <IconButton onClick={handleMenuClose} component={Link} to="/" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <HomeIcon />
             </IconButton>
-            <IconButton onClick={handleMenuClose} component={Link} to="/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+            <IconButton onClick={handleMenuClose} component={Link} to="/app/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <RestaurantMenuIcon />
             </IconButton>
           </Toolbar>
@@ -63,8 +63,8 @@ const Navbar = () => {
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handleMenuClose} component={Link} to="/">Home</MenuItem>
-          <MenuItem onClick={handleMenuClose} component={Link} to="/nutrition">Nutrition</MenuItem>
-          <MenuItem onClick={handleMenuClose} component={Link} to="/fitness">Fitness</MenuItem>
+          <MenuItem onClick={handleMenuClose} component={Link} to="/app/nutrition">Nutrition</MenuItem>
+          <MenuItem onClick={handleMenuClose} component={Link} to="/app/fitness">Fitness</MenuItem>
         </Menu>
       )}
 

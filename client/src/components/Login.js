@@ -31,7 +31,7 @@ const Login = ({ setIsLoggedIn }) => {
             console.log(res.status);
             if (res.status === 202) {
                 setIsLoggedIn(true)
-                return navigate("/profile");
+                return navigate("/app/profile");
             } else if (res.status === 401) {
                 setLoginErrorStyle({ display: "block", marginBottom: 0 })
                 setLoginError("Incorrect Password")

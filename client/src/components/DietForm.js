@@ -75,7 +75,7 @@ function DietForm() {
       const response = await axios.post('/api/nutrition/generate-plan', formData);
       console.log('Response from API:', response.data.dietPlan);
       // Handle the response as needed
-      navigate('/dietPlan', { state: { completionResult: response.data.dietPlan } } );
+      navigate('/app/dietPlan', { state: { completionResult: response.data.dietPlan } } );
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed

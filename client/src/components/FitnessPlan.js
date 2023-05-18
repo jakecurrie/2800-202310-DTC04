@@ -30,7 +30,7 @@ const FitnessPlan = () => {
         // Perform regeneration logic here
     
         // Redirect to '/fitness' after regenerating the plan
-        navigate('/fitness');
+        navigate('/app/fitness');
     };
 
     const acceptPlan = async (dataTwo) => {

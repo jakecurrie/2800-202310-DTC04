@@ -71,7 +71,7 @@ function FitnessForm() {
       const response = await axios.post('/api/fitness/generate-plan', formData);
       console.log('Response from API:', response.data.workoutPlan);
       // Handle the response as needed
-      navigate('/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );
+      navigate('/app/FitnessPlan', { state: { completionResult: response.data.workoutPlan } } );
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed
