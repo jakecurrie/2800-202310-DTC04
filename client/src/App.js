@@ -46,7 +46,7 @@ function App() {
 
         {/* need for auth */}
         <Route path="/app" element={<Navbar setIsLoggedIn={setIsLoggedIn}/>}>
-          <Route path="profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login' />} />
+          <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login' />} />
           <Route path="fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login' />} />
           <Route path="nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login' />} />
           <Route path="fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login' />} />
@@ -57,7 +57,7 @@ function App() {
           <Route path="dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login' />} />
           <Route path="viewdietplan" element={isLoggedIn ? <ViewDietPlan /> : <Navigate to='/login' />} />
           <Route path="mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login' />} />
-          <Route path="/nutritionbydesc" element={isLoggedIn ? <NutritionByDesc /> : <LoginOrRegister/>} />
+          <Route path="nutritionbydesc" element={isLoggedIn ? <NutritionByDesc /> : <LoginOrRegister/>} />
         </Route>
 
         {/* 404 not found */}
