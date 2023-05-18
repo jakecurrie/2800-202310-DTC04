@@ -7,6 +7,7 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Logout from './Logout';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -36,7 +37,7 @@ const Navbar = () => {
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Button color="inherit" component={Link} to="/app/profile">Profile</Button>
-          <Button color="inherit" component={Link} to="/register">Register</Button>
+          <Button color="inherit" component={Logout} to="/register">Register</Button>
         </Toolbar>
       </AppBar>
       <Outlet />
