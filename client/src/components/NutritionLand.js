@@ -17,6 +17,10 @@ const NutritionLand = () => {
         navigate('/app/mealClassifier');
     }
 
+    const navigateToNutritionByDesc = () => {
+        navigate('/nutritionbydesc');
+    }
+
     return (
         <div>
             <h1>Nutrition</h1>
@@ -32,7 +36,7 @@ const NutritionLand = () => {
                 <h2>Scan Your Food!</h2>
                 <p>Our cutting edge food detecting technology will precisely estimate the calories in your meal so you don't have too! All you need is an image! </p>
             </div>
-            <div className="card" onClick={navigateToMealClassifier}>
+            <div className="card" onClick={navigateToNutritionByDesc}>
                 <h2>Describe Your Food!</h2>
                 <p>No Camera? No Worries!</p>
                 <p>Enter a text description of what you are eating and we will precisely calculate the calories of your meal</p>

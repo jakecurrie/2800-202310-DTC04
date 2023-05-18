@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getDietPlanCompletion } = require('./openai/OpenAI'); // refer to openai2.js file for diet plan
+const { getDietPlanCompletion, getNutritionEstimate } = require('./openai/OpenAI'); // refer to openai2.js file for diet plan
 const userModel = require('../model/users');
 
 router.post('/generate-plan', async (req, res) => {
@@ -47,6 +47,17 @@ router.get('/view-plan', async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+router.post('/getNutritionEstimate', async (req, res) => {
+  try {
+      const mealDescription = req.body.description;
+      const nutritionEstimate = await getNutritionEstimate(mealDescription);
+      res.send({ nutritionEstimate });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 module.exports = router;
