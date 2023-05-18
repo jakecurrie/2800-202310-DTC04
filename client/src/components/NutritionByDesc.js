@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+
 axios.defaults.withCredentials = true;
 
 function NutritionByDesc() {
   const [description, setDescription] = useState('');
-  const [nutritionEstimate, setNutritionEstimate] = useState('');
+  const [nutritionEstimate, setNutritionEstimate] = useState(null);
   const [image, setImage] = useState('');
   const [error, setError] = useState(null);
 
@@ -19,13 +20,13 @@ function NutritionByDesc() {
     try {
       // Get nutrition estimate
       const response = await axios.post('/api/nutrition/getNutritionEstimate', { description });
-      
+
       if (response.data && response.data.nutritionEstimate) {
         setNutritionEstimate(response.data.nutritionEstimate);
       } else {
         setError('Unable to get nutrition estimate');
       }
-      
+
       // Get image from Google Custom Search API
       const imageResponse = await axios.get(`/api/images/searchImage/${description}`);
 
@@ -43,7 +44,7 @@ function NutritionByDesc() {
   return (
     <div>
       <h1>Nutrition Estimator</h1>
-      
+
       <form onSubmit={handleSubmit}>
         <label>
           Enter meal description:
@@ -66,7 +67,9 @@ function NutritionByDesc() {
                 {description}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                {nutritionEstimate}
+                {Object.entries(nutritionEstimate).map(([key, value]) => (
+                  <div key={key}>{`${key}: ${value}`}</div>
+                ))}
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -84,4 +87,7 @@ function NutritionByDesc() {
 }
 
 export default NutritionByDesc;
+
+
+
 
