@@ -46,7 +46,7 @@ const Navbar = () => {
             <IconButton onClick={handleMenuClose} component={Link} to="/app/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <FitnessCenterIcon />
             </IconButton>
-            <IconButton onClick={handleMenuClose} component={Link} to="/" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+            <IconButton onClick={handleMenuClose} component={Link} to="/app" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
               <HomeIcon />
             </IconButton>
             <IconButton onClick={handleMenuClose} component={Link} to="/app/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
