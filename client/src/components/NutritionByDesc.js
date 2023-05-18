@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/core';
-require('dotenv').config()
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 axios.defaults.withCredentials = true;
 
 function NutritionByDesc() {
@@ -19,7 +18,7 @@ function NutritionByDesc() {
 
     try {
       // Get nutrition estimate
-      const response = await axios.post('api/nutrition/getNutritionEstimate', { description });
+      const response = await axios.post('/api/nutrition/getNutritionEstimate', { description });
       
       if (response.data && response.data.nutritionEstimate) {
         setNutritionEstimate(response.data.nutritionEstimate);
@@ -28,16 +27,7 @@ function NutritionByDesc() {
       }
       
       // Get image from Google Custom Search API
-      const imageResponse = await axios.get(`https://www.googleapis.com/customsearch/v1`, {
-        params: {
-          key: process.env.GOOGLE_API_KEY,
-          cx: '6669ec25c5a884fa4',
-          q: description,
-          searchType: 'image',
-          num: 1,
-          safe: 'high'
-        }
-      });
+      const imageResponse = await axios.get(`/api/images/searchImage/${description}`);
 
       if (imageResponse.data.items && imageResponse.data.items.length > 0) {
         setImage(imageResponse.data.items[0].link);
@@ -72,7 +62,7 @@ function NutritionByDesc() {
               alt={description}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h5" component="div">
                 {description}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
@@ -94,3 +84,4 @@ function NutritionByDesc() {
 }
 
 export default NutritionByDesc;
+
