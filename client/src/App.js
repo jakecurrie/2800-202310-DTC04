@@ -44,7 +44,7 @@ function App() {
         </Route>
 
         {/* need for auth */}
-        <Route path="/app" element={<Navbar />}>
+        <Route path="/app" element={<Navbar setIsLoggedIn={setIsLoggedIn}/>}>
           <Route path="profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login' />} />
           <Route path="fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login' />} />
           <Route path="nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login' />} />
