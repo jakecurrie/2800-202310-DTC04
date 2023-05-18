@@ -1,15 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Container,
   Row,
   Col,
-} from "reactstrap";
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  FormGroup,
+  Input,
+  Button,
+} from 'reactstrap';
+import AvatarEditor from 'react-avatar-editor';
 
-const defaultImageUrl = '/path/to/default/image.jpg'; // Replace with your default image path
+const defaultImageUrl = 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [profilePic, setProfilePic] = useState(defaultImageUrl);
+  const [showUploadOption, setShowUploadOption] = useState(false);
+  const editorRef = useRef(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const editorSize = 150; // Adjust this value as needed
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +32,7 @@ const Profile = () => {
         });
         const data = await response.json();
         if (data.profilePicture) {
-          setProfilePic(data.profilePicture); // assuming user data has a field `profilePicture` with URL to user's image
+          setProfilePic(data.profilePicture);
         }
         setUser(data);
       } catch (error) {
@@ -31,51 +43,111 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const handleImageUpload = e => {
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfilePic(reader.result);
+        setUploadedImage(reader.result);
+        setShowUploadOption(true);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  if (!user) {
-    return <p>Loading...</p>;
-  }
+  const handleSaveImage = () => {
+    if (editorRef.current) {
+      const canvas = editorRef.current.getImageScaledToCanvas();
+      const profilePicDataUrl = canvas.toDataURL();
+      setProfilePic(profilePicDataUrl);
+      setShowUploadOption(false);
+    }
+  };
+
+  const handleCancelUpload = () => {
+    setShowUploadOption(false);
+    setUploadedImage(null);
+  };
 
   return (
-    <>
-      <div className="main">
-        <div className="section text-center">
-          <Container>
-            <Row>
-              <Col className="ml-auto mr-auto" md="6">
-                <div>
-                  <img src={profilePic} alt="Profile" style={{ height: '100px', width: '100px', borderRadius: '50%' }} />
-                  <form>
-                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} id="fileInput" />
-                    <label htmlFor="fileInput">Upload new picture</label>
-                  </form>
-                </div>
-                <h2 className="title">Profile</h2>
-                <h5 className="description">Here's your profile information:</h5>
-                <h4><strong>Name:</strong> {user.name}</h4>
-                <h4><strong>Email:</strong> {user.email}</h4>
-                <h4><strong>Created At:</strong> {new Date(user.created_at).toLocaleString()}</h4>
-                <h4><strong>Updated At:</strong> {new Date(user.updated_at).toLocaleString()}</h4>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </div>
-    </>
+    <Container>
+      <Row className="mt-4">
+        <Col className="text-center">
+          <div className="profile-picture-container">
+            {showUploadOption && uploadedImage ? (
+              <AvatarEditor
+                ref={editorRef}
+                image={uploadedImage}
+                width={editorSize}
+                height={editorSize}
+                border={10}
+                borderRadius={editorSize / 2}
+                color={[255, 255, 255, 0.6]}
+                scale={1}
+              />
+            ) : (
+              <div className="default-profile-picture">
+                <img src={profilePic} alt="Profile" className="resized-profile-picture" style={{ width: `${editorSize}px`, height: `${editorSize}px` }} />
+              </div>
+            )}
+            <FormGroup className="mt-2">
+              <Input
+                type="file"
+                id="profilePicture"
+                accept=".jpg,.png,.jpeg"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }}
+              />
+              {showUploadOption ? (
+                <>
+                  <Button color="primary" onClick={handleSaveImage} className="mr-2">
+                    Save
+                  </Button>
+                  <Button color="secondary" onClick={handleCancelUpload}>
+                    Cancel
+                  </Button>
+                </>
+              ) : (
+                <label htmlFor="profilePicture" className="upload-button">
+                  Upload Photo
+                </label>
+              )}
+            </FormGroup>
+          </div>
+        </Col>
+      </Row>
+      <Row className="mt-4">
+        <Col>
+          <Card className="card-profile">
+            <CardBody>
+              <CardTitle tag="h4">Profile Information</CardTitle>
+              <CardText>
+                <strong>Name:</strong> {user && user.name}
+              </CardText>
+              <CardText>
+                <strong>Email:</strong> {user && user.email}
+              </CardText>
+              <CardText>
+                <strong>Created At:</strong> {user && new Date(user.created_at).toLocaleString()}
+              </CardText>
+              <CardText>
+                <strong>Updated At:</strong> {user && new Date(user.updated_at).toLocaleString()}
+              </CardText>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
 export default Profile;
+
+
+
+
+
+
 
 
 
