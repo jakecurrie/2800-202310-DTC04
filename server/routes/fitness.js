@@ -175,8 +175,8 @@ router.get('/view-plan', async (req, res) => {
         if (!user) return res.status(400).send("user does not exist");
 
         // Handle the generated workout plan (e.g., send it as a response)
-        console.log(user.fitnessPlan[0].exercises);
-        res.json(user.fitnessPlan[0].exercises);
+        console.log(user.fitnessPlan.exercises);
+        res.json(user.fitnessPlan.exercises);
     } catch (error) {
         // Handle errors
         console.error(error);
