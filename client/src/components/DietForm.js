@@ -7,25 +7,36 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 function DietForm() {
   const navigate = useNavigate();
   const [completionResult, setCompletionResult] = useState('');
-  const [dietGoals, setDietGoals] = useState('');
+  const [calorieGoals, setCalorieGoals] = useState('');
+  const [proteinGoals, setProteinGoals] = useState('');
+  const [carbGoals, setCarbGoals] = useState('');
+  const [fatGoals, setFatGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
   const [selectedDays, setSelectedDays] = useState([]);
-  const [exerciseTypes, setExerciseTypes] = useState('');
-  const [preferences, setPreferences] = useState('');
-  const [focusAreas, setFocusAreas] = useState('');
+  //create amount of meals per day
+  const [mealsPerDay, setMealsPerDay] = useState('');
   const [equipmentAvailable, setEquipmentAvailable] = useState('');
-  const [interests, setInterests] = useState('');
-  const [workoutEnvironment, setWorkoutEnvironment] = useState('');
   const [dietaryRestrictions, setDietaryRestrictions] = useState('');
-  const [existingRoutines, setExistingRoutines] = useState('');
-  const [progressTracking, setProgressTracking] = useState('');
-  const [milestones, setMilestones] = useState('');
-  const [fitnessPlanDuration, setFitnessPlanDuration] = useState('');
-  const [motivations, setMotivations] = useState('');
 
+  const handleMealsPerDayChange = (e) => {
+    setMealsPerDay(e.target.value);
+  };
 
-  const handleDietGoalsChange = (e) => {
-    setDietGoals(e.target.value);
+  const handleProteinGoalsChange = (e) => {
+    setProteinGoals(e.target.value);
+  };
+
+  const handleCarbGoalsChange = (e) => {
+    setCarbGoals(e.target.value);
+  };
+
+  const handleFatGoalsChange = (e) => {
+    setFatGoals(e.target.value);
+  };
+  
+
+  const handleCalorieGoalsChange = (e) => {
+    setCalorieGoals(e.target.value);
   };
 
   const handleFitnessLevelChange = (e) => {
@@ -52,23 +63,24 @@ function DietForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
-      dietGoals,
-      fitnessLevel,
-      selectedDays,
-      equipmentAvailable
+      calorieGoals,
+      proteinGoals,
+      carbGoals,
+      fatGoals,
+      mealsPerDay
       // Other form fields...
     };
     // You can perform any further processing or data handling here
     try {
       const response = await axios.post('/api/nutrition/generate-plan', formData);
-      console.log('Response from API:', response.data.workoutPlan);
+      console.log('Response from API:', response.data.dietPlan);
       // Handle the response as needed
-      navigate('/dietPlan', { state: { completionResult: response.data.workoutPlan } } );
+      navigate('/dietPlan', { state: { completionResult: response.data.dietPlan } } );
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed
     }
-    console.log(dietGoals, fitnessLevel, selectedDays, equipmentAvailable);
+    console.log(calorieGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
     console.log('loading...')
   };
@@ -78,16 +90,45 @@ function DietForm() {
       <h1>Diet Questionaire</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          What are your current diet goals?
-          <select value={dietGoals} onChange={handleDietGoalsChange}>
+          What is your daily calorie goal?
+
+          <input type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} />
+        
+          {/* <select value={calorieGoals} onChange={handleCalorieGoalsChange}>
             <option value="">Select a diet goal</option>
             <option value="weight-loss">Weight Loss</option>
             <option value="muscle-building">Muscle Building</option>
             <option value="strength-gain">Strength Gain</option>
             <option value="general-health">General Health</option>
-          </select>
+          </select> */}
         </label>
         <label>
+          What is your daily protein requirement?
+          <input type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} />
+        </label>
+        <label>
+          What is your daily carb requirement?
+          <input type="text" name="carbGoals" value={carbGoals} onChange={handleCarbGoalsChange} />
+        </label>
+        <label>
+          What is your daily fat requirement?
+          <input type="text" name="fatGoals" value={fatGoals} onChange={handleFatGoalsChange} />
+        </label>
+        <label>
+          How many meals would you like to eat per day?
+          <select value={mealsPerDay} onChange={handleMealsPerDayChange}>
+            <option value="">Select a diet goal</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+
+        {/* <label>
           Do you have any food allergies or sensitivities?
           <select value={dietaryRestrictions} onChange={handleDietaryRestrictions}>
             <option value="">Select an option</option>
@@ -144,7 +185,7 @@ function DietForm() {
             <option value="yes">Yes</option>
             <option value="no">No</option>
           </select>
-        </label>
+        </label> */}
 
         {/* Add more form fields for the remaining questions */}
         {/* ... */}

@@ -197,7 +197,7 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/profile', async (req, res) => {
-  
+  console.log(req.session.USER_ID);
   try {
     
     const userId = req.session.USER_ID;

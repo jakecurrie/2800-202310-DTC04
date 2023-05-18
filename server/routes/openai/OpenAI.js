@@ -47,15 +47,19 @@ async function getDietPlanCompletion(req, formData) {
   } else {
     equipmentAvailable  = "no access to equipment"
   }
-  const prePrompt= "Respond with a RFC8259 Compliant JSON formatted response using the following article: Imagine you are a nutritionist. Create a meal plan tailored to these specifications know how to make one themselves. Create a workout plan using these specifications: "
-  const answerOne = `Their primary focus is ${formData.fitnessGoals}. `  
-  const answerTwo= `Their experience level is ${formData.fitnessLevel}. `
-  const answerThree = `They want to workout on ${formData.selectedDays}. `
+  const prePrompt= "Respond with a RFC8259 Compliant JSON formatted response using the following article: Imagine you are a nutritionist. Create a meal plan tailored to these specifications "
+  const calories = `Daily calorie intake must be ${formData.calorieGoals} with room for error primary focus is . `  
+  const protein = `Their protein intake must be minimum ${formData.proteinGoals} grams. `
+  const fat = `Their fat intake must be maximum ${formData.fatGoals} grams. `
+  const carbs = `Their carb intake must be minimum ${formData.carbGoals} grams. `
+  const allergies= `They have food allergies towards ${formData.dietaryRestrictions}. `
+
+  const answerTwo = `They want to workout on ${formData.selectedDays}. `
   const answerFour = `They have ${equipmentAvailable}. `
   const answerFive = `The workout will be of ${formData.intensityLevel} intensity. Low means 3 exercises per day, Medium means 4 exercises per day and High means 5 exercises per day. `
   const answerSix = `The plan duration should be ${formData.planDuration} weeks. `
-  const postPrompt = "only provide a RFC8259 compliant JSON response following this format without deviation\n data: {\n  duration: Number,\n  exercises: [\n    {\n      exerciseName: String,\n      sets: Number,\n      reps: Number,\n      day: String,\n      order: Number\n    }\n  ]\n}\nwhere order is the order of the exercise in the workout. Make sure the keys are surrounded by quotes because this will be parsed by JSON.parse. Do not begin your response with '()'"
-  const prompt = prePrompt + answerOne + answerTwo + answerThree + answerFour + answerFive + answerSix + postPrompt;
+  const postPrompt = "only provide a RFC8259 compliant JSON response following this format without deviation\n data: {\n  duration: Number,\n  meals: [\n    {\n      name: String,\n      description: String,\n      calories: Number,\n      protein: Number,\n      carbs: String,\n      fat: Number\n      day: String\n     order: Number\n    }\n  ]\n}\nwhere order is the order of the meal in the day. Make sure the keys are surrounded by quotes because this will be parsed by JSON.parse. Do not begin your response with '()'"
+  const prompt = prePrompt + calories + protein + fat + carbs + postPrompt;
   console.log(prompt);
   const completion = await openai.createCompletion({
     model: "text-davinci-003",

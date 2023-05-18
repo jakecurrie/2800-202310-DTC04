@@ -15,16 +15,18 @@ router.post('/generate-plan', async (req, res) => {
 
 router.post('/save-plan', async (req, res) => {
     try {
-        const { data } = req.body;
+        console.log(req.session.USER_ID);
+        const { dataTwo } = req.body;
+        console.log(dataTwo);
         const user = await userModel.findByIdAndUpdate(
             req.session.USER_ID,
-            {dietPlan: data},
+            {dietPlan: dataTwo},
             {new: true}
         );
 
         if (!user) return res.status(400).send("user does not exist");
 
-        console.log(user);
+        // console.log(user);
         console.log("completed");
     } catch (error) {
         console.error(error);
@@ -34,12 +36,13 @@ router.post('/save-plan', async (req, res) => {
 
 router.get('/view-plan', async (req, res) => {
     try {
+
         const user = await userModel.findById(req.session.USER_ID).select('dietPlan').exec();
 
         if (!user) return res.status(400).send("user does not exist");
 
-        console.log(user.dietPlan);
-        res.json(user.dietPlan);
+        console.log(user.dietPlan.meals);
+        res.json(user.dietPlan.meals);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
