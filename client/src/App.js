@@ -34,7 +34,7 @@ function App() {
       <Navbar />
       <Routes>
         {/* no need for auth */}
-        <Route path="/" element={<Landing setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={isLoggedIn ? <Profile /> : <Login setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/register" element={isLoggedIn ? <Profile /> : <Register />} />
@@ -42,17 +42,17 @@ function App() {
         <Route path="/reset-password/:userID/:token" element={<ResetPassword />} />
 
         {/* need for auth */}
-        <Route path="/profile" element={isLoggedIn ? <Profile /> : <LoginOrRegister/>} />
-        <Route path="/fitness" element={isLoggedIn ? <FitnessLand /> : <LoginOrRegister/>} />
+        <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login'/>} />
+        <Route path="/fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login'/>} />
         <Route path="/nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login'/>} />
-        <Route path="/fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <LoginOrRegister/>} />
-        <Route path="/startworkout" element={isLoggedIn ? <StartWorkout /> : <LoginOrRegister/>} />
-        <Route path="/fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <LoginOrRegister/>} />
-        <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <LoginOrRegister/>} />
-        <Route path="/dietplangenerator" element={isLoggedIn ? <DietForm /> : <LoginOrRegister/>} />
+        <Route path="/fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login'/>} />
+        <Route path="/startworkout" element={isLoggedIn ? <StartWorkout /> : <Navigate to='/login'/>} />
+        <Route path="/fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <Navigate to='/login'/>} />
+        <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login'/>} />
+        <Route path="/dietplangenerator" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
         <Route path="/dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
-        <Route path="/viewdietplan" element={isLoggedIn ? <DietPlan /> : <LoginOrRegister/>} />
-        <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <LoginOrRegister/>} />
+        <Route path="/viewdietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
+        <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
 
         {/* 404 not found */}
         <Route path="*" element={<NotFound />} />

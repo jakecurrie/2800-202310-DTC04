@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate, Link } from "react-router-dom";
+import '../style/ResetPasswordRequest.css'
 
 function ResetPasswordRequest() {
+    const navigate = useNavigate();
     let userEmail = useRef(null)
 
     function sendResetRequest() {
@@ -18,27 +21,36 @@ function ResetPasswordRequest() {
             },
             credentials: 'include' // enables cookies
         })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     return (
-    <>
-    <div id="reset-password-container">
-        <h1>Forgot Password?</h1>
-        <form id="reset-password-form">
-            <input ref={userEmail} name="email" type="text"/>
-            <label htmlFor="email" >Your Email</label>
-            <div onClick={sendResetRequest}>
-                <input type="button" name="submit" value="Submit"/>
+        <>
+            <div id="reset-password-container">
+                <div id="reset-top-section"></div>
+                <div id="reset-bottom-section"></div>
+                <div id="reset-container">
+                    <h1 id="reset-title">Forgot Password?</h1>
+                    <form id="reset-password-form">
+                        <div id="reset-label-input">
+                            <label id="reset-password-label" >Email</label>
+                            <input id="reset-password-input" ref={userEmail} name="email" type="text" />
+                        </div>
+                        <div onClick={sendResetRequest}>
+                            <input id="reset-email-submit" type="button" name="submit" value="Send Email" />
+                        </div>
+                        <div>
+                            <Link id="reset-password-link" to="/login" >&lt; Back to Login</Link>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-    </div>
-    </>
+        </>
     )
 }
 

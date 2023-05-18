@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Box, Button, Menu, MenuItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
@@ -39,6 +39,7 @@ const Navbar = () => {
           <Button color="inherit" component={Link} to="/register">Register</Button>
         </Toolbar>
       </AppBar>
+      <Outlet />
       {isMobile ? (
         <AppBar position="fixed" color="primary" style={{ top: 'auto', bottom: 0 }}>
           <Toolbar sx={{ justifyContent: 'center', padding: 0 }}>
@@ -66,6 +67,7 @@ const Navbar = () => {
           <MenuItem onClick={handleMenuClose} component={Link} to="/fitness">Fitness</MenuItem>
         </Menu>
       )}
+
     </>
   );
 }
