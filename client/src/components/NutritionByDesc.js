@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
 
 axios.defaults.withCredentials = true;
 
@@ -58,20 +58,22 @@ function NutritionByDesc() {
           <CardActionArea>
             <CardMedia
               component="img"
-              height={200} // Adjust the height value as needed
+              height={200}
               image={image}
               alt={description}
               sx={{ objectFit: 'contain' }}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {description}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="div">
-                {Object.entries(nutritionEstimate).map(([key, value]) => (
-                  <div key={key}>{`${key}: ${value}`}</div>
-                ))}
-              </Typography>
+              <Box textAlign="center">
+                <Typography gutterBottom variant="h5" component="div">
+                  {description}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="div">
+                  {Object.entries(nutritionEstimate).map(([key, value]) => (
+                    <div key={key}>{`${key}: ${value}`}</div>
+                  ))}
+                </Typography>
+              </Box>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -88,6 +90,7 @@ function NutritionByDesc() {
 }
 
 export default NutritionByDesc;
+
 
 
 
