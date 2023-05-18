@@ -16,7 +16,7 @@ const StartWorkout = () => {
     
     useEffect(() => {
         axios.get('/api/fitness/start-workout').then(response => {
-            const workoutsArray = response.data[0].exercises.filter(item => {
+            const workoutsArray = response.data.exercises.filter(item => {
                 return item.day === daysOfWeek[currentDayIndex];
             });
             const sortedWorkouts = workoutsArray.sort((a, b) => a.order - b.order);

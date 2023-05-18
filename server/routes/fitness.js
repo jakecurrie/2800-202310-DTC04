@@ -19,7 +19,7 @@ router.post('/record-workout', async (req, res) => {
       const user = await userModel.findOneAndUpdate(
         {
             _id: req.session.USER_ID,
-            "fitnessPlan.0.exercises": {
+            "fitnessPlan.exercises": {
               $elemMatch: {
                 day: daysOfWeek[currentDay],
                 exerciseName: exerciseName
@@ -28,8 +28,8 @@ router.post('/record-workout', async (req, res) => {
           },
         {
           $set: {
-            "fitnessPlan.0.exercises.$[exercise].personalBest": personalBest,
-            "fitnessPlan.0.exercises.$[exercise].weeksCompleted.$[week].setsRemaining": setsRemaining
+            "fitnessPlan.exercises.$[exercise].personalBest": personalBest,
+            "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].setsRemaining": setsRemaining
           }
         },
         {
