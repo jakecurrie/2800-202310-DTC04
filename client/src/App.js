@@ -52,8 +52,8 @@ function App() {
         <Route path="/viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login'/>} />
         <Route path="/dietplangenerator" element={isLoggedIn ? <DietForm /> : <Navigate to='/login'/>} />
         <Route path="/dietplan" element={isLoggedIn ? <DietPlan /> : <Navigate to='/login'/>} />
-        <Route path="/viewdietplan" element={isLoggedIn ? <ViewDietPlan /> : <LoginOrRegister/>} />
-        <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <LoginOrRegister/>} />
+        <Route path="/viewdietplan" element={isLoggedIn ? <ViewDietPlan /> : <Navigate to='/login'/>} />
+        <Route path="/mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login'/>} />
 
         {/* 404 not found */}
         <Route path="*" element={<NotFound />} />
