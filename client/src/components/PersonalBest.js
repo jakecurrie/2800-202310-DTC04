@@ -47,34 +47,29 @@ const PersonalBestChart = () => {
   };
 
   return (
-    <>
+    <div className="chart-container">
       <h2>{selectedExercise} Personal Best vs Current Weight</h2>
-      <select value={selectedExercise} onChange={handleExerciseChange}>
-        {Object.keys(data).map(exercise => (
-          <option key={exercise} value={exercise}>
-            {exercise}
-          </option>
-        ))}
-      </select>
-
-      <LineChart
-        width={500}
-        height={300}
-        data={data[selectedExercise]}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" scale="time" type="number" domain={['auto', 'auto']} tickFormatter={(unixTime) => new Date(unixTime).toLocaleDateString()} />
-        <YAxis />
-        <Tooltip labelFormatter={(unixTime) => new Date(unixTime).toLocaleDateString()} />
-        <Legend />
-        <Line type="monotone" dataKey="personalBest" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="currentWeight" stroke="#82ca9d" />
-      </LineChart>
-    </>
+      <div className="chart-wrapper">
+        <LineChart
+          width={500}
+          height={300}
+          data={data[selectedExercise]}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" scale="time" type="number" domain={['auto', 'auto']} tickFormatter={(unixTime) => new Date(unixTime).toLocaleDateString()} />
+          <YAxis />
+          <Tooltip labelFormatter={(unixTime) => new Date(unixTime).toLocaleDateString()} />
+          <Legend />
+          <Line type="monotone" dataKey="personalBest" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="currentWeight" stroke="#82ca9d" />
+        </LineChart>
+      </div>
+    </div>
   );
 };
 
 export default PersonalBestChart;
+
 
 
