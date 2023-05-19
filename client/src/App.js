@@ -19,6 +19,7 @@ import StartWorkout from './components/StartWorkout';
 import NutritionTimeSeries from './components/NutritionalIntakeTS';
 import MacronutrientBreakdown from './components/MacronutrientBreakdown';
 import PersonalBestChart from './components/PersonalBest';
+import HomePage from './components/Home';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -53,6 +54,7 @@ function App() {
         <Route path="/timeseries" element={isLoggedIn ? <NutritionTimeSeries /> : <Navigate to='/login'/>} />
         <Route path="/macronutrients" element={isLoggedIn ? <MacronutrientBreakdown /> : <Navigate to='/login'/>} />
         <Route path="/personalbest" element={isLoggedIn ? <PersonalBestChart /> : <Navigate to='/login'/>} />
+        <Route path="/home" element={isLoggedIn ? <HomePage /> : <Navigate to='/login'/>} />
 
 
 
