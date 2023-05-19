@@ -12,8 +12,10 @@ import {
   Button,
 } from 'reactstrap';
 import AvatarEditor from 'react-avatar-editor';
+import '../style/Profile.css';
 
-const defaultImageUrl = 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
+const defaultImageUrl =
+  'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -43,7 +45,6 @@ const Profile = () => {
     fetchData();
   }, []);
 
-
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -60,32 +61,31 @@ const Profile = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const profilePicDataUrl = canvas.toDataURL();
-  
+
       // Convert the Data URL to a Blob
       const response = await fetch(profilePicDataUrl);
       const blob = await response.blob();
-  
+
       // Create a form and append the file
       const formData = new FormData();
       formData.append('profilePicture', blob);
-  
+
       // Post the image to your endpoint
       fetch(`${process.env.REACT_APP_API_BASE_URL}/api/uploadProfilePicture`, {
         method: 'POST',
         credentials: 'include',
-        body: formData
+        body: formData,
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           console.log(data.message);
           setProfilePic(profilePicDataUrl);
         })
         .catch(console.error);
-  
+
       setShowUploadOption(false);
     }
   };
-  
 
   const handleCancelUpload = () => {
     setShowUploadOption(false);
@@ -110,7 +110,12 @@ const Profile = () => {
               />
             ) : (
               <div className="default-profile-picture">
-                <img src={profilePic} alt="Profile" className="resized-profile-picture" style={{ width: `${editorSize}px`, height: `${editorSize}px` }} />
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  className="resized-profile-picture"
+                  style={{ width: `${editorSize}px`, height: `${editorSize}px` }}
+                />
               </div>
             )}
             <FormGroup className="mt-2">
@@ -165,6 +170,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
 
 
 
