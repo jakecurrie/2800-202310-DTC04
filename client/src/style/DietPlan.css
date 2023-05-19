@@ -1,4 +1,4 @@
-#viewFit-body-container {
+#dietPlan-body-container {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -10,8 +10,8 @@
     background-color: #181818;
 }
 
-#viewFit-title-container {
-    margin-bottom: 20px;
+#dietPlan-title-container {
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     width: 80vw;
@@ -20,20 +20,20 @@
     border-bottom: 3px solid #f0eae3;
 }
 
-#viewFit-title-title {
+#dietPlan-title-title {
     font-family: 'Playfair Display', serif;
     font-size: 70pt;
     font-weight: 700;
     color: #f0eae3;
 }
 
-#viewFit-title-change-days-container {
+#dietPlan-title-change-days-container {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#viewFit-title-day {
+#dietPlan-title-day {
     text-align: center;
     margin: 0;
     padding: 0 20px 0 20px;
@@ -43,8 +43,8 @@
     color: #f0eae3;
 }
 
-#viewFit-title-change-prev,
-#viewFit-title-change-next {
+#dietPlan-title-change-prev,
+#dietPlan-title-change-next {
     cursor: pointer;
     margin: 0;
     padding: 0;
@@ -56,16 +56,15 @@
     color: #f0eae3;
 }
 
-#viewFit-card-container {
+#dietPlan-card-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
     max-width: 100%;
-    margin-bottom: 50px;
 }
 
-.viewFit-cards {
+.dietPlan-cards {
     bottom: 0;
     position: relative;
     display: flex;
@@ -79,7 +78,7 @@
     border-radius: 25px;
 }
 
-.viewFit-card-h2 {
+.dietPlan-card-h2 {
     margin: 0;
     font-family: 'Playfair Display', serif;
     font-size: 35pt;
@@ -88,8 +87,8 @@
 }
 
 
-.viewFit-card-sets,
-.viewFit-card-reps {
+.dietPlan-card-sets,
+.dietPlan-card-reps {
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
@@ -98,7 +97,7 @@
     color: #181818;
 }
 
-.viewFit-card-play {
+.dietPlan-card-play {
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -108,108 +107,131 @@
     font-size: 25pt;
 }
 
-#viewFit-restday {
+#dietPlan-restday {
     font-family: 'Playfair Display', serif;
     color: #f0eae3;
     font-size: 70pt;
 }
 
+#dietPlan-accept-reject-container {
+    margin-bottom: 50px;
+}
+
+#dietPlan-accept-button,
+#dietPlan-reject-button {
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0eae3;
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12pt;
+    font-weight: 500;
+    color: #181818;
+}
+
 @media screen and (max-width: 750px) {
-    #viewFit-title-title {
+    #dietPlan-title-title {
         font-size: 60pt;
     }
 
-    .viewFit-cards {
+    .dietPlan-cards {
         width: 72vw;
     }
 
-    .viewFit-card-h2 {
+    .dietPlan-card-h2 {
         font-size: 25pt;
         font-weight: 500;
     }
 
 
-    .viewFit-card-sets,
-    .viewFit-card-reps {
+    .dietPlan-card-sets,
+    .dietPlan-card-reps {
         font-size: 10pt;
         font-weight: 400;
     }
 
-    .viewFit-card-play {
-        font-size: 25pt;
+    .dietPlan-card-play {
+        font-size: 40pt;
     }
 }
 
 @media screen and (max-width: 550px) {
-    #viewFit-title-title {
+    #dietPlan-title-title {
         font-size: 50pt;
     }
 
 
-    #viewFit-title-day {
+    #dietPlan-title-day {
         font-size: 30pt;
     }
 
-    #viewFit-title-change-prev,
-    #viewFit-title-change-next {
+    #dietPlan-title-change-prev,
+    #dietPlan-title-change-next {
         font-size: 25pt;
-    } 
+    }
 
-    .viewFit-cards {
+    .dietPlan-cards {
         width: 68vw;
     }
 
-    .viewFit-card-h2 {
+    .dietPlan-card-h2 {
         font-size: 20pt;
         font-weight: 500;
     }
 
 
-    .viewFit-card-sets,
-    .viewFit-card-reps {
+    .dietPlan-card-sets,
+    .dietPlan-card-reps {
         font-size: 9pt;
         font-weight: 400;
     }
 
-    .viewFit-card-play {
+    .dietPlan-card-play {
         right: 25px;
-        font-size: 18pt;
+        font-size: 25pt;
     }
 
-    #viewFit-restday {
+    #dietPlan-restday {
         font-family: 'Playfair Display', serif;
         color: #f0eae3;
         font-size: 60pt;
     }
+
+    #dietPlan-accept-button,
+    #dietPlan-reject-button {
+        margin: 0px 5px 0px 5px;
+        font-size: 10pt;
+    }
 }
 
 @media screen and (max-width: 450px) {
-    #viewFit-title-title {
+    #dietPlan-title-title {
         font-size: 50pt;
     }
 
-    #viewFit-title-day {
+    #dietPlan-title-day {
         font-size: 30pt;
     }
 
-    .viewFit-card-h2 {
+    .dietPlan-card-h2 {
         font-size: 18pt;
         font-weight: 500;
     }
 
 
-    .viewFit-card-sets,
-    .viewFit-card-reps {
+    .dietPlan-card-sets,
+    .dietPlan-card-reps {
         font-size: 9pt;
         font-weight: 400;
     }
 
-    .viewFit-card-play {
-        right: 10px;
-        font-size: 16pt;
+    .dietPlan-card-play {
+        right: 20px;
+        font-size: 25pt;
     }
 
-    #viewFit-restday {
+    #dietPlan-restday {
         font-family: 'Playfair Display', serif;
         color: #f0eae3;
         font-size: 55pt;
@@ -217,26 +239,31 @@
 }
 
 @media screen and (max-width: 390px) {
-    #viewFit-title-title {
+    #dietPlan-title-title {
         font-size: 50pt;
     }
 
-    #viewFit-title-day {
+    #dietPlan-title-day {
         font-size: 25pt;
     }
 
-    #viewFit-title-change-prev,
-    #viewFit-title-change-next {
+    #dietPlan-title-change-prev,
+    #dietPlan-title-change-next {
         font-size: 20pt;
-    } 
+    }
 
-    .viewFit-card-h2 {
+    .dietPlan-card-h2 {
         font-size: 16pt;
     }
 
-    #viewFit-restday {
+    #dietPlan-restday {
         font-family: 'Playfair Display', serif;
         color: #f0eae3;
         font-size: 50pt;
+    }
+    
+    #dietPlan-accept-button,
+    #dietPlan-reject-button {
+        padding: 8px;
     }
 }

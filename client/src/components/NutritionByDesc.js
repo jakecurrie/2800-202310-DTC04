@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
+import '../style/NutritionByDesc.css'
 
 axios.defaults.withCredentials = true;
 
@@ -42,21 +43,27 @@ function NutritionByDesc() {
   };
 
   return (
-    <div>
-      <h1>Nutrition Estimator</h1>
+    <div id="descEst-body-container">
+      <div id="descEst-title-container">
+        <h1 id="descEst-title-title">Nutrition</h1>
+        <p id="descEst-title-subtext">Estimate Calories</p>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Enter meal description:
-          <input type="text" value={description} onChange={handleInputChange} />
-        </label>
-        <button type="submit">Get Nutrition Estimate</button>
-      </form>
+      <div id="descEst-desc-input-container">
+        <form id="descEst-desc-form" onSubmit={handleSubmit}>
+          <label id='descEst-desc-label'>
+            <h1 id="descEst-desc-h1">Enter meal description</h1>
+            <textarea id="descEst-desc-input" type="text" value={description} onChange={handleInputChange} />
+          </label>
+          <button id="descEst-desc-submit" type="submit">Get Nutrition Estimate</button>
+        </form>
+      </div>
 
       {nutritionEstimate && image && (
-        <Card>
+        <Card className='descEst-card-container'>
           <CardActionArea>
             <CardMedia
+              className='descEst-card-image'
               component="img"
               height={200}
               image={image}
@@ -65,10 +72,10 @@ function NutritionByDesc() {
             />
             <CardContent>
               <Box textAlign="center">
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography className='descEst-card-title' gutterBottom variant="h5" component="div">
                   {description}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="div">
+                <Typography className='descEst-card-info' variant="body2" color="textSecondary" component="div">
                   {Object.entries(nutritionEstimate).map(([key, value]) => (
                     <div key={key}>{`${key}: ${value}`}</div>
                   ))}
