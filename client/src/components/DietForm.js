@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../style/DietForm.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -33,7 +34,7 @@ function DietForm() {
   const handleFatGoalsChange = (e) => {
     setFatGoals(e.target.value);
   };
-  
+
 
   const handleCalorieGoalsChange = (e) => {
     setCalorieGoals(e.target.value);
@@ -75,7 +76,7 @@ function DietForm() {
       const response = await axios.post('/api/nutrition/generate-plan', formData);
       console.log('Response from API:', response.data.dietPlan);
       // Handle the response as needed
-      navigate('/app/dietPlan', { state: { completionResult: response.data.dietPlan } } );
+      navigate('/app/dietPlan', { state: { completionResult: response.data.dietPlan } });
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed
@@ -86,47 +87,63 @@ function DietForm() {
   };
 
   return (
-    <div>
-      <h1>Diet Questionaire</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          What is your daily calorie goal?
+    <div id="dietForm-body-container">
+      <div id="dietForm-title-container">
+        <h1 id="dietForm-title-title">Diet</h1>
+        <p id="dietForm-title-subtext">Generate Diet Plan</p>
+      </div>
+      <form id="dietForm-form" onSubmit={handleSubmit}>
+        <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily calorie goal?</h1>
+            <input className='dietForm-input-textbox' type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} /> g
 
-          <input type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} />
-        
-          {/* <select value={calorieGoals} onChange={handleCalorieGoalsChange}>
+            {/* <select value={calorieGoals} onChange={handleCalorieGoalsChange}>
             <option value="">Select a diet goal</option>
             <option value="weight-loss">Weight Loss</option>
             <option value="muscle-building">Muscle Building</option>
             <option value="strength-gain">Strength Gain</option>
             <option value="general-health">General Health</option>
           </select> */}
-        </label>
-        <label>
-          What is your daily protein requirement?
-          <input type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} />
-        </label>
-        <label>
-          What is your daily carb requirement?
-          <input type="text" name="carbGoals" value={carbGoals} onChange={handleCarbGoalsChange} />
-        </label>
-        <label>
-          What is your daily fat requirement?
-          <input type="text" name="fatGoals" value={fatGoals} onChange={handleFatGoalsChange} />
-        </label>
-        <label>
-          How many meals would you like to eat per day?
-          <select value={mealsPerDay} onChange={handleMealsPerDayChange}>
-            <option value="">Select a diet goal</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-        </label>
+          </label>
+        </div>
+
+        <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily protein requirement?</h1>
+            <input className='dietForm-input-textbox' type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} /> g
+          </label>
+        </div>
+
+        <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily carb requirement?</h1>
+            <input className='dietForm-input-textbox' type="text" name="carbGoals" value={carbGoals} onChange={handleCarbGoalsChange} /> g
+          </label>
+        </div>
+
+        <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily fat requirement?</h1>
+            <input className='dietForm-input-textbox' type="text" name="fatGoals" value={fatGoals} onChange={handleFatGoalsChange} /> g
+          </label>
+        </div>
+
+        <div className='dietForm-dropdown-form'>
+          <label>
+            <h1 className='dietForm-form-title'>How many meals would you like to eat per day?</h1>
+            <select className='dietForm-drop-down-select' value={mealsPerDay} onChange={handleMealsPerDayChange}>
+              <option className='dietForm-drop-down-options' value="">Select a diet goal</option>
+              <option className='dietForm-drop-down-options' value="1">1</option>
+              <option className='dietForm-drop-down-options' value="2">2</option>
+              <option className='dietForm-drop-down-options' value="3">3</option>
+              <option className='dietForm-drop-down-options' value="4">4</option>
+              <option className='dietForm-drop-down-options' value="5">5</option>
+              <option className='dietForm-drop-down-options' value="6">6</option>
+              <option className='dietForm-drop-down-options' value="7">7</option>
+            </select>
+          </label>
+        </div>
 
         {/* <label>
           Do you have any food allergies or sensitivities?
@@ -189,7 +206,7 @@ function DietForm() {
 
         {/* Add more form fields for the remaining questions */}
         {/* ... */}
-        <button type="submit">Submit</button>
+        <button id='dietForm-button-submit' type="submit">Submit</button>
       </form>
     </div>
   );

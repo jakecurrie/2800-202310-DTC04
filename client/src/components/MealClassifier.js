@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../style/MealClassifier.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -31,19 +32,19 @@ function MealClassifier() {
         'Content-Type': 'multipart/form-data'
       },
       withCredentials: true
-  })
-  
-    .then(response => {
+    })
+
+      .then(response => {
         console.log(response.data);
         if (Array.isArray(response.data)) {
           setMealOptions(response.data);
         } else {
           console.error('Response data is not an array');
         }
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error during API call', error);
-    });
+      });
   }
 
   const fetchNutritionInfo = () => {
@@ -53,30 +54,38 @@ function MealClassifier() {
     }
 
     axios.post('/fetchNutrition', { meal: selectedMeal })
-    .then(response => {
+      .then(response => {
         console.log(response.data);
         setNutritionInfo(response.data);
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error during API call', error);
-    });
+      });
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} />
-        <button type="submit">Submit</button>
-      </form>
+    <div id='imgEst-body-container'>
+      <div id="imgEst-title-container">
+        <h1 id="imgEst-title-title">Nutrition</h1>
+        <p id="imgEst-title-subtext">Estimate Calories</p>
+      </div>
 
-      <select value={selectedMeal} onChange={handleMealChange}>
-        <option value="">--Please choose a meal--</option>
-        {mealOptions.map((meal, index) => 
-          <option key={index} value={meal}>{meal}</option>
-        )}
-      </select>
+      <div id='imgEst-file-container'>
+        <form id='imgEst-file-form' onSubmit={handleSubmit}>
+          <input id='imgEst-file-input' type="file" onChange={handleFileChange} />
+        </form>
+          <button id='imgEst-file-submit' type="submit">Submit</button>
+      </div>
 
-      <button onClick={fetchNutritionInfo}>Fetch Nutrition Info</button>
+      <div id='imgEst-choose-meal-container'>
+        <select id='imgEst-choose-meal-select' value={selectedMeal} onChange={handleMealChange}>
+          <option id='imgEst-choose-meal-option' value="">--Please choose a meal--</option>
+          {mealOptions.map((meal, index) =>
+            <option id='imgEst-choose-meal-option' key={index} value={meal}>{meal}</option>
+          )}
+        </select>
+        <button id='imgEst-choose-meal-submit' onClick={fetchNutritionInfo}>Fetch Nutrition Info</button>
+      </div>
 
       {nutritionInfo && (
         <div>

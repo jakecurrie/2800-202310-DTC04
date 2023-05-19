@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import '../style/DietPlan.css'
 
 axios.defaults.withCredentials = true;
 const DietPlan = () => {
@@ -45,30 +46,35 @@ const DietPlan = () => {
         }
     }
     return (
-        <div id="meal-plan-container">
-            <div id="meal-plan-header">
-                <h1>Meal Plan</h1>
-                <h2>{daysOfWeek[currentDayIndex]}</h2>
+        <div id="dietPlan-body-container">
+            <div id="dietPlan-title-container">
+                <h1 id="dietPlan-title-title">Diet Plan</h1>
+                <div id="dietPlan-title-change-days-container">
+                    <h2 id="dietPlan-title-change-prev" onClick={() => setCurrentDayIndex((currentDayIndex - 1 + 7) % 7)}>&#60;</h2>
+                    <h2 id="dietPlan-title-day" >{daysOfWeek[currentDayIndex]}</h2>
+                    <h2 id="dietPlan-title-change-next" onClick={() => setCurrentDayIndex((currentDayIndex + 1) % 7)}>&#62;</h2>
+                </div>
             </div>
             {mealsForCurrentDay.length > 0 ? (
-                mealsForCurrentDay.map((meal, index) => (
-                    <div key={index}>
-                        <h6>{meal.description}</h6>
-                        <p>calories: {meal.calories}</p>
-                        <p>protein: {meal.protein}</p>
-                        <p>carbs: {meal.carbs}</p>
+                <div className='dietPlan-card-container'>
+                {mealsForCurrentDay.map((meal, index) => (
+                    <div className='dietPlan-cards' key={index}>
+                        <h2 className='dietPlan-card-h2'>{meal.description}</h2>
+                        <p className='dietPlan-card-calories'>Calories: {meal.calories}</p>
+                        <p className='dietPlan-card-protein'>Protein: {meal.protein}</p>
+                        <p className='dietPlan-card-carbs'>Carbs: {meal.carbs}</p>
                     </div>
-                ))
+                ))}
+                </div>
             ) : (
-                <p>REST</p>
+                <div id="dietPlan-card-restday">
+                    <p id="dietPlan-restday">Rest Day</p>
+                </div>
             )}
-            <div>
-            <button onClick={() => setCurrentDayIndex((currentDayIndex - 1 + 7) % 7)}>Previous</button>
-                <button onClick={() => setCurrentDayIndex((currentDayIndex + 1) % 7)}>Next</button>
-            </div>
-            <div>
-                <button onClick={() => acceptPlan(dataTwo)}>Accept</button>
-                <button onClick={regeneratePlan}>Regenerate Plan</button>
+            <div id="dietPlan-accept-reject-container">
+                <button id="dietPlan-accept-button" onClick={() => {acceptPlan(dataTwo) 
+                    navigate('/app/nutrition')}}>Accept</button>
+                <button id="dietPlan-reject-button" onClick={regeneratePlan}>Regenerate Plan</button>
             </div>
         </div>
     );

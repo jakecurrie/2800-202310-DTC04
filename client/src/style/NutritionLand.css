@@ -1,0 +1,174 @@
+#nutrition-body-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    height: 100%;
+    width: 100vw;
+    max-width: 100%;
+    background-color: #f0eae3;
+}
+
+#nutrition-title-container {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    max-width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #181818;
+}
+
+#nutrition-title-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 70pt;
+    font-weight: 700;
+    color: #181818;
+}
+
+#nutrition-title-subtext {
+    font-family: 'Inter', sans-serif;
+    font-size: 17pt;
+    font-weight: 300;
+    color: #181818;
+}
+
+#nutrition-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.nutrition-cards {
+    bottom: 0;
+    position: relative;
+    display: flex;
+    padding: 20px 50px 20px 50px;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    width: 70vw;
+    margin-bottom: 40px;
+    background-color: #181818;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+
+.nutrition-cards:hover {
+    bottom: 5px;
+}
+
+.nutrition-card-h2 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 35pt;
+    font-weight: 500;
+    color: #f0eae3;
+}
+
+
+.nutrition-card-p {
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 11pt;
+    font-weight: 400;
+    color: #f0eae3;
+}
+
+.nutrition-card-arrow {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 30pt;
+    color: #f0eae3
+}
+
+@media screen and (max-width: 750px) {
+    .nutrition-cards {
+        width: 72vw;
+    }
+
+    .nutrition-card-h2 {
+        font-size: 25pt;
+        font-weight: 500;
+    }
+    
+    
+    .nutrition-card-p {
+        font-size: 10pt;
+        font-weight: 400;
+    }
+    
+    .nutrition-card-arrow {
+        font-size: 40pt;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #nutrition-title-title {
+        font-size: 60pt;
+    }
+
+    .nutrition-cards {
+        width: 68vw;
+        padding: 20px 35px 20px 35px;
+    }
+
+    .nutrition-card-h2 {
+        font-size: 20pt;
+        font-weight: 500;
+    }
+    
+    
+    .nutrition-card-p {
+        font-size: 9pt;
+        font-weight: 400;
+    }
+    
+    .nutrition-card-arrow {
+        right: 25px;
+        font-size: 25pt;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #nutrition-title-title {
+        font-size: 55pt;
+    }
+
+    #nutrition-title-welcome {
+        font-size: 13pt;
+    }
+
+    .nutrition-card-h2 {
+        font-size: 18pt;
+        font-weight: 500;
+    }
+    
+    
+    .nutrition-card-p {
+        font-size: 9pt;
+        font-weight: 400;
+    }
+    
+    .nutrition-card-arrow {
+        right: 10px;
+        font-size: 25pt;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    #nutrition-title-title {
+        font-size: 42pt;
+    }
+
+    .nutrition-card-h2 {
+        font-size: 16pt;
+    }
+}

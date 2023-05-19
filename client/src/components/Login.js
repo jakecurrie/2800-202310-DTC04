@@ -68,11 +68,11 @@ const Login = ({ setIsLoggedIn }) => {
                             <Link id="login-forgot-link" to="/request-reset" >Forgot Password?</Link>
                         </div>
                     </div>
-                    <div id="login-loginError-container" style={loginErrorStyle}>
-                        <p id="login-loginError" style={loginErrorStyle}>{loginError}</p>
-                    </div>
                     <div id="login-submit-container" onClick={submitUserCreation}>
                         <input id="login-submit-button" type="button" name="submit" value="Sign In" />
+                    </div>
+                    <div id="login-loginError-container" style={loginErrorStyle}>
+                        <p id="login-loginError" style={loginErrorStyle}>{loginError}</p>
                     </div>
                     <div id="login-register-container">
                         <Link id="login-register-link" to="/register" >Don't have an account? <span id="login-signup">Sign up</span></Link>

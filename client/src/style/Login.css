@@ -234,6 +234,11 @@
     #login-submit-button {
         width: 275px;
     }
+
+    #login-register-link {
+        width: 181px;
+        font-size: 9pt;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -268,10 +273,5 @@
     #login-submit-button {
         font-size: 11pt;
         width: 200px;
-    }
-
-    #login-register-link {
-        width: 181px;
-        font-size: 9pt;
     }
 }
