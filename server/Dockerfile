@@ -2,14 +2,11 @@
 FROM python:3.9 AS scripts-env
 WORKDIR /scripts
 COPY ./scripts/requirements.txt ./
-# Install numpy first
-RUN pip install numpy>=1.21.2
-# Then install the rest of the dependencies
-RUN sed '/numpy/d' requirements.txt | pip install --no-cache-dir -r /dev/stdin
+RUN pip install --no-cache-dir -r requirements.txt
 COPY ./scripts/ ./ 
 
 # Stage 2: Node environment for server
-FROM node:14
+FROM node:18
 WORKDIR /app
 
 # Prepare server
@@ -23,10 +20,7 @@ COPY . ./
 COPY --from=scripts-env /scripts ./scripts
 
 # Expose port for server
-EXPOSE 8080
+EXPOSE 3001
 
 # Start server
 CMD ["node", "app.js"]
-
-
-
