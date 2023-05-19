@@ -17,11 +17,11 @@ const HomePage = () => {
         <p id="fitness-title-welcome">Track your nutrition and workout progress</p>
       </div>
       <div id="fitness-card-container">
-        <Link to="/fitness" className="fitness-cards">
+        <Link to="/app/fitness" className="fitness-cards">
           <h2 className="fitness-card-h2">Fitness</h2>
           <span className="fitness-card-arrow">→</span>
         </Link>
-        <Link to="/diet" className="fitness-cards">
+        <Link to="/app/nutrition" className="fitness-cards">
           <h2 className="fitness-card-h2">Diet</h2>
           <span className="fitness-card-arrow">→</span>
         </Link>

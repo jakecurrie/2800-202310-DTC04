@@ -43,6 +43,7 @@
   }
   
   .fitness-cards {
+    text-decoration: none;
     bottom: 0;
     position: relative;
     display: flex;

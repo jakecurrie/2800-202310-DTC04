@@ -38,10 +38,10 @@ function App() {
         {/* no need for auth */}
         <Route path="/" >
           <Route index element={<Landing />} />
-          <Route path="login" element={isLoggedIn ? <Navigate to='/app/profile' /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="login" element={isLoggedIn ? <Navigate to='/app/home' /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="register" element={isLoggedIn ? <Navigate to='/app/profile' />  : <Register />} />
-          <Route path="request-reset" element={isLoggedIn ? <Navigate to='/app/profile' />  : <ResetPasswordRequest />} />
+          <Route path="register" element={isLoggedIn ? <Navigate to='/app/home' />  : <Register />} />
+          <Route path="request-reset" element={isLoggedIn ? <Navigate to='/app/home' />  : <ResetPasswordRequest />} />
           <Route path="reset-password/:userID/:token" element={<ResetPassword />} />
         </Route>
 
