@@ -9,6 +9,7 @@ axios.defaults.withCredentials = true;
 function FitnessForm() {
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [completionResult, setCompletionResult] = useState('');
   const [fitnessGoals, setFitnessGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
@@ -56,7 +57,6 @@ function FitnessForm() {
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     const formData = {
       fitnessGoals,
@@ -68,6 +68,7 @@ function FitnessForm() {
       // Other form fields...
     };
     // You can perform any further processing or data handling here
+    setIsLoading(true);
     try {
       const response = await axios.post('/api/fitness/generate-plan', formData);
       console.log('Response from API:', response.data.workoutPlan);
@@ -76,6 +77,8 @@ function FitnessForm() {
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed
+    } finally {
+      setIsLoading(false);
     }
     console.log(fitnessGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
