@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const PersonalBestChart = () => {
-  const [selectedExercise, setSelectedExercise] = useState("Bench Press");
-  // Hardcoded dummy data
+  const exercises = ["Bench Press", "Squat", "Deadlift", "Overhead Press", "Barbell Row"];
+  const [selectedExercise, setSelectedExercise] = useState(exercises[0]);
+
   const data = {
     "Bench Press": [
       { date: new Date("2023-04-19").getTime(), personalBest: 100, currentWeight: 100 },
@@ -49,6 +50,15 @@ const PersonalBestChart = () => {
   return (
     <div className="chart-container">
       <h2>{selectedExercise} Personal Best vs Current Weight</h2>
+
+      <select value={selectedExercise} onChange={handleExerciseChange}>
+        {exercises.map(exercise => (
+          <option key={exercise} value={exercise}>
+            {exercise}
+          </option>
+        ))}
+      </select>
+
       <div className="chart-wrapper">
         <LineChart
           width={500}
@@ -70,6 +80,7 @@ const PersonalBestChart = () => {
 };
 
 export default PersonalBestChart;
+
 
 
 

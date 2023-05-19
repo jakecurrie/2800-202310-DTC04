@@ -13,6 +13,7 @@ import {
 } from 'reactstrap';
 import AvatarEditor from 'react-avatar-editor';
 import '../style/Profile.css';
+import '../style/FitnessLand.css';
 
 const defaultImageUrl =
   'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
@@ -93,10 +94,10 @@ const Profile = () => {
   };
 
   return (
-    <Container>
+    <Container id="profile-body-container">
       <Row className="mt-4">
-        <Col className="text-center">
-          <div className="profile-picture-container">
+        <Col className="text-center" id="profile-picture-container">
+          <div className="profile-picture">
             {showUploadOption && uploadedImage ? (
               <AvatarEditor
                 ref={editorRef}
@@ -118,47 +119,47 @@ const Profile = () => {
                 />
               </div>
             )}
-            <FormGroup className="mt-2">
-              <Input
-                type="file"
-                id="profilePicture"
-                accept=".jpg,.png,.jpeg"
-                onChange={handleImageUpload}
-                style={{ display: 'none' }}
-              />
-              {showUploadOption ? (
-                <>
-                  <Button color="primary" onClick={handleSaveImage} className="mr-2">
-                    Save
-                  </Button>
-                  <Button color="secondary" onClick={handleCancelUpload}>
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <label htmlFor="profilePicture" className="upload-button">
-                  Upload Photo
-                </label>
-              )}
-            </FormGroup>
           </div>
+          <FormGroup className="mt-2">
+            <Input
+              type="file"
+              id="profilePicture"
+              accept=".jpg,.png,.jpeg"
+              onChange={handleImageUpload}
+              style={{ display: 'none' }}
+            />
+            {showUploadOption ? (
+              <>
+                <Button onClick={handleSaveImage} color="primary">
+                  Save
+                </Button>
+                <Button onClick={handleCancelUpload} color="secondary">
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <label htmlFor="profilePicture" className="upload-button">
+                Upload Photo
+              </label>
+            )}
+          </FormGroup>
         </Col>
       </Row>
-      <Row className="mt-4">
+      <Row className="mt-4" id="profile-title-container">
         <Col>
-          <Card className="card-profile">
+          <Card className="card-profile fitness-cards">
             <CardBody>
-              <CardTitle tag="h4">Profile Information</CardTitle>
-              <CardText>
+              <CardTitle tag="h4" id="profile-title-h4">Profile Information</CardTitle>
+              <CardText className="profile-info-text">
                 <strong>Name:</strong> {user && user.name}
               </CardText>
-              <CardText>
+              <CardText className="profile-info-text">
                 <strong>Email:</strong> {user && user.email}
               </CardText>
-              <CardText>
+              <CardText className="profile-info-text">
                 <strong>Created At:</strong> {user && new Date(user.created_at).toLocaleString()}
               </CardText>
-              <CardText>
+              <CardText className="profile-info-text">
                 <strong>Updated At:</strong> {user && new Date(user.updated_at).toLocaleString()}
               </CardText>
             </CardBody>
@@ -170,13 +171,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-
-
-
-
-
-
-
-
