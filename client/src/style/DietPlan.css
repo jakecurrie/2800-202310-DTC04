@@ -7,7 +7,7 @@
     height: 100%;
     width: 100vw;
     max-width: 100%;
-    background-color: #181818;
+    background-color: #f0eae3;
 }
 
 #dietPlan-title-container {
@@ -17,14 +17,14 @@
     width: 80vw;
     max-width: 100%;
     padding-bottom: 15px;
-    border-bottom: 3px solid #f0eae3;
+    border-bottom: 3px solid #181818;
 }
 
 #dietPlan-title-title {
     font-family: 'Playfair Display', serif;
     font-size: 70pt;
     font-weight: 700;
-    color: #f0eae3;
+    color: #181818;
 }
 
 #dietPlan-title-change-days-container {
@@ -40,7 +40,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 45pt;
     font-weight: 100;
-    color: #f0eae3;
+    color: #181818;
 }
 
 #dietPlan-title-change-prev,
@@ -53,7 +53,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 35pt;
     font-weight: 200;
-    color: #f0eae3;
+    color: #181818;
 }
 
 #dietPlan-card-container {
@@ -74,7 +74,7 @@
     position: relative;
     width: 78vw;
     margin-bottom: 40px;
-    background-color: #f0eae3;
+    background-color: #181818;
     border-radius: 25px;
 }
 
@@ -83,18 +83,19 @@
     font-family: 'Playfair Display', serif;
     font-size: 35pt;
     font-weight: 500;
-    color: #181818;
+    color: #f0eae3;
 }
 
 
-.dietPlan-card-sets,
-.dietPlan-card-reps {
+.dietPlan-card-calories,
+.dietPlan-card-protein,
+.dietPlan-card-carbs {
     padding: 0;
-    margin: 0;
+    margin-top: 1px;
     font-family: 'Inter', sans-serif;
-    font-size: 15pt;
-    font-weight: 400;
-    color: #181818;
+    font-size: 12pt;
+    font-weight: 200;
+    color: #f0eae3;
 }
 
 .dietPlan-card-play {
@@ -103,13 +104,13 @@
     top: 50%;
     transform: translateY(-50%);
     right: 25px;
-    color: #181818;
+    color: #f0eae3;
     font-size: 25pt;
 }
 
 #dietPlan-restday {
     font-family: 'Playfair Display', serif;
-    color: #f0eae3;
+    color: #181818;
     font-size: 70pt;
 }
 
@@ -127,7 +128,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 12pt;
     font-weight: 500;
-    color: #181818;
+    color: #f0eae3;
 }
 
 @media screen and (max-width: 750px) {
