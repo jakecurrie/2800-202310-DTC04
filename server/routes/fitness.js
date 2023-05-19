@@ -71,7 +71,7 @@ router.post('/complete-exercise', async (req, res) => {
             },
             {
               $set: {
-                "fitnessPlan.$[].exercises.$[exercise].weeksCompleted.$[week].isCompleted": true
+                "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].isCompleted": true
               }
             },
             {
