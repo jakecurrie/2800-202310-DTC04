@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
+
 const StartWorkout = () => {
     const [workouts, setWorkouts] = useState([]);
+    const [totalSets, setTotalSets] = useState(0);
     const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
     const date = new Date();
     const currentDayIndex = date.getDay();
@@ -13,8 +15,18 @@ const StartWorkout = () => {
     const [workoutDayComplete, setWorkoutDayComplete] = useState(false);
     const initialRender = useRef(true);
     axios.defaults.withCredentials = true;
-    
+    axios.post('/api/fitness/complete-day', {
+        day: daysOfWeek[currentDayIndex],
+        week: 1,
+    }).then(response => {
+        console.log(response.data);
+        const { workoutDayCompleted } = response.data;
+        setWorkoutDayComplete(workoutDayCompleted);
+    }).catch(error => {
+        console.error('Error during API call', error);
+    });
     useEffect(() => {
+
         axios.get('/api/fitness/start-workout').then(response => {
             const workoutsArray = response.data.exercises.filter(item => {
                 return item.day === daysOfWeek[currentDayIndex];
@@ -43,6 +55,8 @@ const StartWorkout = () => {
                 setPersonalBest(initialPersonalBest);
                 const initialSetsRemaining = activeWorkout.weeksCompleted?.find(week => week.week === 1)?.setsRemaining || 0;
                 setSetsRemaining(initialSetsRemaining);
+                const initialTotalSets = activeWorkout.sets || 0; // Add this line
+                setTotalSets(initialTotalSets);
             }
         }
     }, [workouts, setsRemaining, currentWorkoutIndex]);
@@ -110,6 +124,9 @@ const StartWorkout = () => {
                 // exerciseName: "Leg Press",
                 personalBest: updatedPersonalBest,
                 setsRemaining: newSetsRemaining,
+                setWeight: enteredWeight,
+                totalSets: totalSets,
+              
             })
             .then(response => {
                 console.log(response.data);
@@ -128,6 +145,8 @@ const StartWorkout = () => {
                 const initialSetsRemaining = nextWorkout.weeksCompleted?.find(week => week.week === 1)?.setsRemaining || 0;
                 setPersonalBest(initialPersonalBest);
                 setSetsRemaining(initialSetsRemaining);
+                const initialTotalSets = nextWorkout.totalSets || 0; // Add this line
+                setTotalSets(initialTotalSets)
             } else if (newSetsRemaining === 0 && currentWorkoutIndex === workouts.length - 1) {
                 axios.post('/api/fitness/complete-exercise', {
                     exerciseName: workouts[currentWorkoutIndex].exerciseName,
@@ -166,26 +185,32 @@ const StartWorkout = () => {
     }
 
     const currentWorkout = workouts[currentWorkoutIndex];
-
-    return (
-        <div>
-            {currentWorkout ? (
-                <>
-                    <h2>{currentWorkout.exerciseName}</h2>
-                    <p>Reps: {currentWorkout.reps}</p>
-                    <p>Sets Remaining: {setsRemaining}</p>
-                    <p>Personal Best: {personalBest}</p>
-                    <input type="text" placeholder="Enter Weight" value={weight} onChange={handleWeightChange} />
-                    <button onClick={handleNextSet}>Completed Set</button>
-                </>
-            ) : (
-                <>
-                <p>Loading workout...</p>
-                {/* <button onClick={handleNextSet}>Completed Set</button> */}
-                </>
-            )}
-        </div>
-    );
+    if (workoutDayComplete) {
+        return (
+            <div>
+                <h1>Workout for the day is completed!</h1>
+            </div>
+        );
+    } else
+        return (
+            <div>
+                {currentWorkout ? (
+                    <>
+                        <h2>{currentWorkout.exerciseName}</h2>
+                        <p>Reps: {currentWorkout.reps}</p>
+                        <p>Sets Remaining: {setsRemaining}</p>
+                        <p>Personal Best: {personalBest}</p>
+                        <input type="text" placeholder="Enter Weight" value={weight} onChange={handleWeightChange} />
+                        <button onClick={handleNextSet}>Completed Set</button>
+                    </>
+                ) : (
+                    <>
+                    <p>Loading workout...</p>
+                    {/* <button onClick={handleNextSet}>Completed Set</button> */}
+                    </>
+                )}
+            </div>
+        );
 };
 
 export default StartWorkout;

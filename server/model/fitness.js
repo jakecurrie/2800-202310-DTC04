@@ -13,7 +13,19 @@ const fitnessPlanSchema = new mongoose.Schema({
             type: [{
                 week: Number,
                 setsRemaining: Number,
-                isCompleted: Boolean
+                isCompleted: Boolean,
+                setsData: {
+                    type: [{
+                        setName: String,
+                        weight: Number,
+                    }],
+                    default: function () {
+                        return Array.from({ length: this.parent().sets }, (_, index) => ({
+                            setName: 'Set' + (index + 1),
+                            weight: 0, // Or you could set this to a default weight
+                        }));
+                    }
+                }
             }],
             default: function () {
                 return Array.from({ length: this.parent().duration }, (_, index) => ({

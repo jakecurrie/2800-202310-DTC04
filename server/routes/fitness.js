@@ -12,9 +12,12 @@ router.post('/record-workout', async (req, res) => {
     
     try {
       console.log(req.session.USER_ID);
-      const { exerciseName, personalBest, setsRemaining } = req.body;
+      const { exerciseName, personalBest, setsRemaining, setWeight, totalSets } = req.body;
       console.log(setsRemaining);
       console.log(exerciseName);
+      console.log(totalSets)
+      const setNumber = totalSets - setsRemaining;
+      console.log(setNumber)
   
       const user = await userModel.findOneAndUpdate(
         {
@@ -29,14 +32,17 @@ router.post('/record-workout', async (req, res) => {
         {
           $set: {
             "fitnessPlan.exercises.$[exercise].personalBest": personalBest,
-            "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].setsRemaining": setsRemaining
+            "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].setsRemaining": setsRemaining,
+            "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].setsData.$[set].weight": setWeight,
+            
           }
         },
         {
           new: true,
           arrayFilters: [
             { "exercise.day": daysOfWeek[currentDay], "exercise.exerciseName": exerciseName },
-            { "week.week": 1 } // Provide the condition for filtering the specific week
+            { "week.week": 1 }, // Provide the condition for filtering the specific week
+            { "set.setName": `Set${setNumber}` } 
           ]
         }
       );
@@ -106,7 +112,7 @@ router.post('/complete-day', async (req, res) => {
         return res.status(404).json({ message: "User not found" });
       }
   
-      const fitnessPlan = user.fitnessPlan[0];
+      const fitnessPlan = user.fitnessPlan;
   
       // Fetch the day and week from the request body
       const { day, week } = req.body;
@@ -124,7 +130,7 @@ router.post('/complete-day', async (req, res) => {
       if (completed) {
         console.log("completed")
         // If all workouts are completed, send a success response
-        res.json({ message: "All workouts for the day are completed" });
+        res.json({ workoutDayCompleted: true });
       } else {
         // If any workout is not completed, send a failure response
         console.log("not completed")
