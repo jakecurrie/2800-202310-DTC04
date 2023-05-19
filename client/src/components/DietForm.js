@@ -7,6 +7,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 function DietForm() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState({ display: 'none' });
   const [completionResult, setCompletionResult] = useState('');
   const [calorieGoals, setCalorieGoals] = useState('');
   const [proteinGoals, setProteinGoals] = useState('');
@@ -72,6 +73,7 @@ function DietForm() {
       // Other form fields...
     };
     // You can perform any further processing or data handling here
+    setIsLoading({ display: 'block' });
     try {
       const response = await axios.post('/api/nutrition/generate-plan', formData);
       console.log('Response from API:', response.data.dietPlan);
@@ -80,6 +82,8 @@ function DietForm() {
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed
+    } finally {
+      setIsLoading({ display: 'none' });
     }
     console.log(calorieGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
@@ -208,6 +212,9 @@ function DietForm() {
         {/* ... */}
         <button id='dietForm-button-submit' type="submit">Submit</button>
       </form>
+      <div style={isLoading} id='dietForm-loading-container'>
+        <h1 id="dietForm-loading-text">Loading...</h1>
+      </div>
     </div>
   );
 }

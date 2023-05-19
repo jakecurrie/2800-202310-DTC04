@@ -31,16 +31,15 @@ const DietPlan = () => {
         // Perform regeneration logic here
     
         // Redirect to '/fitness' after regenerating the plan
-        navigate('/dietplangenerator');
+        navigate('/app/dietplangenerator');
     };
 
     const acceptPlan = async (dataTwo) => {
         // i want to take the completionResult and put it into the mongoose database for the current user
-        
         try {
             const response = await axios.post('/api/nutrition/save-plan', { dataTwo });
             console.log('Response from API:', response.data);
-            navigate('/');
+            navigate('/app/fitness');
         } catch (error) {
             console.error('Error during API call', error);
         }
