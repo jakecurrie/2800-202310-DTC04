@@ -135,7 +135,7 @@
     }
 
     .viewFit-card-play {
-        font-size: 40pt;
+        font-size: 25pt;
     }
 }
 
@@ -172,7 +172,7 @@
 
     .viewFit-card-play {
         right: 25px;
-        font-size: 25pt;
+        font-size: 18pt;
     }
 
     #viewFit-restday {
@@ -204,8 +204,8 @@
     }
 
     .viewFit-card-play {
-        right: 20px;
-        font-size: 25pt;
+        right: 10px;
+        font-size: 16pt;
     }
 
     #viewFit-restday {

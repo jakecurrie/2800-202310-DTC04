@@ -40,7 +40,7 @@ const FitnessPlan = () => {
         try {
             const response = await axios.post('/api/fitness/save-plan', { dataTwo });
             console.log('Response from API:', response.data);
-            navigate('/');
+            navigate('/app/fitness');
         } catch (error) {
             console.error('Error during API call', error);
         }

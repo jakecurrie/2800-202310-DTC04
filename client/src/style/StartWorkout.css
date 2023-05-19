@@ -1,0 +1,250 @@
+#startFit-body-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    height: 100%;
+    width: 100vw;
+    max-width: 100%;
+    background-color: #181818;
+}
+
+#startFit-title-container, #startFit-complete {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    max-width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #f0eae3;
+}
+
+#startFit-title-title, #startFit-complete {
+    font-family: 'Playfair Display', serif;
+    font-size: 70pt;
+    font-weight: 700;
+    color: #f0eae3;
+    font-family: 'Playfair Display', serif;
+    font-size: 70pt;
+    font-weight: 700;
+    color: #f0eae3;
+}
+
+#startFit-title-subtext {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 35pt;
+    font-weight: 100;
+    color: #f0eae3;
+}
+
+#startFit-card-container, .startFit-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.startFit-card-workout-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.startFit-card-play {
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 35pt;
+    color: #e4ddcf;
+    top: 3px;
+}
+
+.startFit-card-h2 {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 45pt;
+    font-weight: 400;
+    color: #f0eae3;
+}
+
+.startFit-card-rep-set-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    padding: 20px;
+    background-color: #e4ddcf;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.startFit-card-reps-container, .startFit-card-sets-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.startFit-card-reps, .startFit-card-sets {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 30pt;
+    font-weight: 500;
+    color: #181818;
+}
+
+.startFit-card-reps-count, .startFit-card-sets-count {
+    text-align: center;
+    border-radius: 50%;
+    padding: 10px 30px 10px 30px;
+    background-color: #f0eae3;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30pt;
+    font-weight: 300;
+    color: #181818;
+}
+
+.startFit-card-rp-pb-seperator {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.startFit-card-pb-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.startFit-card-pb {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13pt;
+    color: #181818;
+}
+
+.startFit-enter-weight {
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.startFit-complete-button {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 20pt;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px 10px 15px;
+    width: 30vw;
+    background-color: #f3b98d;
+}
+
+
+@media screen and (max-width: 1100px) {
+    .startFit-card-rep-set-container, .startFit-complete-button  {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .startFit-card-h2 {
+        font-size: 35pt;
+    }
+
+    .startFit-card-play {
+        font-size: 30pt;
+    }
+
+    .startFit-card-rep-set-container, .startFit-complete-button  {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #startFit-complete {
+        font-size: 55pt;
+    }
+
+    .startFit-card-h2 {
+        font-size: 25pt;
+    }
+
+    .startFit-card-play {
+        margin-left: 5px;
+        top: 1px;
+        font-size: 20pt;
+    }
+
+    .startFit-card-rep-set-container, .startFit-complete-button  {
+        width: 50vw;
+    }
+
+    .startFit-card-reps, .startFit-card-sets {
+        font-size: 20pt;
+        margin-bottom: 5px;
+    }
+
+    .startFit-card-reps-count, .startFit-card-sets-count {
+        padding: 5px 20px 5px 20px;
+        font-size: 20pt;
+    }
+
+    .startFit-card-pb {
+        font-size: 10pt;
+    }
+
+    .startFit-complete-button {
+        font-size: 15pt;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #startFit-title-title {
+        font-size: 55pt;
+    }
+
+    #startFit-complete {
+        font-size: 40pt;
+    }
+
+    #startFit-title-subtext {
+        font-size: 25pt;
+    }
+
+    .startFit-card-h2 {
+        font-size: 19pt;
+    }
+
+    .startFit-card-play {
+        font-size: 15pt;
+    }
+
+    .startFit-card-rep-set-container, .startFit-complete-button  {
+        width: 50vw;
+    }
+
+    .startFit-card-reps, .startFit-card-sets {
+        font-size: 17pt;
+        margin-bottom: 5px;
+    }
+
+    .startFit-card-reps-count, .startFit-card-sets-count {
+        padding: 5px 17px 5px 17px;
+        font-size: 17pt;
+    }
+
+    .startFit-card-pb {
+        font-size: 9pt;
+    }
+
+    .startFit-complete-button {
+        font-size: 13pt;
+    }
+}
