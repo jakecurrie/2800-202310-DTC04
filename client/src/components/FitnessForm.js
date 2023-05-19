@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true;
 function FitnessForm() {
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({ display: 'none' });
   const [completionResult, setCompletionResult] = useState('');
   const [fitnessGoals, setFitnessGoals] = useState('');
   const [fitnessLevel, setFitnessLevel] = useState('');
@@ -68,7 +68,7 @@ function FitnessForm() {
       // Other form fields...
     };
     // You can perform any further processing or data handling here
-    setIsLoading(true);
+    setIsLoading({ display: 'block' });
     try {
       const response = await axios.post('/api/fitness/generate-plan', formData);
       console.log('Response from API:', response.data.workoutPlan);
@@ -78,7 +78,7 @@ function FitnessForm() {
       console.error('Error:', error);
       // Handle the error as needed
     } finally {
-      setIsLoading(false);
+      setIsLoading({ display: 'none' });
     }
     console.log(fitnessGoals, fitnessLevel, selectedDays, equipmentAvailable);
     console.log('Form submitted!');
@@ -209,6 +209,9 @@ function FitnessForm() {
         {/* ... */}
         <button id="fitForm-button-submit" type="submit">Submit</button>
       </form>
+      <div style={isLoading} id='fitForm-loading-container'>
+        <h1 id="fitForm-loading-text">Loading...</h1>
+      </div>
     </div>
   );
 }
