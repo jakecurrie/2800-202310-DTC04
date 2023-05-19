@@ -262,4 +262,33 @@ router.get('/exercise-video', async (req, res) => {
     }
 });
 
+router.get('/personalBest/:userId/:exerciseName', async (req, res) => {
+  try {
+      const { userId, exerciseName } = req.params;
+      const user = await UserModel.findById(userId).exec();
+
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      const exercise = user.fitnessPlan.exercises.find(ex => ex.exerciseName === exerciseName);
+
+      if (!exercise) {
+          return res.status(404).json({ message: 'Exercise not found' });
+      }
+
+      const data = exercise.weeksCompleted.map((week, index) => {
+          const personalBest = Math.max(...week.setsData.map(set => set.weight));
+          const currentWeight = week.setsData[week.setsData.length - 1].weight; // get the weight of the last set
+          return { week: index + 1, personalBest, currentWeight };
+      });
+
+      res.json(data);
+  } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+
+
 module.exports = router;

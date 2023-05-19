@@ -21,6 +21,7 @@ import LoginOrRegister from './components/LoginOrRegister'
 import NutritionLand from './components/NutritionLand';
 import ViewDietPlan from './components/ViewDietPlan';
 import NutritionByDesc from './components/NutritionByDesc';
+import HomePage from './components/Home';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -58,6 +59,8 @@ function App() {
           <Route path="viewdietplan" element={isLoggedIn ? <ViewDietPlan /> : <Navigate to='/login' />} />
           <Route path="mealclassifier" element={isLoggedIn ? <MealClassifier /> : <Navigate to='/login' />} />
           <Route path="nutritionbydesc" element={isLoggedIn ? <NutritionByDesc /> : <LoginOrRegister/>} />
+          <Route path="home" element={isLoggedIn ? <HomePage /> : <Navigate to='/login'/>} />
+
         </Route>
 
         {/* 404 not found */}
