@@ -31,8 +31,10 @@ const PersonalBestChart = ({ userId, exerciseName }) => {
       <Tooltip />
       <Legend />
       <Line type="monotone" dataKey="personalBest" stroke="#8884d8" activeDot={{ r: 8 }} />
+      <Line type="monotone" dataKey="currentWeight" stroke="#82ca9d" />
     </LineChart>
   );
 };
 
 export default PersonalBestChart;
+
