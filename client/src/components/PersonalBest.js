@@ -49,7 +49,7 @@ const PersonalBestChart = () => {
 
   return (
     <div className="chart-container">
-      <h2>{selectedExercise} Personal Best vs Current Weight</h2>
+      <h2 className='home-pb-h2'>{selectedExercise} Personal Best vs Current Weight</h2>
 
       <select value={selectedExercise} onChange={handleExerciseChange}>
         {exercises.map(exercise => (

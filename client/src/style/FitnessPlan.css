@@ -8,6 +8,7 @@
     width: 100vw;
     max-width: 100%;
     background-color: #181818;
+    padding-bottom: 100px;
 }
 
 #fitGen-title-container {
@@ -88,7 +89,8 @@
 
 
 .fitGen-card-sets,
-.fitGen-card-reps {
+.fitGen-card-reps,
+.fitGen-card-orders {
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
@@ -142,7 +144,8 @@
 
 
     .fitGen-card-sets,
-    .fitGen-card-reps {
+    .fitGen-card-reps,
+    .fitGen-card-orders  {
         font-size: 10pt;
         font-weight: 400;
     }
@@ -178,7 +181,8 @@
 
 
     .fitGen-card-sets,
-    .fitGen-card-reps {
+    .fitGen-card-reps,
+    .fitGen-card-orders  {
         font-size: 9pt;
         font-weight: 400;
     }
@@ -217,7 +221,8 @@
 
 
     .fitGen-card-sets,
-    .fitGen-card-reps {
+    .fitGen-card-reps,
+    .fitGen-card-orders  {
         font-size: 9pt;
         font-weight: 400;
     }

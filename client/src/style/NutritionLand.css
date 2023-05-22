@@ -106,7 +106,7 @@
     }
     
     .nutrition-card-arrow {
-        font-size: 40pt;
+        font-size: 25pt;
     }
 }
 
@@ -132,8 +132,7 @@
     }
     
     .nutrition-card-arrow {
-        right: 25px;
-        font-size: 25pt;
+        right: 15px;
     }
 }
 
