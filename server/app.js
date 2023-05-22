@@ -21,6 +21,7 @@ const indexRouter = require('./routes/index');
 const passwordRouter = require('./routes/passwordReset');
 const nutritionRouter = require('./routes/nutrition');
 const imageRouter = require('./routes/images');
+const userRouter = require('./routes/users');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -86,6 +87,7 @@ async function main() {
     app.use('/api/reset-password', passwordRouter);
     app.use('/api/nutrition', nutritionRouter);
     app.use('/api/images', imageRouter);
+    app.use('/api/users', userRouter);
     
     app.post('/classifyMeal', upload.single('image'), (req, res) => {
       const image = req.file;

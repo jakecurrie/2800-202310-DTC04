@@ -35,6 +35,10 @@ router.post('/record-workout', async (req, res) => {
             "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].setsRemaining": setsRemaining,
             "fitnessPlan.exercises.$[exercise].weeksCompleted.$[week].setsData.$[set].weight": setWeight,
             
+            
+          },
+          $inc: {
+            points: 100
           }
         },
         {
@@ -100,7 +104,25 @@ router.post('/complete-exercise', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
+router.post('/complete-day/setScore', async (req, res) => {
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      req.session.USER_ID, 
+      {
+        $inc: {
+          points: 2500
+        }
+      },
+      {
+        new: true
+      }
+    );
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 router.post('/complete-day', async (req, res) => {
     try {
       // Fetch user's fitness plan by user id

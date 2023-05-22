@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import MacronutrientBreakdown from './MacronutrientBreakdown.js';
 import PersonalBestChart from './PersonalBest.js';
 import NutritionalIntakeTS from './NutritionalIntakeTS.js';
+import Leaderboard from './Leaderboard.js';
 import '../style/Home.css';
 
 const HomePage = () => {
@@ -17,14 +18,20 @@ const HomePage = () => {
         <p id="fitness-title-welcome">Track your nutrition and workout progress</p>
       </div>
       <div id="fitness-card-container">
-        <Link to="/app/fitness" className="fitness-cards">
+        {/* <Link to="/app/fitness" className="fitness-cards">
           <h2 className="fitness-card-h2">Fitness</h2>
           <span className="fitness-card-arrow">→</span>
         </Link>
         <Link to="/app/nutrition" className="fitness-cards">
           <h2 className="fitness-card-h2">Diet</h2>
           <span className="fitness-card-arrow">→</span>
-        </Link>
+        </Link> */}
+        <div className="fitness-cards">
+          <h2 className="fitness-card-h2">Leaderboards</h2>
+          <div className="fitness-card-chart">
+            <Leaderboard />
+          </div>
+        </div>
         <div className="fitness-cards">
           <h2 className="fitness-card-h2">Macronutrient Breakdown</h2>
           <div className="fitness-card-chart">

@@ -18,6 +18,7 @@ const StartWorkout = () => {
     const [workoutDayComplete, setWorkoutDayComplete] = useState(false);
     const initialRender = useRef(true);
     axios.defaults.withCredentials = true;
+    
     axios.post('/api/fitness/complete-day', {
         day: daysOfWeek[currentDayIndex],
         week: 1,
@@ -167,9 +168,11 @@ const StartWorkout = () => {
                 .then(response => {
                     // Handle response of the second request
                     console.log(response);
+                    alert('Workout for the day is completed');
 
                     // Display a message or update the UI to indicate that the workout day is complete
-                    alert('Workout for the day is completed');
+                    return axios.post('/api/fitness/complete-day/setScore')
+                    
                 })
                 .catch(error => {
                     // Handle error of the requests
@@ -194,6 +197,9 @@ const StartWorkout = () => {
 
                 <div id='startFit-complete-container'>
                     <h1 id='startFit-complete'>Workout for the day is completed!</h1>
+                </div>
+                <div id='startFit-complete-container'>
+                    <h5 id='startFit-complete'>You've Gained 2500 points for it!</h5>
                 </div>
             </div>
         );
