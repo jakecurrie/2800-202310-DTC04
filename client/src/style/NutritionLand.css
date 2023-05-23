@@ -40,6 +40,7 @@
     align-items: center;
     width: 100vw;
     max-width: 100%;
+    padding-bottom: 70px;
 }
 
 .nutrition-cards {
@@ -118,6 +119,7 @@
     .nutrition-cards {
         width: 68vw;
         padding: 20px 35px 20px 35px;
+        margin-bottom: 20px;
     }
 
     .nutrition-card-h2 {

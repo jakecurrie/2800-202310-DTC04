@@ -219,6 +219,7 @@ router.post('/save-plan', async (req, res) => {
         // const user = await userModel.findById(req.session.USER_ID);
 
         if (!user) return res.status(400).send("user does not exist");
+        if (user) return res.status(200).send("plan saved")
 
         // Handle the generated workout plan (e.g., send it as a response)
         console.log(user);
@@ -228,9 +229,6 @@ router.post('/save-plan', async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-
-
-
 });
 
 router.get('/exercise-video', async (req, res) => {

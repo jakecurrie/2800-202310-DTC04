@@ -159,7 +159,7 @@ function FitnessForm() {
         <div className='fitForm-drop-down-form'>
           <label>
             <h1 className='fitForm-drop-down-title' >
-              4. Do you have any equipment available for your workouts, or do you prefer exercises that require little to no equipment?
+              4. Do you have any equipment available for your workouts?
             </h1>
             <select className='fitForm-drop-down-select' value={equipmentAvailable} onChange={handleEquipmentAvailable}>
               <option className='fitForm-drop-down-options' value="">Select an option</option>

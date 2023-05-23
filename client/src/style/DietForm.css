@@ -92,14 +92,14 @@
 #dietForm-loading-container {
     box-shadow:0 0 0 1600px rgba(0,0,0,0.65);
     background-color: rgba(0,0,0,0.65);
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translateY(-50%);
     left: 0; 
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 
-    width: 250px;
+    width: 310px;
     transition: 500ms ease;
 }
 

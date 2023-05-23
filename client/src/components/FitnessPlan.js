@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
 import '../style/FitnessPlan.css'
 
 axios.defaults.withCredentials = true;
@@ -26,21 +28,47 @@ const FitnessPlan = () => {
         return groups;
     }, {});
 
+
+    
     const exercisesForCurrentDay = exercisesByDay[daysOfWeek[currentDayIndex]] || [];
     const regeneratePlan = () => {
         // Perform regeneration logic here
 
         // Redirect to '/fitness' after regenerating the plan
-        navigate('/app/fitness');
+        navigate('/app/fitnessgenerator');
     };
+
+    const fetchYouTubeVideo = async (exerciseName) => {
+        try {
+          console.log(exerciseName)
+          // Make a request to search for videos related to the exercise
+          const response = await axios.get('/api/fitness/exercise-video', {
+            params: {
+              exerciseName: exerciseName,
+              part: 'snippet',
+              maxResults: 1,
+              q: `exercise and fitness how to properly do ${exerciseName}`,
+            }
+          });
+          // Extract the video ID
+          console.log(response);
+          const videoId = response.data.videoId;
+    
+          // Open the video in a new tab
+          window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        } catch (error) {
+          console.error('Error fetching YouTube video:', error);
+        }
+    
+      };
 
     const acceptPlan = async (dataTwo) => {
         // i want to take the completionResult and put it into the mongoose database for the current user
-
         try {
             const response = await axios.post('/api/fitness/save-plan', { dataTwo });
             console.log('Response from API:', response.data);
             navigate('/app/fitness');
+
         } catch (error) {
             console.error('Error during API call', error);
         }
@@ -63,6 +91,7 @@ const FitnessPlan = () => {
                             <p className='fitGen-card-sets' >Sets: {exercise.sets}</p>
                             <p className='fitGen-card-reps' >Reps: {exercise.reps}</p>
                             <p className='fitGen-card-orders' >Order: {exercise.order}</p>
+                            <FontAwesomeIcon className='viewFit-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(exercise.exerciseName)} />
                         </div>
                     ))}
                 </div>

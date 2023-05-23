@@ -180,6 +180,29 @@ const StartWorkout = () => {
         }
     };
 
+    const fetchYouTubeVideo = async (exerciseName) => {
+        try {
+          console.log(exerciseName)
+          // Make a request to search for videos related to the exercise
+          const response = await axios.get('/api/fitness/exercise-video', {
+            params: {
+              exerciseName: exerciseName,
+              part: 'snippet',
+              maxResults: 1,
+              q: `exercise and fitness how to properly do ${exerciseName}`,
+            }
+          });
+          // Extract the video ID
+          console.log(response);
+          const videoId = response.data.videoId;
+    
+          // Open the video in a new tab
+          window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        } catch (error) {
+          console.error('Error fetching YouTube video:', error);
+        }
+    
+      };
 
     const handleWeightChange = (event) => {
         const enteredWeight = event.target.value;
@@ -209,7 +232,7 @@ const StartWorkout = () => {
                         <div className='startFit-cards'>
                             <div className='startFit-card-workout-title'>
                                 <h2 className='startFit-card-h2'>{currentWorkout.exerciseName}</h2>
-                                <FontAwesomeIcon className='startFit-card-play' icon={faCirclePlay} onClick={() => console.log('should play a video')} />
+                                <FontAwesomeIcon className='startFit-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(currentWorkout.exerciseName)} />
                             </div>
                             <div className='startFit-card-rep-set-container'>
                                 <div className='startFit-card-rp-pb-seperator'>
