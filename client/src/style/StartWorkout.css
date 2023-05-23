@@ -25,17 +25,13 @@
     font-size: 70pt;
     font-weight: 700;
     color: #f0eae3;
-    font-family: 'Playfair Display', serif;
-    font-size: 70pt;
-    font-weight: 700;
-    color: #f0eae3;
 }
 
 #startFit-title-subtext {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 35pt;
+    font-size: 30pt;
     font-weight: 100;
     color: #f0eae3;
 }
