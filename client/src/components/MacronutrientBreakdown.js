@@ -31,7 +31,7 @@ function MacronutrientBreakdown() {
 
   return (
     <div>
-      <h2>Macronutrient Breakdown for {selectedDay}</h2>
+      <h2 className='home-macro-h2'>Macronutrient Breakdown for {selectedDay}</h2>
       <select value={selectedDay} onChange={handleDayChange}>
         <option value="05/01">05/01</option>
         <option value="05/02">05/02</option>

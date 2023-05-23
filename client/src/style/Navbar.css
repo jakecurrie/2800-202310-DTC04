@@ -1,0 +1,27 @@
+#dietForm-title-container,
+#dietPlan-title-container,
+#fitForm-title-container,
+#fitness-title-container,
+#fitGen-title-container,
+#home-title-container,
+.land-title-container,
+#login-title-container,
+#imgEst-title-container,
+#descEst-title-container,
+#nutrition-title-container,
+#startFit-title-container,
+#viewDiet-title-container,
+#viewFit-title-container {
+    padding-top: 56px;
+}
+
+
+.navbar-top {
+    position: fixed !important;
+    z-index: 1;
+    background-color: #181818 !important;
+}
+
+.navbar-bottom {
+    background-color: #1f1f1f !important;
+}
