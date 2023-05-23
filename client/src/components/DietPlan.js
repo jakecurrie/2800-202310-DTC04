@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
 import '../style/DietPlan.css'
 
 axios.defaults.withCredentials = true;
@@ -17,6 +19,29 @@ const DietPlan = () => {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
+    const fetchYouTubeVideo = async (mealName) => {
+        try {
+            // Make a request to search for videos related to the exercise
+            const response = await axios.get('/api/fitness/exercise-video', {
+                params: {
+                    exerciseName: mealName,
+                    part: 'snippet',
+                    maxResults: 1,
+                    q: `How to cook simple ${mealName}`,
+                }
+            });
+            // Extract the video ID
+            console.log(response);
+            const videoId = response.data.videoId;
+
+            // Open the video in a new tab
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        } catch (error) {
+            console.error('Error fetching YouTube video:', error);
+        }
+
+    };
+
     const mealsByDay = data.reduce((groups, meals) => {
         const day = meals.day;
         if (!groups[day]) {
@@ -29,7 +54,7 @@ const DietPlan = () => {
     const mealsForCurrentDay = mealsByDay[daysOfWeek[currentDayIndex]] || [];
     const regeneratePlan = () => {
         // Perform regeneration logic here
-    
+
         // Redirect to '/fitness' after regenerating the plan
         navigate('/app/dietplangenerator');
     };
@@ -56,14 +81,15 @@ const DietPlan = () => {
             </div>
             {mealsForCurrentDay.length > 0 ? (
                 <div className='dietPlan-card-container'>
-                {mealsForCurrentDay.map((meal, index) => (
-                    <div className='dietPlan-cards' key={index}>
-                        <h2 className='dietPlan-card-h2'>{meal.description}</h2>
-                        <p className='dietPlan-card-calories'>Calories: {meal.calories}</p>
-                        <p className='dietPlan-card-protein'>Protein: {meal.protein}</p>
-                        <p className='dietPlan-card-carbs'>Carbs: {meal.carbs}</p>
-                    </div>
-                ))}
+                    {mealsForCurrentDay.map((meal, index) => (
+                        <div className='dietPlan-cards' key={index}>
+                            <h2 className='dietPlan-card-h2'>{meal.name}</h2>
+                            <p className='dietPlan-card-calories'>Calories: {meal.calories}</p>
+                            <p className='dietPlan-card-protein'>Protein: {meal.protein}</p>
+                            <p className='dietPlan-card-carbs'>Carbs: {meal.carbs}</p>
+                            <FontAwesomeIcon className='viewDiet-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(meal.name)} />
+                        </div>
+                    ))}
                 </div>
             ) : (
                 <div id="dietPlan-card-restday">
@@ -71,12 +97,14 @@ const DietPlan = () => {
                 </div>
             )}
             <div id="dietPlan-accept-reject-container">
-                <button id="dietPlan-accept-button" onClick={() => {acceptPlan(dataTwo) 
-                    navigate('/app/nutrition')}}>Accept</button>
+                <button id="dietPlan-accept-button" onClick={() => {
+                    acceptPlan(dataTwo)
+                    navigate('/app/nutrition')
+                }}>Accept</button>
                 <button id="dietPlan-reject-button" onClick={regeneratePlan}>Regenerate Plan</button>
             </div>
         </div>
     );
 };
-    
+
 export default DietPlan;

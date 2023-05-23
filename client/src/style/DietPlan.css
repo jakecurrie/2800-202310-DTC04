@@ -79,7 +79,7 @@
 }
 
 .dietPlan-card-h2 {
-    margin: 0;
+    margin: 0 0 2px 0;
     font-family: 'Playfair Display', serif;
     font-size: 35pt;
     font-weight: 500;
@@ -91,9 +91,9 @@
 .dietPlan-card-protein,
 .dietPlan-card-carbs {
     padding: 0;
-    margin-top: 1px;
+    margin: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 12pt;
+    font-size: 15pt;
     font-weight: 200;
     color: #f0eae3;
 }
@@ -123,11 +123,11 @@
     margin: 5px;
     border: none;
     border-radius: 5px;
-    background-color: #f0eae3;
+    background-color: #181818;
     padding: 10px;
     font-family: 'Inter', sans-serif;
     font-size: 12pt;
-    font-weight: 500;
+    font-weight: 300;
     color: #f0eae3;
 }
 
@@ -142,14 +142,12 @@
 
     .dietPlan-card-h2 {
         font-size: 25pt;
-        font-weight: 500;
     }
 
-
-    .dietPlan-card-sets,
-    .dietPlan-card-reps {
+    .dietPlan-card-calories,
+    .dietPlan-card-protein,
+    .dietPlan-card-carbs {
         font-size: 10pt;
-        font-weight: 400;
     }
 
     .dietPlan-card-play {
@@ -173,19 +171,19 @@
     }
 
     .dietPlan-cards {
+        padding: 15px 20px 15px 20px;
         width: 68vw;
     }
 
     .dietPlan-card-h2 {
         font-size: 20pt;
-        font-weight: 500;
     }
 
 
-    .dietPlan-card-sets,
-    .dietPlan-card-reps {
+    .dietPlan-card-calories,
+    .dietPlan-card-protein,
+    .dietPlan-card-carbs {
         font-size: 9pt;
-        font-weight: 400;
     }
 
     .dietPlan-card-play {
@@ -217,14 +215,6 @@
 
     .dietPlan-card-h2 {
         font-size: 18pt;
-        font-weight: 500;
-    }
-
-
-    .dietPlan-card-sets,
-    .dietPlan-card-reps {
-        font-size: 9pt;
-        font-weight: 400;
     }
 
     .dietPlan-card-play {
@@ -262,7 +252,7 @@
         color: #f0eae3;
         font-size: 50pt;
     }
-    
+
     #dietPlan-accept-button,
     #dietPlan-reject-button {
         padding: 8px;

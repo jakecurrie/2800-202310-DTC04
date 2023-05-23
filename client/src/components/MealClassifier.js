@@ -22,6 +22,7 @@ function MealClassifier() {
   }
 
   const handleSubmit = (event) => {
+    console.log('hi');
     event.preventDefault();
 
     let formData = new FormData();
@@ -71,10 +72,10 @@ function MealClassifier() {
       </div>
 
       <div id='imgEst-file-container'>
-        <form id='imgEst-file-form' onSubmit={handleSubmit}>
+        <form id='imgEst-file-form'>
           <input id='imgEst-file-input' type="file" onChange={handleFileChange} />
         </form>
-          <button id='imgEst-file-submit' type="submit">Submit</button>
+          <button id='imgEst-file-submit' onClick={handleSubmit}>Submit</button>
       </div>
 
       <div id='imgEst-choose-meal-container'>

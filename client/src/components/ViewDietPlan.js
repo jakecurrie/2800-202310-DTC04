@@ -34,16 +34,15 @@ const ViewDietPlan = () => {
     ? dietPlan.filter(meal => meal.day === daysOfWeek[currentDayIndex])
     : [];
 
-  const fetchYouTubeVideo = async (exerciseName) => {
+  const fetchYouTubeVideo = async (mealName) => {
     try {
-      console.log(exerciseName)
       // Make a request to search for videos related to the exercise
       const response = await axios.get('/api/fitness/exercise-video', {
         params: {
-          exerciseName: exerciseName,
+          exerciseName: mealName,
           part: 'snippet',
           maxResults: 1,
-          q: `exercise and fitness how to properly do ${exerciseName}`,
+          q: `How to cook simple ${mealName}`,
         }
       });
       // Extract the video ID
@@ -72,10 +71,10 @@ const ViewDietPlan = () => {
         <div className="viewDiet-card-container">
           {filteredMeals.map((meal, index) => (
             <div className='viewDiet-cards' key={index}>
-              <h2 className='viewDiet-card-h2'>{meal.description}</h2>
+              <h2 className='viewDiet-card-h2'>{meal.name}</h2>
               <p className='viewDiet-card-calories'>Calories: {meal.calories}</p>
-              <p className='viewDiet-card-protein'>Protein: {meal.protein}</p>
-              <FontAwesomeIcon className='viewDiet-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(meal.description)} />
+              <p className='viewDiet-card-protein'>Protein: {meal.protein}g</p>
+              <FontAwesomeIcon className='viewDiet-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(meal.name)} />
             </div>
           ))}
         </div>
