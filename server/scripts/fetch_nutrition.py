@@ -2,15 +2,11 @@ import openai
 import sys
 import os
 import json
-from google.cloud import secretmanager
+from dotenv import load_dotenv
 
-def access_secret_version(secret_id):
-    client = secretmanager.SecretManagerServiceClient()
-    name = f"projects/artificialgains/secrets/{secret_id}/versions/latest"
-    response = client.access_secret_version(request={"name": name})
-    return response.payload.data.decode('UTF-8')
+load_dotenv()
 
-openai.api_key = access_secret_version('GPT_API_KEY')
+openai.api_key = os.getenv('GPT_API_KEY')
 
 meal = sys.argv[1]
 
