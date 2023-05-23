@@ -91,7 +91,7 @@ async function main() {
     
     app.post('/classifyMeal', upload.single('image'), (req, res) => {
       const image = req.file;
-      const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
+      const python = spawn('python3', ['./scripts/meal_classification.py', image.path]);
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
@@ -120,7 +120,7 @@ async function main() {
 
 app.post('/fetchNutrition', (req, res) => {
   const meal = req.body.meal;
-  const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
+  const python = spawn('python3', ['./scripts/fetch_nutrition.py', meal]);
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
