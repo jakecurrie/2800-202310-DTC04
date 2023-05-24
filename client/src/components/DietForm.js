@@ -142,9 +142,6 @@ function DietForm() {
               <option className='dietForm-drop-down-options' value="2">2</option>
               <option className='dietForm-drop-down-options' value="3">3</option>
               <option className='dietForm-drop-down-options' value="4">4</option>
-              <option className='dietForm-drop-down-options' value="5">5</option>
-              <option className='dietForm-drop-down-options' value="6">6</option>
-              <option className='dietForm-drop-down-options' value="7">7</option>
             </select>
           </label>
         </div>

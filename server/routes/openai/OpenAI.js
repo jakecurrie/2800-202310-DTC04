@@ -40,7 +40,6 @@ async function getCompletion(req, formData) {
 }
 
 async function getDietPlanCompletion(req, formData) {
-
   var equipmentAvailable = ""
   if (formData.equipmentAvailable == "yes") {
     equipmentAvailable  = "access to equipment"
@@ -66,7 +65,7 @@ async function getDietPlanCompletion(req, formData) {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: prompt,
-    max_tokens: 4000,
+    max_tokens: 3000,
     temperature: 0.5
   });
   console.log(completion.data.choices[0].text);
