@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Select from 'react-select';
 import '../style/MealClassifier.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
@@ -16,10 +17,6 @@ function MealClassifier() {
     setMealOptions([]);
     setSelectedMeals([]);
     setNutritionInfo(null);
-  }
-
-  const handleMealsChange = (event) => {
-    setSelectedMeals(Array.from(event.target.selectedOptions, option => option.value));
   }
 
   const handleMealSizeChange = (event) => {
@@ -57,7 +54,9 @@ function MealClassifier() {
       return;
     }
 
-    axios.post('/fetchNutrition', { meals: selectedMeals, meal_size: selectedMealSize })
+    const mealsString = selectedMeals.join(' ');
+
+    axios.post('/fetchNutrition', { meals: mealsString, meal_size: selectedMealSize })
       .then(response => {
         setNutritionInfo(response.data);
       })
@@ -65,6 +64,8 @@ function MealClassifier() {
         console.error('Error during API call', error);
       });
   }
+
+  const mealOptionsArray = mealOptions.map(meal => ({ value: meal, label: meal }));
 
   return (
     <div id='imgEst-body-container'>
@@ -81,11 +82,13 @@ function MealClassifier() {
       </div>
 
       <div id='imgEst-choose-meal-container'>
-        <select id='imgEst-choose-meal-select' multiple={true} value={selectedMeals} onChange={handleMealsChange}>
-          {mealOptions.map((meal, index) =>
-            <option id='imgEst-choose-meal-option' key={index} value={meal}>{meal}</option>
-          )}
-        </select>
+        <Select
+          id='imgEst-choose-meal-select'
+          isMulti
+          options={mealOptionsArray}
+          value={selectedMeals.map(meal => ({ value: meal, label: meal }))}
+          onChange={selected => setSelectedMeals(selected.map(x => x.value))}
+        />
         <select id='imgEst-choose-meal-size-select' value={selectedMealSize} onChange={handleMealSizeChange}>
           <option value="">--Please choose a size--</option>
           <option value="small">Small</option>
@@ -106,5 +109,6 @@ function MealClassifier() {
 }
 
 export default MealClassifier;
+
 
 
