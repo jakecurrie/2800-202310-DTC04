@@ -18,9 +18,9 @@
 .navbar-top {
     position: fixed !important;
     z-index: 1;
-    background-color: #181818 !important;
+    background-color: #202020 !important;
 }
 
 .navbar-bottom {
-    background-color: #1f1f1f !important;
+    background-color: #272727 !important;
 }

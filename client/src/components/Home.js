@@ -17,12 +17,6 @@ const HomePage = () => {
         <h1 id="home-title-h1">Home</h1>
         <p id="home-title-welcome">Track your nutrition and workout progress</p>
       </div>
-      <div className="fitness-cards">
-          <h2 className="fitness-card-h2">Leaderboards</h2>
-          <div className="fitness-card-chart">
-            <Leaderboard />
-          </div>
-        </div>
       <div id="home-card-container">
         <Link to="/app/fitness" className="home-cards">
           <h2 className="home-card-h2">Fitness</h2>
@@ -32,6 +26,12 @@ const HomePage = () => {
           <h2 className="home-card-h2">Diet</h2>
           <p className="home-card-arrow">&#62;</p>
         </Link>
+        <div className="home-cards">
+          <h2 className="home-card-h2">Leaderboards</h2>
+          <div className="home-card-chart">
+            <Leaderboard />
+          </div>
+        </div>
         <div className="home-cards">
           <h2 className="home-card-h2">Macronutrient Breakdown</h2>
           <div className="home-card-chart">

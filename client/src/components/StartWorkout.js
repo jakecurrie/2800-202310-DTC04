@@ -23,14 +23,12 @@ const StartWorkout = () => {
         day: daysOfWeek[currentDayIndex],
         week: 1,
     }).then(response => {
-        console.log(response.data);
         const { workoutDayCompleted } = response.data;
         setWorkoutDayComplete(workoutDayCompleted);
     }).catch(error => {
         console.error('Error during API call', error);
     });
     useEffect(() => {
-
         axios.get('/api/fitness/start-workout').then(response => {
             const workoutsArray = response.data.exercises.filter(item => {
                 return item.day === daysOfWeek[currentDayIndex];
@@ -64,6 +62,7 @@ const StartWorkout = () => {
             }
         }
     }, [workouts, setsRemaining, currentWorkoutIndex]);
+
     // useEffect(() => {
     //     if (workouts.length > 0) {
     //         let activeWorkoutIndex = currentWorkoutIndex;
@@ -103,7 +102,6 @@ const StartWorkout = () => {
 
     //     }
     // }, [setsRemaining, currentWorkoutIndex, workouts.length]);
-
 
     const handleNextSet = async () => {
         console.log(currentWorkoutIndex)
