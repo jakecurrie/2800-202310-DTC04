@@ -119,7 +119,7 @@ async function main() {
 });
 
 app.post('/fetchNutrition', (req, res) => {
-  const meals = req.body.meals.join(', ');
+  const meals = req.body.meals;
   const mealSize = req.body.meal_size;
   const python = spawn('python3', ['./scripts/fetch_nutrition.py', meals, mealSize]);
 

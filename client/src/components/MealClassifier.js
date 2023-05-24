@@ -54,7 +54,7 @@ function MealClassifier() {
       return;
     }
 
-    const mealsString = selectedMeals.join(' ');
+    const mealsString = selectedMeals.join(", ");
 
     axios.post('/fetchNutrition', { meals: mealsString, meal_size: selectedMealSize })
       .then(response => {
