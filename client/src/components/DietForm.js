@@ -24,6 +24,15 @@ function DietForm() {
     setMealsPerDay(e.target.value);
   };
 
+  const handleDaySelection = (e) => {
+    const value = e.target.value;
+    if (selectedDays.includes(value)) {
+      setSelectedDays(selectedDays.filter((day) => day !== value));
+    } else {
+      setSelectedDays([...selectedDays, value]);
+    }
+  };
+  
   const handleProteinGoalsChange = (e) => {
     setProteinGoals(e.target.value);
   };
@@ -45,14 +54,6 @@ function DietForm() {
     setFitnessLevel(e.target.value);
   };
 
-  const handleDaySelection = (e) => {
-    const value = e.target.value;
-    if (selectedDays.includes(value)) {
-      setSelectedDays(selectedDays.filter((day) => day !== value));
-    } else {
-      setSelectedDays([...selectedDays, value]);
-    }
-  };
 
   const handleEquipmentAvailable = (e) => {
     setEquipmentAvailable(e.target.value);
