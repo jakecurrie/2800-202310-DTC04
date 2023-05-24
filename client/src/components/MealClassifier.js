@@ -7,22 +7,26 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 function MealClassifier() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [mealOptions, setMealOptions] = useState([]);
-  const [selectedMeal, setSelectedMeal] = useState('');
+  const [selectedMeals, setSelectedMeals] = useState([]);
+  const [selectedMealSize, setSelectedMealSize] = useState('');
   const [nutritionInfo, setNutritionInfo] = useState(null);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     setMealOptions([]);
-    setSelectedMeal('');
+    setSelectedMeals([]);
     setNutritionInfo(null);
   }
 
-  const handleMealChange = (event) => {
-    setSelectedMeal(event.target.value);
+  const handleMealsChange = (event) => {
+    setSelectedMeals(Array.from(event.target.selectedOptions, option => option.value));
+  }
+
+  const handleMealSizeChange = (event) => {
+    setSelectedMealSize(event.target.value);
   }
 
   const handleSubmit = (event) => {
-    console.log('hi');
     event.preventDefault();
 
     let formData = new FormData();
@@ -36,7 +40,6 @@ function MealClassifier() {
     })
 
       .then(response => {
-        console.log(response.data);
         if (Array.isArray(response.data)) {
           setMealOptions(response.data);
         } else {
@@ -49,14 +52,13 @@ function MealClassifier() {
   }
 
   const fetchNutritionInfo = () => {
-    if (!selectedMeal) {
-      console.error('No meal selected');
+    if (selectedMeals.length === 0 || !selectedMealSize) {
+      console.error('No meals or meal size selected');
       return;
     }
 
-    axios.post('/fetchNutrition', { meal: selectedMeal })
+    axios.post('/fetchNutrition', { meals: selectedMeals, meal_size: selectedMealSize })
       .then(response => {
-        console.log(response.data);
         setNutritionInfo(response.data);
       })
       .catch(error => {
@@ -74,16 +76,21 @@ function MealClassifier() {
       <div id='imgEst-file-container'>
         <form id='imgEst-file-form'>
           <input id='imgEst-file-input' type="file" onChange={handleFileChange} />
-        </form>
           <button id='imgEst-file-submit' onClick={handleSubmit}>Submit</button>
+        </form>
       </div>
 
       <div id='imgEst-choose-meal-container'>
-        <select id='imgEst-choose-meal-select' value={selectedMeal} onChange={handleMealChange}>
-          <option id='imgEst-choose-meal-option' value="">--Please choose a meal--</option>
+        <select id='imgEst-choose-meal-select' multiple={true} value={selectedMeals} onChange={handleMealsChange}>
           {mealOptions.map((meal, index) =>
             <option id='imgEst-choose-meal-option' key={index} value={meal}>{meal}</option>
           )}
+        </select>
+        <select id='imgEst-choose-meal-size-select' value={selectedMealSize} onChange={handleMealSizeChange}>
+          <option value="">--Please choose a size--</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
         </select>
         <button id='imgEst-choose-meal-submit' onClick={fetchNutritionInfo}>Fetch Nutrition Info</button>
       </div>
@@ -99,3 +106,5 @@ function MealClassifier() {
 }
 
 export default MealClassifier;
+
+
