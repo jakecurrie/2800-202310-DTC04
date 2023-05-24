@@ -211,10 +211,9 @@ router.get('/view-plan', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 router.post('/generate-plan', async (req, res) => {
-    
     try {
-        console.log(req.session.USER_ID);
         const workoutPlan = await getCompletion(req, req.body);
         // Handle the generated workout plan (e.g., send it as a response)
         res.send({ workoutPlan });

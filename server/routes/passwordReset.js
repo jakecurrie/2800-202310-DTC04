@@ -50,12 +50,13 @@ router.post("/:userID/:token", async (req, res) => {
                 userID: Joi.string().required(),
                 token: Joi.string().required(),
             });
+            
         const { error } = schema.validate(req.body);
         if (error) return res.status(400).json({ errorMessage: error.details[0].message });
 
         const user = await userModel.findById(req.body.userID);
         if (!user) return res.status(400).json({ errorMessage: "Invalid link or expired" });
-
+        
         const token = await tokenModel.findOne(
             {
                 userID: user._id,
@@ -67,7 +68,6 @@ router.post("/:userID/:token", async (req, res) => {
         user.password = bcrypt.hashSync(req.body.password, 10);
         await user.save();
         await token.deleteOne();
-
         res.json({ success: "password reset successfully" })
     } catch (error) {
         res.send("error occured")
