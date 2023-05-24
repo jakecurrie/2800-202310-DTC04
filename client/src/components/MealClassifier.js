@@ -68,7 +68,7 @@ function MealClassifier() {
     <div id='imgEst-body-container'>
       <div id="imgEst-title-container">
         <h1 id="imgEst-title-title">Nutrition</h1>
-        <p id="imgEst-title-subtext">Estimate Calories</p>
+        <p id="imgEst-title-subtext">Estimate Nutritional Info From A Meal Photo</p>
       </div>
 
       <div id='imgEst-file-container'>
