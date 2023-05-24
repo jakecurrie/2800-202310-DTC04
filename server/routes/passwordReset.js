@@ -57,7 +57,7 @@ router.post("/:userID/:token", async (req, res) => {
         const user = await userModel.findById(req.body.userID);
         if (!user) return res.status(400).json({ errorMessage: "Invalid link or expired" });
         
-        const token = await tokenModel.findOneAndUpdate(
+        const token = await tokenModel.findOne(
             {
                 userID: user._id,
                 token: req.body.token
