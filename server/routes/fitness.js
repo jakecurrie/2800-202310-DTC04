@@ -53,7 +53,7 @@ router.post('/record-workout', async (req, res) => {
   
       if (!user) return res.status(400).send("User does not exist");
       console.log(personalBest);
-      res.json({fitness: user.fitnessPlan});
+      res.json(user.fitnessPlan);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
