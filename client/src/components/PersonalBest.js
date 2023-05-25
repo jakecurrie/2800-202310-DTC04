@@ -53,6 +53,10 @@ const PersonalBestChart = () => {
     setSelectedExercise(event.target.value);
   };
 
+  const formatXAxis = (tickItem) => {
+    return `Week ${tickItem}`;
+  };
+
   return (
     <div className="chart-container">
       <h2 className="home-pb-h2">{selectedExercise} Personal Best vs Current Weight</h2>
@@ -74,7 +78,7 @@ const PersonalBestChart = () => {
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="week" />
+            <XAxis dataKey="week" tickFormatter={formatXAxis} />
             <YAxis domain={[0, 'dataMax + 10']} />
             <Tooltip />
             <Legend />
@@ -88,6 +92,7 @@ const PersonalBestChart = () => {
 };
 
 export default PersonalBestChart;
+
 
 
 
