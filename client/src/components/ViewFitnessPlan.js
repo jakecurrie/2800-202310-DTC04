@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
-import '../style/ViewFitnessPlan.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlay } from '@fortawesome/free-regular-svg-icons';
+import '../style/ViewFitnessPlan.css';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -57,25 +57,6 @@ const ViewFitnessPlan = () => {
     }
 
   };
-
-  const fetchExerciseImage = async (exerciseName) => {
-    try {
-      // Make a request to your backend, which should then make a request to the Google Custom Search API
-      const response = await axios.get('/api/fitness/exercise-image', {
-        params: {
-          q: exerciseName,  // The search query
-          // other necessary parameters...
-        }
-      });
-      
-      // Extract the image URL from the response
-      const imageUrl = response.data.items[0].link;
-      return imageUrl;
-    } catch (error) {
-      console.error('Error fetching exercise image:', error);
-    }
-  };
-  
   return (
     <div id="viewFit-body-container">
       <div id="viewFit-title-container">
@@ -88,14 +69,18 @@ const ViewFitnessPlan = () => {
       </div>
       {filteredWorkouts.length > 0 ? (
         <div id="viewFit-card-container">
-          {filteredWorkouts.map((workout, index) => (
-            <div className='viewFit-cards' key={index} >
-              <h2 className='viewFit-card-h2'>{workout.exerciseName}</h2>
-              <p className='viewFit-card-sets'>Sets: {workout.sets}</p>
-              <p className='viewFit-card-reps'>Reps: {workout.reps}</p>
-              <FontAwesomeIcon className='viewFit-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(workout.exerciseName)} />
-            </div>
-          ))}
+          {filteredWorkouts.map((workout, index) => {
+  console.log(workout.imageUrl);
+  return (
+    <div className='viewFit-cards' key={index} >
+      <h2 className='viewFit-card-h2'>{workout.exerciseName}</h2>
+      <p className='viewFit-card-sets'>Sets: {workout.sets}</p>
+      <p className='viewFit-card-reps'>Reps: {workout.reps}</p>
+      <img src={workout.imageUrl} alt={workout.exerciseName} />
+      <FontAwesomeIcon className='viewFit-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(workout.exerciseName)} />
+    </div>
+  )
+})}
         </div>
       ) : (
         <div id="viewFit-card-restday">
@@ -104,6 +89,6 @@ const ViewFitnessPlan = () => {
       )}
     </div>
   );
-};
-
-export default ViewFitnessPlan;
+  
+  export default ViewFitnessPlan;
+  

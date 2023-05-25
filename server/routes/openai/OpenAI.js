@@ -1,6 +1,7 @@
 require('dotenv').config()
 const userModel = require('../../model/users');
 const { Configuration, OpenAIApi } = require("openai");
+const { searchImage } = require('../images2.js');
 
 
 
@@ -35,7 +36,25 @@ async function getCompletion(req, formData) {
     max_tokens: 2000,
     temperature: 0.5
   });
-  console.log(completion.data.choices[0].text);
+
+  const exercises = JSON.parse(completion.data.choices[0].text).exercises;
+
+  for (let exercise of exercises) {
+    try {
+      const imageSearchResult = await searchImage(exercise.exerciseName);
+      console.log(imageSearchResult);  // this will log the image data to your server console
+
+      // You could also add the image URL to your exercise object here:
+      // exercise.imageUrl = imageSearchResult.items[0].link;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // You could modify the completion text to include the updated exercises:
+  // completion.data.choices[0].text = JSON.stringify({exercises});
+
   return completion.data.choices[0].text;
 }
 
