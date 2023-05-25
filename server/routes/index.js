@@ -3,6 +3,7 @@ const router = express.Router();
 const userModel = require('../model/users');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const path = require('path');
 
 
 router.get('/', (req, res) => {
@@ -19,8 +20,8 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const profilePicturePath = req.file.path;
-    user.profilePicture = profilePicturePath;
+    const profilePictureFilename = req.file.filename;
+    user.profilePicture = profilePictureFilename;
     await user.save();
 
     res.json({ message: 'Profile picture updated successfully' });
@@ -30,6 +31,12 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
   }
 });
 
+
+router.get('/uploads/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, '../uploads', filename);
+  res.sendFile(filePath);
+});
 
 module.exports = router;
 
