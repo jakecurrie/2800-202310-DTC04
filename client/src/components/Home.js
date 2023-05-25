@@ -60,7 +60,7 @@ const HomePage = () => {
         </Link>
         <div id='home-leaderboard-container' className="home-cards">
           <div id='home-leaderboard-header'>
-            <h2 className="home-card-h2">Leaderboard</h2>
+            <h2 className="home-card-h2">Global Leaderboard</h2>
             <FontAwesomeIcon className='home-leaderboard-info-icon' icon={faCircleInfo} onMouseOver={showRankSystem} onMouseOut={hideRankSystem} />
           </div>
           <div id='home-leaderboard-info' style={rankDiv}>

@@ -140,7 +140,7 @@ const StartWorkout = ({ updatePoints }) => {
                 .then(response => {
                     // Handle response of the second request
                     console.log(response);
-                    alert('Workout for the day is completed');
+                   
                     setTimeout(() => {
                         setPointsGained(1000)
                         showPointsGained();
