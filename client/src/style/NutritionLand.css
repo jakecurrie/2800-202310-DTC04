@@ -90,6 +90,23 @@
     color: #f0eae3
 }
 
+/* for all nutrition back buttons */
+.diet-back-button-link {    
+    text-decoration: none;
+}
+
+.diet-back-button {
+    display: none;
+    top: 70px;
+    position: absolute;
+    font-family: 'Inter', sans-serif;
+    font-size: 13pt;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1818187c;
+}
+
+
 @media screen and (max-width: 750px) {
     .nutrition-cards {
         width: 72vw;
@@ -108,6 +125,12 @@
     
     .nutrition-card-arrow {
         font-size: 25pt;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .diet-back-button {
+        display: block;
     }
 }
 

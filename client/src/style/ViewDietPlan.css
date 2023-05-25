@@ -108,6 +108,22 @@
     font-size: 25pt;
 }
 
+.viewDiet-classify-upload {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.viewDiet-card-camera {
+    margin-right: 5px;
+}
+
+.viewDiet-classify-button {
+    border: none;
+    border-radius: 5px;
+    background-color: #f0eae3;
+    width: 15%;
+}
+
 #viewDiet-restday {
     font-family: 'Playfair Display', serif;
     color: #181818;
@@ -155,7 +171,7 @@
     #viewDiet-title-change-prev,
     #viewDiet-title-change-next {
         font-size: 25pt;
-    } 
+    }
 
     .viewDiet-cards {
         width: 68vw;
@@ -233,7 +249,7 @@
     #viewDiet-title-change-prev,
     #viewDiet-title-change-next {
         font-size: 18pt;
-    } 
+    }
 
     .viewDiet-card-h2 {
         font-size: 16pt;

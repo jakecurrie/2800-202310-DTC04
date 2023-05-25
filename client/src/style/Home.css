@@ -109,7 +109,7 @@
   position: absolute;
   z-index: 1;
   top: 80px;
-  left: 195px;
+  left: 350px;
   border-radius: 20px;
   padding: 20px;
   background-color: #beb9b3;
@@ -188,6 +188,12 @@
   margin: 0 !important;
 }
 
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  border: none !important;
+  background-color: #f0eae3 !important;
+  box-shadow: none !important;
+}
+
 @media screen and (max-width: 750px) {
   .home-cards {
     width: 72vw;
@@ -215,7 +221,7 @@
   }
 
   #home-leaderboard-info {
-    left: 125px;
+    left: 240px;
   }
 
   .home-rank-ladder-info {
@@ -255,7 +261,8 @@
   }
 
   #home-leaderboard-info {
-    left: 105px;
+    top: 60px;
+    left: 180px;
   }
 }
 
@@ -270,7 +277,7 @@
 
   #home-leaderboard-info {
     top: 55px;
-    left: 100px;
+    left: 190px;
   }
 }
 
@@ -284,16 +291,13 @@
   }
 
   #home-leaderboard-info {
-    left: 100px;
+    padding: 15px;
+    top: 70px;
+    left: 140px;
   }
 
   .home-rank-ladder-info {
     font-size: 9pt;
-  }
-
-  #home-leaderboard-info {
-    padding: 15px;
-    left: 115px;
   }
 
   .home-rank-ladder-info {

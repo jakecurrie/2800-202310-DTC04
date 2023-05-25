@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/StartWorkout.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -140,7 +141,7 @@ const StartWorkout = ({ updatePoints }) => {
                 .then(response => {
                     // Handle response of the second request
                     console.log(response);
-                    alert('Workout for the day is completed');
+                   
                     setTimeout(() => {
                         setPointsGained(1000)
                         showPointsGained();
@@ -200,6 +201,9 @@ const StartWorkout = ({ updatePoints }) => {
                     <p id='startFit-points-inc'>+{pointsGained} PTS</p>
                 </div>
                 <div id='startFit-complete-container'>
+                    <Link to="/app/fitness" className="fitness-back-button-link">
+                        <p className='fitness-back-button'>&#60; Go Back</p>
+                    </Link>
                     <h1 id='startFit-complete'>Workout for the day is completed!</h1>
                 </div>
                 <div id='startFit-complete-container'>
@@ -214,6 +218,9 @@ const StartWorkout = ({ updatePoints }) => {
                     <p id='startFit-points-inc'>+{pointsGained} PTS</p>
                 </div>
                 <div id="startFit-title-container">
+                    <Link to="/app/fitness" className="fitness-back-button-link">
+                        <p className='fitness-back-button'>&#60; Go Back</p>
+                    </Link>
                     <h1 id="startFit-title-title">Fitness</h1>
                     <p id='startFit-title-subtext'>Start Workout</p>
                 </div>
