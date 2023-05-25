@@ -17,10 +17,11 @@ const Navbar = ({ setIsLoggedIn, points, updatePoints }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState(null);
   useEffect(() => {
-    const hasCompletedTour = localStorage.getItem('hasCompletedTour');
+    const userId = localStorage.getItem('userId');
+    const hasCompletedTour = localStorage.getItem(`hasCompletedTour_${userId}`);
     if (!hasCompletedTour) {
       introJs().setOptions({ scrollToElement: false }).start();
-      localStorage.setItem('hasCompletedTour', true);
+      localStorage.setItem(`hasCompletedTour_${userId}`, true);
     }
   }, []);
 

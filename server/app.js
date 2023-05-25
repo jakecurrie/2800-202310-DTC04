@@ -181,7 +181,7 @@ app.post('/login', async (req, res) => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
           req.session.GLOBAL_AUTHENTICATED = true;
           req.session.USER_ID = user.id;
-          res.sendStatus(202);
+          res.status(202).json({ userId: user.id });
         } else {
           res.sendStatus(401);
         }
