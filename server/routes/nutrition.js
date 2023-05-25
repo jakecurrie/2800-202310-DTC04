@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getDietPlanCompletion, getNutritionEstimate } = require('./openai/OpenAI'); // refer to openai2.js file for diet plan
+const { getDietPlanCompletion, getNutritionEstimate, checkMealMatch } = require('./openai/OpenAI'); // refer to openai2.js file for diet plan
 const userModel = require('../model/users');
+const openai = require('openai');
+
+openai.apiKey = process.env.GPT_API_KEY;
+
 
 router.post('/generate-plan', async (req, res) => {
     try {
@@ -58,6 +62,19 @@ router.post('/getNutritionEstimate', async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+router.post('/checkMealMatch', async (req, res) => {
+    const { guesses, plannedMeal } = req.body;
+  
+    try {
+        const userId = req.session.USER_ID;
+        const response = await checkMealMatch(guesses, plannedMeal, userId);
+        res.json(response);
+    } catch (error) {
+        console.error('Error during OpenAI API call', error);
+        res.status(500).json({ error: 'Error during OpenAI API call' });
+    }
 });
 
 module.exports = router;
