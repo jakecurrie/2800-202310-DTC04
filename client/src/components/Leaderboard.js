@@ -47,9 +47,14 @@ function Leaderboard() {
         <tbody>
           {users.map((user, index) => {
             let prevKey = 'Rookie';
+            var userRank;
             for (const key in rankSystem) {
+              if (user.points >= 100000) {
+                userRank = 'GOAT'
+                break
+              }
               if (user.points <= rankSystem[key]) {
-                var userRank = prevKey
+                userRank = prevKey
                 break
               }
               prevKey = key

@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: 130vh;
     height: 100%;
     width: 100vw;
     max-width: 100%;
@@ -31,7 +31,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 45pt;
+    font-size: 35pt;
     font-weight: 100;
     color: #181818;
 }
@@ -85,8 +85,8 @@
     align-items: center;
 }
 
-#imgEst-choose-meal-select {
-    margin-right: 15px;
+#imgEst-choose-meal-size-select {
+    margin: 0 10px 0 10px !important;
     border-radius: 5px;
     padding: 3px;
 }
@@ -129,13 +129,19 @@
         height: 30vh;
     }
 
-    #imgEst-choose-meal-select, #imgEst-choose-meal-option {
+    #imgEst-choose-meal-container {
+        flex-direction: column;
+    }
+
+    #imgEst-choose-meal-size-select, #imgEst-choose-meal-option {
+        margin-top: 10px !important;
         font-size: 10pt;
         padding: 2px 0 2px 0;
     }
 
     #imgEst-choose-meal-submit {
-        font-size: 8pt;
+        margin-top: 10px;
+        font-size: 10pt;
     }
 }
 
@@ -161,7 +167,6 @@
 
     #imgEst-choose-meal-select, #imgEst-choose-meal-option {
         margin-right: 0;
-        margin-bottom: 10px;
         font-size: 10pt;
         padding: 2px 0 2px 0;
     }

@@ -16,21 +16,22 @@ const StartWorkout = ({ updatePoints }) => {
     const [personalBest, setPersonalBest] = useState('');
     const [setsRemaining, setSetsRemaining] = useState(0);
     const [workoutDayComplete, setWorkoutDayComplete] = useState(false);
-    const [pointsGainedOpacity, setPointsGainedOpacity] = useState({opacity: '0', top: '90px'});
+    const [pointsGained, setPointsGained] = useState(100);
+    const [pointsGainedOpacity, setPointsGainedOpacity] = useState({ opacity: '0', top: '90px' });
     const initialRender = useRef(true);
     axios.defaults.withCredentials = true;
 
     const showPointsGained = () => {
-        setPointsGainedOpacity({opacity: '1', top: '60px'})
+        setPointsGainedOpacity({ opacity: '1', top: '60px' })
 
         setTimeout(() => {
-            setPointsGainedOpacity({opacity: '0', top: '30px'})
-        }, 2000)
+            setPointsGainedOpacity({ opacity: '0', top: '30px' })
+        }, 1000)
         setTimeout(() => {
-            setPointsGainedOpacity({opacity: '0', top: '90px'})
-        }, 3000)
+            setPointsGainedOpacity({ opacity: '0', top: '90px' })
+        }, 1500)
     }
-    
+
     axios.post('/api/fitness/complete-day', {
         day: daysOfWeek[currentDayIndex],
         week: 1,
@@ -140,10 +141,14 @@ const StartWorkout = ({ updatePoints }) => {
                     // Handle response of the second request
                     console.log(response);
                     alert('Workout for the day is completed');
+                    setTimeout(() => {
+                        setPointsGained(1000)
+                        showPointsGained();
+                    }, 1500)
                     updatePoints();
                     // Display a message or update the UI to indicate that the workout day is complete
                     return axios.post('/api/fitness/complete-day/setScore')
-                    
+
                 })
                 .catch(error => {
                     // Handle error of the requests
@@ -151,34 +156,35 @@ const StartWorkout = ({ updatePoints }) => {
                 });
         } else {
             setSetsRemaining(newSetsRemaining);
-        }        
+        }
         updatePoints();
+        setPointsGained(100)
         showPointsGained();
     };
 
     const fetchYouTubeVideo = async (exerciseName) => {
         try {
-          console.log(exerciseName)
-          // Make a request to search for videos related to the exercise
-          const response = await axios.get('/api/fitness/exercise-video', {
-            params: {
-              exerciseName: exerciseName,
-              part: 'snippet',
-              maxResults: 1,
-              q: `exercise and fitness how to properly do ${exerciseName}`,
-            }
-          });
-          // Extract the video ID
-          console.log(response);
-          const videoId = response.data.videoId;
-    
-          // Open the video in a new tab
-          window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+            console.log(exerciseName)
+            // Make a request to search for videos related to the exercise
+            const response = await axios.get('/api/fitness/exercise-video', {
+                params: {
+                    exerciseName: exerciseName,
+                    part: 'snippet',
+                    maxResults: 1,
+                    q: `exercise and fitness how to properly do ${exerciseName}`,
+                }
+            });
+            // Extract the video ID
+            console.log(response);
+            const videoId = response.data.videoId;
+
+            // Open the video in a new tab
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
         } catch (error) {
-          console.error('Error fetching YouTube video:', error);
+            console.error('Error fetching YouTube video:', error);
         }
-    
-      };
+
+    };
 
     const handleWeightChange = (event) => {
         const enteredWeight = event.target.value;
@@ -190,7 +196,9 @@ const StartWorkout = ({ updatePoints }) => {
     if (workoutDayComplete) {
         return (
             <div id='startFit-body-container'>
-
+                <div id='startFit-points-inc-container' style={pointsGainedOpacity}>
+                    <p id='startFit-points-inc'>+{pointsGained} PTS</p>
+                </div>
                 <div id='startFit-complete-container'>
                     <h1 id='startFit-complete'>Workout for the day is completed!</h1>
                 </div>
@@ -203,7 +211,7 @@ const StartWorkout = ({ updatePoints }) => {
         return (
             <div id='startFit-body-container'>
                 <div id='startFit-points-inc-container' style={pointsGainedOpacity}>
-                    <p id='startFit-points-inc'>+100 PTS</p>
+                    <p id='startFit-points-inc'>+{pointsGained} PTS</p>
                 </div>
                 <div id="startFit-title-container">
                     <h1 id="startFit-title-title">Fitness</h1>
