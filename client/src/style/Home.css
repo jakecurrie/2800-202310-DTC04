@@ -188,6 +188,12 @@
   margin: 0 !important;
 }
 
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  border: none !important;
+  background-color: #f0eae3 !important;
+  box-shadow: none !important;
+}
+
 @media screen and (max-width: 750px) {
   .home-cards {
     width: 72vw;
