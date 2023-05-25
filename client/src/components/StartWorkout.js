@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
 
 
-const StartWorkout = () => {
+const StartWorkout = ({ updatePoints }) => {
     const [workouts, setWorkouts] = useState([]);
     const [totalSets, setTotalSets] = useState(0);
     const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
@@ -63,48 +63,10 @@ const StartWorkout = () => {
         }
     }, [workouts, setsRemaining, currentWorkoutIndex]);
 
-    // useEffect(() => {
-    //     if (workouts.length > 0) {
-    //         let activeWorkoutIndex = currentWorkoutIndex;
-    //         let activeWorkout = workouts[activeWorkoutIndex];
-
-    //         while (activeWorkout && activeWorkout.weeksCompleted?.find(week => week.week === 1)?.setsRemaining === 0) {
-    //             activeWorkoutIndex += 1;
-    //             activeWorkout = workouts[activeWorkoutIndex];
-    //         }
-
-    //         setCurrentWorkoutIndex(activeWorkoutIndex);
-
-    //         if (activeWorkout) {
-    //             const initialPersonalBest = activeWorkout.personalBest || 0;
-    //             setPersonalBest(initialPersonalBest);
-    //             const initialSetsRemaining = activeWorkout.weeksCompleted?.find(week => week.week === 1)?.setsRemaining || 0;
-    //             setSetsRemaining(initialSetsRemaining);
-    //         }
-    //     }
-    // }, [workouts, currentWorkoutIndex]);
-
-
-    // useEffect(() => {
-    //     if (initialRender.current) {
-    //         // If it's the initial render, we update the ref and do nothing
-    //         initialRender.current = false;
-    //     } else if (setsRemaining === 0 && currentWorkoutIndex < workouts.length - 1) {
-    //         // If it's not the initial render and setsRemaining is 0, we increment currentWorkoutIndex
-    //         setCurrentWorkoutIndex(prevWorkoutIndex => prevWorkoutIndex + 1);
-    //     }
-    // }, [setsRemaining, currentWorkoutIndex, workouts.length]);
-
-    // useEffect(() => {
-    //     if (setsRemaining === 0 && currentWorkoutIndex < workouts.length - 1) {
-    //         setCurrentWorkoutIndex(prevWorkoutIndex => prevWorkoutIndex + 1);
-    //     } else {
-
-    //     }
-    // }, [setsRemaining, currentWorkoutIndex, workouts.length]);
 
     const handleNextSet = async () => {
         console.log(currentWorkoutIndex)
+        updatePoints();
         let newSetsRemaining = setsRemaining - 1;
         if (newSetsRemaining < 0) {
             newSetsRemaining = 0;

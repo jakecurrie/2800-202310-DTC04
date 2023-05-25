@@ -10,12 +10,13 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import '../style/Navbar.css'
 
-const Navbar = ({setIsLoggedIn}) => {
+const Navbar = ({setIsLoggedIn, points, updatePoints}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [userPoints, setUserPoints] = useState(null);
+
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,6 +40,12 @@ const Navbar = ({setIsLoggedIn}) => {
 
     getUserPoints();
   }, []);
+
+  // Navbar.js
+useEffect(() => {
+  updatePoints();
+}, []);
+
 
   async function endSession() {
     await fetch(`${process.env.REACT_APP_API_BASE_URL}/logout`, {
@@ -70,7 +77,7 @@ const Navbar = ({setIsLoggedIn}) => {
               ArtificialGains
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <p className='navbar-points'>{userPoints} PTS</p>
+            <p className='navbar-points'>{points} PTS</p>
             <Button className='navbar-top-links' color="inherit" component={Link} to="/app/profile">Profile</Button>
             <Button className='navbar-top-links' color="inherit" onClick={endSession}>Logout</Button>
           </Toolbar>

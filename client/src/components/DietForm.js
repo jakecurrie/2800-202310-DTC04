@@ -7,8 +7,8 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 function DietForm() {
   const navigate = useNavigate();
+  const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState({ display: 'none' });
-  const [completionResult, setCompletionResult] = useState('');
   const [calorieGoals, setCalorieGoals] = useState('');
   const [proteinGoals, setProteinGoals] = useState('');
   const [carbGoals, setCarbGoals] = useState('');
@@ -63,6 +63,70 @@ function DietForm() {
     setDietaryRestrictions(e.target.value);
   };
 
+  const handleNext = (e) => {
+    e.preventDefault();
+    setStep(step + 1);
+  };
+
+  
+  const handlePrev = () => {
+    if(step > 1){
+      setStep(step - 1);
+    }
+  };
+
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return (
+          <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily calorie goal?</h1>
+            <input className='dietForm-input-textbox' type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} /> g
+          </label>
+        </div>
+        );
+      case 2:
+        return (
+          <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily protein requirement?</h1>
+            <input className='dietForm-input-textbox' type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} /> g
+          </label>
+        </div>
+        );
+      case 3:
+        return (
+          <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily carb requirement?</h1>
+            <input className='dietForm-input-textbox' type="text" name="carbGoals" value={carbGoals} onChange={handleCarbGoalsChange} /> g
+          </label>
+        </div>
+        );
+      case 4:
+        return (
+          <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>What is your daily fat requirement?</h1>
+            <input className='dietForm-input-textbox' type="text" name="fatGoals" value={fatGoals} onChange={handleFatGoalsChange} /> g
+          </label>
+        </div>
+        );
+      case 5:
+        return (
+          <div className='dietForm-input-form'>
+          <label>
+            <h1 className='dietForm-form-title'>Do you have any food allergies or dietary restrictions?</h1>
+            <input className='dietForm-input-textbox' type="text" name="dietaryRestrictions" value={dietaryRestrictions} onChange={handleDietaryRestrictions} /> g
+          </label>
+        </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
@@ -98,22 +162,15 @@ function DietForm() {
         <p id="dietForm-title-subtext">Generate Diet Plan</p>
       </div>
       <form id="dietForm-form" onSubmit={handleSubmit}>
-        <div className='dietForm-input-form'>
-          <label>
-            <h1 className='dietForm-form-title'>What is your daily calorie goal?</h1>
-            <input className='dietForm-input-textbox' type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} /> g
+      {renderStep()}
+        {step > 1 && <button onClick={handlePrev} type="button">Previous</button>}
+        {step < 6 ? (
+          <button onClick={handleNext} type="button">Next</button>
+        ) : (
+          <button type="submit">Submit</button>
+        )}
 
-            {/* <select value={calorieGoals} onChange={handleCalorieGoalsChange}>
-            <option value="">Select a diet goal</option>
-            <option value="weight-loss">Weight Loss</option>
-            <option value="muscle-building">Muscle Building</option>
-            <option value="strength-gain">Strength Gain</option>
-            <option value="general-health">General Health</option>
-          </select> */}
-          </label>
-        </div>
-
-        <div className='dietForm-input-form'>
+        {/* <div className='dietForm-input-form'>
           <label>
             <h1 className='dietForm-form-title'>What is your daily protein requirement?</h1>
             <input className='dietForm-input-textbox' type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} /> g
@@ -145,70 +202,8 @@ function DietForm() {
               <option className='dietForm-drop-down-options' value="4">4</option>
             </select>
           </label>
-        </div>
-
-        {/* <label>
-          Do you have any food allergies or sensitivities?
-          <select value={dietaryRestrictions} onChange={handleDietaryRestrictions}>
-            <option value="">Select an option</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </label>
-        <label>
-          What is your current diet level in terms of being healthy?
-          <select value={fitnessLevel} onChange={handleFitnessLevelChange}>
-            <option value="">Select your diet level</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-        </label>
-        <label>
-          What days of the week would you like to eat healthy?
-          <div>
-            <label>
-              <input type="checkbox" name="monday" value="monday" checked={selectedDays.includes('monday')} onChange={handleDaySelection} />
-              Monday
-            </label>
-            <label>
-              <input type="checkbox" name="tuesday" value="tuesday" checked={selectedDays.includes('tuesday')} onChange={handleDaySelection} />
-              Tuesday
-            </label>
-            <label>
-              <input type="checkbox" name="wednesday" value="wednesday" checked={selectedDays.includes('wednesday')} onChange={handleDaySelection} />
-              Wednesday
-            </label>
-            <label>
-              <input type="checkbox" name="thursday" value="thursday" checked={selectedDays.includes('thursday')} onChange={handleDaySelection} />
-              Thursday
-            </label>
-            <label>
-              <input type="checkbox" name="friday" value="friday" checked={selectedDays.includes('friday')} onChange={handleDaySelection} />
-              Friday
-            </label>
-            <label>
-              <input type="checkbox" name="saturday" value="saturday" checked={selectedDays.includes('saturday')} onChange={handleDaySelection} />
-              Saturday
-            </label>
-            <label>
-              <input type="checkbox" name="sunday" value="sunday" checked={selectedDays.includes('sunday')} onChange={handleDaySelection} />
-              Sunday
-            </label>
-          </div>
-        </label>
-        <label>
-          Do you have any equipment available for your diet, or do you prefer easy diet that require little to no kitchen equipment?
-          <select value={equipmentAvailable} onChange={handleEquipmentAvailable}>
-            <option value="">Select an option</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </label> */}
-
-        {/* Add more form fields for the remaining questions */}
-        {/* ... */}
-        <button id='dietForm-button-submit' type="submit">Submit</button>
+        </div> */}
+        {/* <button id='dietForm-button-submit' type="submit">Submit</button> */}
       </form>
       <div style={isLoading} id='dietForm-loading-container'>
         <h1 id="dietForm-loading-text">Loading...</h1>
