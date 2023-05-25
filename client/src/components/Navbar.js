@@ -9,14 +9,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import '../style/Navbar.css'
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 const Navbar = ({setIsLoggedIn, points, updatePoints}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [userPoints, setUserPoints] = useState(null);
-
+  useEffect(() => {
+    introJs().start();
+  }, [])
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,7 +80,7 @@ useEffect(() => {
               ArtificialGains
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <p className='navbar-points'>{points} PTS</p>
+            <p data-step ='4'data-title ="These are your ArtificialGains points!"data-intro="Watch your gains accumulate here" className='navbar-points'>{points} PTS</p>
             <Button className='navbar-top-links' color="inherit" component={Link} to="/app/profile">Profile</Button>
             <Button className='navbar-top-links' color="inherit" onClick={endSession}>Logout</Button>
           </Toolbar>
@@ -86,13 +89,13 @@ useEffect(() => {
         {isMobile ? (
           <AppBar className="navbar-bottom" position="fixed" color="primary" style={{ top: 'auto', bottom: 0 }}>
             <Toolbar sx={{ justifyContent: 'center', padding: 0 }}>
-              <IconButton className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <IconButton data-step='2' data-title ="Fitness Section"data-intro="Generate your first fitness plan here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
                 <FitnessCenterIcon />
               </IconButton>
-              <IconButton className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/home" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <IconButton data-step ="1" data-title ="You are on the Home Section"data-intro="You can view the leaderboards here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/home" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
                 <HomeIcon />
               </IconButton>
-              <IconButton className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <IconButton data-step = '3' data-title ="Nutrition Section!"data-intro="Generate your first meal plan here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
                 <RestaurantMenuIcon />
               </IconButton>
             </Toolbar>

@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import MacronutrientBreakdown from './MacronutrientBreakdown.js';
 import PersonalBestChart from './PersonalBest.js';
 import NutritionalIntakeTS from './NutritionalIntakeTS.js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import '../style/Home.css';
-import Leaderboard from './Leaderboard.js'
+import Leaderboard from './Leaderboard.js';
+
 
 const HomePage = () => {
   // Replace 'userId' and 'exerciseName' with actual values or state
   const userId = 'userId';
   const exerciseName = 'exerciseName';
-
   const [rankDiv, setRankDiv] = useState({opacity: '0'});
 
   const rankSystem = { 'Rookie': 0, 'Athlete': 3500, 'All-Star': 7000, 'MVP': 10000, 'Hall of Fame': 15000, 'Champion': 25000, 'Prodigy': 45000, 'Legend': 60000, 'Icon': 80000, 'GOAT': 100000 }
@@ -33,7 +33,7 @@ const HomePage = () => {
   }
 
   return (
-    <div id="home-body-container">
+    <div  id="home-body-container">
       <div id="home-title-container">
         <h1 id="home-title-h1">Home</h1>
         <p id="home-title-welcome">Track your nutrition and workout progress</p>
