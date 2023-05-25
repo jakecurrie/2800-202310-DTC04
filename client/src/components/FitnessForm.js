@@ -8,6 +8,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
 function FitnessForm() {
   const navigate = useNavigate();
+  const [step, setStep] = useState(1);
 
   const [isLoading, setIsLoading] = useState({ display: 'none' });
   const [completionResult, setCompletionResult] = useState('');
@@ -38,6 +39,17 @@ function FitnessForm() {
   const handleFitnessLevelChange = (e) => {
     setFitnessLevel(e.target.value);
   };
+  
+  const handleNext = (e) => {
+    e.preventDefault();
+    setStep(step + 1);
+  };
+  
+  const handlePrev = () => {
+    if(step > 1){
+      setStep(step-1);
+    }
+  }
 
   const handleDaySelection = (e) => {
     const value = e.target.value;
@@ -86,16 +98,11 @@ function FitnessForm() {
     // const fitnessPlanResult = await getCompletion(formData);
     // setCompletionResult(fitnessPlanResult);
   };
-
-  return (
-    <div id="fitForm-body-container">
-      <div id="fitForm-title-container">
-        <h1 id="fitForm-title-title">Fitness</h1>
-        <h2 id="fitForm-title-subtext">Generate Fitness Plan</h2>
-      </div>
-      <form id="fitForm-form" onSubmit={handleSubmit}>
-
-        <div className='fitForm-drop-down-form'>
+  const renderStep = () => {
+    switch(step) {
+      case 1:
+        return (
+          <div className='fitForm-drop-down-form'>
           <label>
             <h1 className='fitForm-drop-down-title' >1. What are your current fitness goals?</h1>
             <select className='fitForm-drop-down-select' value={fitnessGoals} onChange={handleFitnessGoalsChange}>
@@ -107,8 +114,10 @@ function FitnessForm() {
             </select>
           </label>
         </div>
-
-        <div className='fitForm-drop-down-form'>
+        );
+      case 2:
+        return (
+          <div className='fitForm-drop-down-form'>
           <label>
             <h1 className='fitForm-drop-down-title' >2. What is your current fitness level?</h1>
             <select className='fitForm-drop-down-select' value={fitnessLevel} onChange={handleFitnessLevelChange}>
@@ -119,8 +128,10 @@ function FitnessForm() {
             </select>
           </label>
         </div>
-
-        <div id='fitForm-button-form'>
+        );
+      case 3:
+        return (
+          <div id='fitForm-button-form'>
           <label>
             <h1 id="fitForm-button-title">3. What days of the week would you like to work out?</h1>
             <div id="fitForm-button-lb-container">
@@ -155,8 +166,10 @@ function FitnessForm() {
             </div>
           </label>
         </div>
-
-        <div className='fitForm-drop-down-form'>
+        );
+      case 4:
+        return (
+          <div className='fitForm-drop-down-form'>
           <label>
             <h1 className='fitForm-drop-down-title' >
               4. Do you have any equipment available for your workouts?
@@ -168,8 +181,10 @@ function FitnessForm() {
             </select>
           </label>
         </div>
-
-        <div className='fitForm-drop-down-form'>
+        );
+      case 5:
+        return (
+          <div className='fitForm-drop-down-form'>
           <label>
             <h1 className='fitForm-drop-down-title' >
               5. What is your intensity level?
@@ -182,8 +197,10 @@ function FitnessForm() {
             </select>
           </label>
         </div>
-
-        <div className='fitForm-drop-down-form'>
+        );
+      case 6:
+        return (
+          <div className='fitForm-drop-down-form'>
           <label>
             <h1 className='fitForm-drop-down-title' >
               6. How long would you like your fitness plan to be?
@@ -205,12 +222,28 @@ function FitnessForm() {
             </select>
           </label>
         </div>
-        {/* Add more form fields for the remaining questions */}
-        {/* ... */}
-        <button id="fitForm-button-submit" type="submit">Submit</button>
+        );
+      default:
+        return null;
+    }
+  };
+  return (
+    <div id="fitForm-body-container">
+      <div id="fitForm-title-container">
+       <h1 id="fitForm-title-title">Fitness</h1>
+        <h2 id="fitForm-title-subtext">Generate Fitness Plan</h2>
+      </div>
+      <form id="fitForm-form" onSubmit={handleSubmit}>
+        {renderStep()}
+        {step > 1 && <button onClick={handlePrev} type="button">Previous</button>}
+        {step < 6 ? (
+          <button onClick={handleNext} type="button">Next</button>
+        ) : (
+          <button type="submit">Submit</button>
+        )}
       </form>
       <div style={isLoading} id='fitForm-loading-container'>
-        <h1 id="fitForm-loading-text">Loading...</h1>
+        {/* ... */}
       </div>
     </div>
   );
