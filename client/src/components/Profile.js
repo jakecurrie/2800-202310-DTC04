@@ -25,6 +25,7 @@ const Profile = () => {
   const editorRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const editorSize = 150; // Adjust this value as needed
+  const [forceUpdate, setForceUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +45,7 @@ const Profile = () => {
     };
   
     fetchData();
-  }, []);
+  }, [forceUpdate]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -81,6 +82,7 @@ const Profile = () => {
         .then((data) => {
           console.log(data.message);
           setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/api/uploads/${data.filename}`);
+          setForceUpdate(!forceUpdate);
         })
         .catch(console.error);
   
