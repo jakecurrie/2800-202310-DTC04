@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay, faImage } from '@fortawesome/free-regular-svg-icons';
@@ -106,6 +105,9 @@ const ViewDietPlan = () => {
         <p id='startFit-points-inc'>+{pointsGained} PTS</p>
       </div>
       <div id="viewDiet-title-container">
+        <Link to="/app/nutrition" className="diet-back-button-link">
+          <p className='diet-back-button'>&#60; Go Back</p>
+        </Link>
         <h1 id="viewDiet-title-title">Diet Plan</h1>
         <div id="viewDiet-title-change-days-container">
           <h2 id="viewDiet-title-change-prev" onClick={handlePreviousDay}>&#60;</h2>

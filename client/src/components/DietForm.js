@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, useNavigate } from 'react-router-dom';
+import { useHistory, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/DietForm.css'
 
@@ -158,6 +158,9 @@ function DietForm() {
   return (
     <div id="dietForm-body-container">
       <div id="dietForm-title-container">
+        <Link to="/app/nutrition" className="diet-back-button-link">
+          <p className='diet-back-button'>&#60; Go Back</p>
+        </Link>
         <h1 id="dietForm-title-title">Diet</h1>
         <p id="dietForm-title-subtext">Generate Diet Plan</p>
       </div>

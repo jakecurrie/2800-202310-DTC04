@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
 import '../style/MealClassifier.css'
@@ -70,6 +71,9 @@ function MealClassifier() {
   return (
     <div id='imgEst-body-container'>
       <div id="imgEst-title-container">
+        <Link to="/app/nutrition" className="diet-back-button-link">
+          <p className='diet-back-button'>&#60; Go Back</p>
+        </Link>
         <h1 id="imgEst-title-title">Nutrition</h1>
         <p id="imgEst-title-subtext">Estimate Nutritional Info From A Meal Photo</p>
       </div>
