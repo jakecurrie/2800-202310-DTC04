@@ -58,6 +58,24 @@ const ViewFitnessPlan = () => {
 
   };
 
+  const fetchExerciseImage = async (exerciseName) => {
+    try {
+      // Make a request to your backend, which should then make a request to the Google Custom Search API
+      const response = await axios.get('/api/fitness/exercise-image', {
+        params: {
+          q: exerciseName,  // The search query
+          // other necessary parameters...
+        }
+      });
+      
+      // Extract the image URL from the response
+      const imageUrl = response.data.items[0].link;
+      return imageUrl;
+    } catch (error) {
+      console.error('Error fetching exercise image:', error);
+    }
+  };
+  
   return (
     <div id="viewFit-body-container">
       <div id="viewFit-title-container">
