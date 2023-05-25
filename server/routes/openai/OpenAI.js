@@ -98,9 +98,34 @@ async function getNutritionEstimate(mealDescription) {
   return nutritionObject;
 }
 
+async function checkMealMatch(guesses, plannedMeal, userId) {
+  try {
+      const prompt = `Here are some food items identified from a picture: ${guesses.join(', ')}. Do any of these match or partially match with a ${plannedMeal}?`;
+      const gptResponse = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt,
+          max_tokens: 60
+      });
+
+      const answer = gptResponse.data.choices[0].text.trim();
+
+      if (answer.includes('Yes')) {
+          const user = await userModel.findById(userId);
+          user.points += 100;
+          await user.save();
+      }
+      
+      return { answer };
+  } catch (error) {
+      console.error('Error during OpenAI API call', error);
+      throw error;
+  }
+}
+
 module.exports = {
   getDietPlanCompletion,
   getCompletion,
-  getNutritionEstimate
+  getNutritionEstimate,
+  checkMealMatch
 };
 
