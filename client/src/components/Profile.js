@@ -25,6 +25,7 @@ const Profile = () => {
   const editorRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const editorSize = 150; // Adjust this value as needed
+  const [forceUpdate, setForceUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,16 +36,16 @@ const Profile = () => {
         });
         const data = await response.json();
         if (data.profilePicture) {
-          setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/${data.profilePicture}`);
+          setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/api/uploads/${data.profilePicture}`);
         }
         setUser(data);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
+  
     fetchData();
-  }, []);
+  }, [forceUpdate]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -62,15 +63,15 @@ const Profile = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const profilePicDataUrl = canvas.toDataURL();
-
+  
       // Convert the Data URL to a Blob
       const response = await fetch(profilePicDataUrl);
       const blob = await response.blob();
-
+  
       // Create a form and append the file
       const formData = new FormData();
       formData.append('profilePicture', blob);
-
+  
       // Post the image to your endpoint
       fetch(`${process.env.REACT_APP_API_BASE_URL}/api/uploadProfilePicture`, {
         method: 'POST',
@@ -80,10 +81,11 @@ const Profile = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data.message);
-          setProfilePic(profilePicDataUrl);
+          setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/api/uploads/${data.filename}`);
+          setForceUpdate(!forceUpdate);
         })
         .catch(console.error);
-
+  
       setShowUploadOption(false);
     }
   };
