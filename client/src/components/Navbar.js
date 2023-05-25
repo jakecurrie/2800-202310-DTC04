@@ -18,7 +18,7 @@ const Navbar = ({setIsLoggedIn, points, updatePoints}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [userPoints, setUserPoints] = useState(null);
   useEffect(() => {
-    introJs().start();
+    introJs().setOptions({scrollToElement: false}).start();
   }, [])
 
   const handleMenuOpen = (event) => {
