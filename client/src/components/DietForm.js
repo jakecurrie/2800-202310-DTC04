@@ -32,7 +32,7 @@ function DietForm() {
       setSelectedDays([...selectedDays, value]);
     }
   };
-  
+
   const handleProteinGoalsChange = (e) => {
     setProteinGoals(e.target.value);
   };
@@ -68,9 +68,9 @@ function DietForm() {
     setStep(step + 1);
   };
 
-  
+
   const handlePrev = () => {
-    if(step > 1){
+    if (step > 1) {
       setStep(step - 1);
     }
   };
@@ -80,47 +80,47 @@ function DietForm() {
       case 1:
         return (
           <div className='dietForm-input-form'>
-          <label>
-            <h1 className='dietForm-form-title'>What is your daily calorie goal?</h1>
-            <input className='dietForm-input-textbox' type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} /> g
-          </label>
-        </div>
+            <label>
+              <h1 className='dietForm-form-title'>What is your daily calorie goal?</h1>
+              <input className='dietForm-input-textbox' type="text" name="calorieGoals" value={calorieGoals} onChange={handleCalorieGoalsChange} /> g
+            </label>
+          </div>
         );
       case 2:
         return (
           <div className='dietForm-input-form'>
-          <label>
-            <h1 className='dietForm-form-title'>What is your daily protein requirement?</h1>
-            <input className='dietForm-input-textbox' type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} /> g
-          </label>
-        </div>
+            <label>
+              <h1 className='dietForm-form-title'>What is your daily protein requirement?</h1>
+              <input className='dietForm-input-textbox' type="text" name="proteinGoals" value={proteinGoals} onChange={handleProteinGoalsChange} /> g
+            </label>
+          </div>
         );
       case 3:
         return (
           <div className='dietForm-input-form'>
-          <label>
-            <h1 className='dietForm-form-title'>What is your daily carb requirement?</h1>
-            <input className='dietForm-input-textbox' type="text" name="carbGoals" value={carbGoals} onChange={handleCarbGoalsChange} /> g
-          </label>
-        </div>
+            <label>
+              <h1 className='dietForm-form-title'>What is your daily carb requirement?</h1>
+              <input className='dietForm-input-textbox' type="text" name="carbGoals" value={carbGoals} onChange={handleCarbGoalsChange} /> g
+            </label>
+          </div>
         );
       case 4:
         return (
           <div className='dietForm-input-form'>
-          <label>
-            <h1 className='dietForm-form-title'>What is your daily fat requirement?</h1>
-            <input className='dietForm-input-textbox' type="text" name="fatGoals" value={fatGoals} onChange={handleFatGoalsChange} /> g
-          </label>
-        </div>
+            <label>
+              <h1 className='dietForm-form-title'>What is your daily fat requirement?</h1>
+              <input className='dietForm-input-textbox' type="text" name="fatGoals" value={fatGoals} onChange={handleFatGoalsChange} /> g
+            </label>
+          </div>
         );
       case 5:
         return (
           <div className='dietForm-input-form'>
-          <label>
-            <h1 className='dietForm-form-title'>Do you have any food allergies or dietary restrictions?</h1>
-            <input className='dietForm-input-textbox' type="text" name="dietaryRestrictions" value={dietaryRestrictions} onChange={handleDietaryRestrictions} /> g
-          </label>
-        </div>
+            <label>
+              <h1 className='dietForm-form-title'>Do you have any food allergies or dietary restrictions?</h1>
+              <input className='dietForm-input-textbox diet-form-input-allergy' type="text" name="dietaryRestrictions" value={dietaryRestrictions} onChange={handleDietaryRestrictions} />
+            </label>
+          </div>
         );
       default:
         return null;
@@ -162,14 +162,15 @@ function DietForm() {
         <p id="dietForm-title-subtext">Generate Diet Plan</p>
       </div>
       <form id="dietForm-form" onSubmit={handleSubmit}>
-      {renderStep()}
-        {step > 1 && <button onClick={handlePrev} type="button">Previous</button>}
-        {step < 6 ? (
-          <button onClick={handleNext} type="button">Next</button>
-        ) : (
-          <button type="submit">Submit</button>
-        )}
-
+        {renderStep()}
+        <div id='fitForm-button-container'>
+          {step > 1 && <button id='dietForm-back-button' onClick={handlePrev} type="button">Back</button>}
+          {step < 6 ? (
+            <button id='dietForm-next-button' onClick={handleNext} type="button">Next</button>
+          ) : (
+            <button id='fitFormdietFormsubmit-button' onClick={handleSubmit} type="submit">Submit</button>
+          )}
+        </div>
         {/* <div className='dietForm-input-form'>
           <label>
             <h1 className='dietForm-form-title'>What is your daily protein requirement?</h1>

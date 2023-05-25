@@ -12,13 +12,12 @@ import '../style/Navbar.css'
 import introJs from 'intro.js';
 import 'intro.js/introjs.css';
 
-const Navbar = ({setIsLoggedIn, points, updatePoints}) => {
+const Navbar = ({ setIsLoggedIn, points, updatePoints }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState(null);
-  const [userPoints, setUserPoints] = useState(null);
   useEffect(() => {
-    introJs().setOptions({scrollToElement: false}).start();
+    introJs().setOptions({ scrollToElement: false }).start();
   }, [])
 
   const handleMenuOpen = (event) => {
@@ -29,25 +28,11 @@ const Navbar = ({setIsLoggedIn, points, updatePoints}) => {
     setAnchorEl(null);
   };
 
-  const navigate = useNavigate();  
-
-  useEffect(() => {
-    async function getUserPoints() {
-      try {
-        const repsonse = await axios.get('/api/users/currentPoint')
-        setUserPoints(repsonse.data)
-      } catch (err) {
-        console.error('Error', err);
-      }
-    }
-
-    getUserPoints();
-  }, []);
-
+  const navigate = useNavigate();
   // Navbar.js
-useEffect(() => {
-  updatePoints();
-}, []);
+  useEffect(() => {
+    updatePoints();
+  });
 
 
   async function endSession() {
@@ -67,54 +52,54 @@ useEffect(() => {
     });
   }
 
-    return (
-      <>
-        <AppBar className='navbar-top' position="static">
-          <Toolbar variant={isMobile ? "regular" : "dense"}>
-            {isMobile ? null : (
-              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuOpen}>
-                <MenuIcon />
-              </IconButton>
-            )}
-            <Box className='navbar-top-title' component="span" sx={{ flexGrow: 1 }}>
-              ArtificialGains
-            </Box>
-            <Box sx={{ flexGrow: 1 }} />
-            <p data-step ='4'data-title ="These are your ArtificialGains points!"data-intro="Watch your gains accumulate here" className='navbar-points'>{points} PTS</p>
-            <Button className='navbar-top-links' color="inherit" component={Link} to="/app/profile">Profile</Button>
-            <Button className='navbar-top-links' color="inherit" onClick={endSession}>Logout</Button>
+  return (
+    <>
+      <AppBar className='navbar-top' position="static">
+        <Toolbar variant={isMobile ? "regular" : "dense"}>
+          {isMobile ? null : (
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuOpen}>
+              <MenuIcon />
+            </IconButton>
+          )}
+          <Box className='navbar-top-title' component="span" sx={{ flexGrow: 1 }}>
+            ArtificialGains
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <p data-step='4' data-title="These are your ArtificialGains points!" data-intro="Watch your gains accumulate here" className='navbar-points'>{points} PTS</p>
+          <Button className='navbar-top-links' color="inherit" component={Link} to="/app/profile">Profile</Button>
+          <Button className='navbar-top-links' color="inherit" onClick={endSession}>Logout</Button>
+        </Toolbar>
+      </AppBar>
+      <Outlet />
+      {isMobile ? (
+        <AppBar className="navbar-bottom" position="fixed" color="primary" style={{ top: 'auto', bottom: 0 }}>
+          <Toolbar sx={{ justifyContent: 'center', padding: 0 }}>
+            <IconButton data-step='2' data-title="Fitness Section" data-intro="Generate your first fitness plan here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <FitnessCenterIcon />
+            </IconButton>
+            <IconButton data-step="1" data-title="You are on the Home Section" data-intro="You can view the leaderboards here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/home" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <HomeIcon />
+            </IconButton>
+            <IconButton data-step='3' data-title="Nutrition Section!" data-intro="Generate your first meal plan here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
+              <RestaurantMenuIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
-        <Outlet />
-        {isMobile ? (
-          <AppBar className="navbar-bottom" position="fixed" color="primary" style={{ top: 'auto', bottom: 0 }}>
-            <Toolbar sx={{ justifyContent: 'center', padding: 0 }}>
-              <IconButton data-step='2' data-title ="Fitness Section"data-intro="Generate your first fitness plan here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/fitness" edge="start" color="inherit" aria-label="fitness" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
-                <FitnessCenterIcon />
-              </IconButton>
-              <IconButton data-step ="1" data-title ="You are on the Home Section"data-intro="You can view the leaderboards here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/home" edge="start" color="inherit" aria-label="home" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
-                <HomeIcon />
-              </IconButton>
-              <IconButton data-step = '3' data-title ="Nutrition Section!"data-intro="Generate your first meal plan here" className='navbar-bottom-button' onClick={handleMenuClose} component={Link} to="/app/nutrition" edge="start" color="inherit" aria-label="restaurant" sx={{ fontSize: '2.5rem', width: '33.3%' }}>
-                <RestaurantMenuIcon />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-        ) : (
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          >
-            <MenuItem onClick={handleMenuClose} component={Link} to="/app/home">Home</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/app/nutrition">Nutrition</MenuItem>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/app/fitness">Fitness</MenuItem>
-          </Menu>
-        )}
+      ) : (
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <MenuItem onClick={handleMenuClose} component={Link} to="/app/home">Home</MenuItem>
+          <MenuItem onClick={handleMenuClose} component={Link} to="/app/nutrition">Nutrition</MenuItem>
+          <MenuItem onClick={handleMenuClose} component={Link} to="/app/fitness">Fitness</MenuItem>
+        </Menu>
+      )}
 
-      </>
-    );
+    </>
+  );
 }
-  export default Navbar;
+export default Navbar;

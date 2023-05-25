@@ -46,11 +46,13 @@ function Leaderboard() {
         </thead>
         <tbody>
           {users.map((user, index) => {
+            let prevKey = 'Rookie';
             for (const key in rankSystem) {
               if (user.points <= rankSystem[key]) {
-                var userRank = key
+                var userRank = prevKey
                 break
               }
+              prevKey = key
             }
             return (
               <tr key={index + 1}>

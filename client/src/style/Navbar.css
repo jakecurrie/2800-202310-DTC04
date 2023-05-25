@@ -58,6 +58,6 @@
 
 @media screen and (max-width: 350px) {
     .navbar-points {
-        display: none;
+        font-size: 7pt !important;
     }
 }
