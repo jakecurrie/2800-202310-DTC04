@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Box, Button, Menu, MenuItem } from '@mui/material';
+import axios from 'axios';
 import HomeIcon from '@mui/icons-material/Home';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
@@ -14,6 +15,7 @@ const Navbar = ({setIsLoggedIn}) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [userPoints, setUserPoints] = useState(null);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,7 +25,20 @@ const Navbar = ({setIsLoggedIn}) => {
     setAnchorEl(null);
   };
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
+
+  useEffect(() => {
+    async function getUserPoints() {
+      try {
+        const repsonse = await axios.get('/api/users/currentPoint')
+        setUserPoints(repsonse.data)
+      } catch (err) {
+        console.error('Error', err);
+      }
+    }
+
+    getUserPoints();
+  }, []);
 
   async function endSession() {
     await fetch(`${process.env.REACT_APP_API_BASE_URL}/logout`, {
@@ -54,7 +69,8 @@ const Navbar = ({setIsLoggedIn}) => {
             <Box className='navbar-top-title' component="span" sx={{ flexGrow: 1 }}>
               ArtificialGains
             </Box>
-            <Box sx={{ flexGrow: 1 }} />  
+            <Box sx={{ flexGrow: 1 }} />
+            <p className='navbar-points'>{userPoints} PTS</p>
             <Button className='navbar-top-links' color="inherit" component={Link} to="/app/profile">Profile</Button>
             <Button className='navbar-top-links' color="inherit" onClick={endSession}>Logout</Button>
           </Toolbar>
