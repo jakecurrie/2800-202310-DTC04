@@ -146,6 +146,16 @@
     background-color: #f3b98d;
 }
 
+#startFit-points-inc-container {
+    position: absolute;
+    right: 185px;
+    transition: 300ms ease;
+}
+
+#startFit-points-inc {
+    font-size: 20pt;
+    color: #f0eae3;
+}
 
 @media screen and (max-width: 1100px) {
     .startFit-card-rep-set-container, .startFit-complete-button  {
@@ -203,6 +213,10 @@
     .startFit-complete-button {
         font-size: 15pt;
     }
+
+    #startFit-points-inc-container {
+        right: 120px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -247,4 +261,5 @@
     .startFit-complete-button {
         font-size: 13pt;
     }
+
 }

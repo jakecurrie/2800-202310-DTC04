@@ -16,8 +16,20 @@ const StartWorkout = ({ updatePoints }) => {
     const [personalBest, setPersonalBest] = useState('');
     const [setsRemaining, setSetsRemaining] = useState(0);
     const [workoutDayComplete, setWorkoutDayComplete] = useState(false);
+    const [pointsGainedOpacity, setPointsGainedOpacity] = useState({opacity: '0', top: '90px'});
     const initialRender = useRef(true);
     axios.defaults.withCredentials = true;
+
+    const showPointsGained = () => {
+        setPointsGainedOpacity({opacity: '1', top: '60px'})
+
+        setTimeout(() => {
+            setPointsGainedOpacity({opacity: '0', top: '30px'})
+        }, 2000)
+        setTimeout(() => {
+            setPointsGainedOpacity({opacity: '0', top: '90px'})
+        }, 3000)
+    }
     
     axios.post('/api/fitness/complete-day', {
         day: daysOfWeek[currentDayIndex],
@@ -66,7 +78,6 @@ const StartWorkout = ({ updatePoints }) => {
 
     const handleNextSet = async () => {
         console.log(currentWorkoutIndex)
-        updatePoints();
         let newSetsRemaining = setsRemaining - 1;
         if (newSetsRemaining < 0) {
             newSetsRemaining = 0;
@@ -118,7 +129,7 @@ const StartWorkout = ({ updatePoints }) => {
                 .then(response => {
                     // Handle response of the first request
                     console.log(response);
-
+                    updatePoints();
                     return axios.post('/api/fitness/complete-day', {
                         // Provide the necessary data
                         day: daysOfWeek[currentDayIndex],
@@ -129,7 +140,7 @@ const StartWorkout = ({ updatePoints }) => {
                     // Handle response of the second request
                     console.log(response);
                     alert('Workout for the day is completed');
-
+                    updatePoints();
                     // Display a message or update the UI to indicate that the workout day is complete
                     return axios.post('/api/fitness/complete-day/setScore')
                     
@@ -140,7 +151,9 @@ const StartWorkout = ({ updatePoints }) => {
                 });
         } else {
             setSetsRemaining(newSetsRemaining);
-        }
+        }        
+        updatePoints();
+        showPointsGained();
     };
 
     const fetchYouTubeVideo = async (exerciseName) => {
@@ -189,6 +202,9 @@ const StartWorkout = ({ updatePoints }) => {
     } else
         return (
             <div id='startFit-body-container'>
+                <div id='startFit-points-inc-container' style={pointsGainedOpacity}>
+                    <p id='startFit-points-inc'>+100 PTS</p>
+                </div>
                 <div id="startFit-title-container">
                     <h1 id="startFit-title-title">Fitness</h1>
                     <p id='startFit-title-subtext'>Start Workout</p>
