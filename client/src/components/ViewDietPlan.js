@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
-import '../style/ViewDietPlan.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlay, faImage} from '@fortawesome/free-regular-svg-icons';
+import '../style/ViewDietPlan.css';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const ViewDietPlan = () => {
-
   const date = new Date();
   const currentDay = date.getDay();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const [dietPlan, setDietPlan] = useState(null);
-  const [currentDayIndex, setCurrentDayIndex] = useState(currentDay); // Initialize with Monday (index 1) 
+  const [currentDayIndex, setCurrentDayIndex] = useState(currentDay);
+  const [selectedFile, setSelectedFile] = useState(null);
+
   useEffect(() => {
     axios.get('/api/nutrition/view-plan').then(response => {
       console.log(response.data);
@@ -30,13 +32,42 @@ const ViewDietPlan = () => {
   const handlePreviousDay = () => {
     setCurrentDayIndex(prevIndex => (prevIndex - 1 + daysOfWeek.length) % daysOfWeek.length);
   };
+
   const filteredMeals = dietPlan
     ? dietPlan.filter(meal => meal.day === daysOfWeek[currentDayIndex])
     : [];
 
+  const classifyMeal = async (mealName) => {
+    let formData = new FormData();
+    formData.append('image', selectedFile);
+  
+    try {
+      const response = await axios.post('/classifyMeal', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      });
+  
+      const guesses = response.data;
+  
+      const checkResponse = await axios.post('/api/nutrition/checkMealMatch', JSON.stringify({
+        guesses,
+        plannedMeal: mealName
+      }), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      console.log('GPT-3 Response: ' + checkResponse.data.answer);
+    } catch (error) {
+      console.error('Error during API call', error);
+    }
+  };
+
   const fetchYouTubeVideo = async (mealName) => {
     try {
-      // Make a request to search for videos related to the exercise
       const response = await axios.get('/api/fitness/exercise-video', {
         params: {
           exerciseName: mealName,
@@ -45,16 +76,13 @@ const ViewDietPlan = () => {
           q: `How to cook simple ${mealName}`,
         }
       });
-      // Extract the video ID
-      console.log(response);
+
       const videoId = response.data.videoId;
 
-      // Open the video in a new tab
       window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
     } catch (error) {
       console.error('Error fetching YouTube video:', error);
     }
-
   };
 
   return (
@@ -75,6 +103,9 @@ const ViewDietPlan = () => {
               <p className='viewDiet-card-calories'>Calories: {meal.calories}</p>
               <p className='viewDiet-card-protein'>Protein: {meal.protein}g</p>
               <FontAwesomeIcon className='viewDiet-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(meal.name)} />
+              <input type="file" onChange={(event) => setSelectedFile(event.target.files[0])} style={{display: 'none'}} id={`upload-${index}`} />
+              <label htmlFor={`upload-${index}`}><FontAwesomeIcon className='viewDiet-card-camera' icon={faImage} /></label>
+              <button onClick={() => classifyMeal(meal.name)}>Classify meal</button>
             </div>
           ))}
         </div>
@@ -88,3 +119,4 @@ const ViewDietPlan = () => {
 };
 
 export default ViewDietPlan;
+
