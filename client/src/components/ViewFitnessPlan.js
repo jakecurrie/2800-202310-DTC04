@@ -69,8 +69,13 @@ const ViewFitnessPlan = () => {
       </div>
       {filteredWorkouts.length > 0 ? (
         <div id="viewFit-card-container">
-          {filteredWorkouts.map((workout, index) => {
-  console.log(workout.imageUrl);
+        {filteredWorkouts.map((workout, index) => {
+  // check if imageUrl is defined and log the value
+  if (workout.imageUrl) {
+    console.log(`Image URL for workout ${index}: ${workout.imageUrl}`);
+  } else {
+    console.log(`No Image URL for workout ${index}`);
+  }
   return (
     <div className='viewFit-cards' key={index} >
       <h2 className='viewFit-card-h2'>{workout.exerciseName}</h2>
@@ -89,6 +94,7 @@ const ViewFitnessPlan = () => {
       )}
     </div>
   );
-  
-  export default ViewFitnessPlan;
-  
+}
+
+// this should be outside of the ViewFitnessPlan function
+export default ViewFitnessPlan;

@@ -1,22 +1,25 @@
+const express = require('express');
 const axios = require('axios');
+const router = express.Router();
 
-async function searchImage(exerciseName) {
+router.get('/searchImage/:exerciseName', async (req, res) => {
     try {
         const response = await axios.get(`https://www.googleapis.com/customsearch/v1`, {
             params: {
                 key: process.env.GOOGLE_API_KEY,
                 cx: process.env.SEARCH_ENGINE_ID,
-                q: exerciseName,
+                q: req.params.exerciseName,
                 searchType: 'image',
                 num: 1,
                 safe: 'high'
             }
         });
-        return response.data;
+        res.json(response.data);
+        console.log(response.data);
     } catch (error) {
         console.error(error);
-        throw new Error('Error performing image search');
+        res.status(500).send('Error performing image search');
     }
-};
+});
 
-module.exports = { searchImage };
+module.exports = router;
