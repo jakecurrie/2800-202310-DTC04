@@ -220,7 +220,7 @@ const StartWorkout = () => {
                     <h1 id='startFit-complete'>Workout for the day is completed!</h1>
                 </div>
                 <div id='startFit-complete-container'>
-                    <h5 id='startFit-complete'>You've Gained 2500 points for it!</h5>
+                    <h5 id='startFit-complete'>You've Gained EXTRA 1000 points for finishing todays workout!</h5>
                 </div>
             </div>
         );

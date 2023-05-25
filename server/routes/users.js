@@ -15,4 +15,14 @@ router.get('/leaderboard', async (req, res) => {
     }
 });
 
+router.get('/currentPoint', async (req, res) => {
+    try {
+        const user = await userModel.findById(req.session.USER_ID).exec()
+        res.json(user.points)
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
 module.exports = router;

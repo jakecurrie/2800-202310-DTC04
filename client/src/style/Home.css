@@ -55,7 +55,6 @@
   margin-bottom: 40px;
   background-color: #f0eae3;
   border-radius: 25px;
-  cursor: pointer;
   transition: all 200ms ease-in-out;
 }
 
@@ -89,6 +88,73 @@
   color: #181818;
 }
 
+#home-leaderboard-container {
+  position: relative;
+}
+
+#home-leaderboard-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.home-leaderboard-info-icon {
+  cursor: pointer;
+  font-size: 15pt;
+  color: #585858;
+  margin-left: 10px;
+}
+
+#home-leaderboard-info {
+  position: absolute;
+  z-index: 1;
+  top: 80px;
+  left: 195px;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #beb9b3;
+  transition: 100ms ease;
+}
+
+.home-rank-ladder-info {
+  color: #66615B;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11pt;
+  font-weight: 500;
+}
+
+#home-leaderboard-component-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* for leaderboard component */
+#leaderboard-container {
+  margin-top: 10px;
+  position: relative;
+  width: 100%;
+  border: 2px solid #181818;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+#leaderboard-table {
+  width: 100%;
+}
+
+.leaderboard-table-headers {
+  border-bottom: 1px solid #181818;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 15pt;
+}
+
+.leaderboard-table-data {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11pt;
+  font-weight: 500;
+}
+
 .chart-container {
   width: 100%;
   max-width: 100%;
@@ -103,7 +169,10 @@
   justify-content: center;
 }
 
-.chart-container > h2, .home-pb-h2, .home-intake-h2, .home-macro-h2 {
+.chart-container>h2,
+.home-pb-h2,
+.home-intake-h2,
+.home-macro-h2 {
   margin: 0 0 5px 0 !important;
   font-size: 20pt;
   font-family: 'Inter', sans-serif !important;
@@ -129,7 +198,10 @@
     font-weight: 500;
   }
 
-  .chart-container > h2, .home-pb-h2, .home-intake-h2, .home-macro-h2 {
+  .chart-container>h2,
+  .home-pb-h2,
+  .home-intake-h2,
+  .home-macro-h2 {
     font-size: 15pt;
   }
 
@@ -140,6 +212,14 @@
 
   .home-card-arrow {
     font-size: 40pt;
+  }
+
+  #home-leaderboard-info {
+    left: 125px;
+  }
+
+  .home-rank-ladder-info {
+    font-size: 9pt;
   }
 }
 
@@ -157,7 +237,10 @@
     font-weight: 500;
   }
 
-  .chart-container > h2, .home-pb-h2, .home-intake-h2, .home-macro-h2 {
+  .chart-container>h2,
+  .home-pb-h2,
+  .home-intake-h2,
+  .home-macro-h2 {
     font-size: 12pt;
   }
 
@@ -169,5 +252,51 @@
   .home-card-arrow {
     right: 25px;
     font-size: 25pt;
+  }
+
+  #home-leaderboard-info {
+    left: 105px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .leaderboard-table-headers {
+    font-size: 12pt;
+  }
+
+  .leaderboard-table-data {
+    font-size: 9pt;
+  }
+
+  #home-leaderboard-info {
+    top: 55px;
+    left: 100px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .leaderboard-table-headers {
+    font-size: 10pt;
+  }
+
+  .leaderboard-table-data {
+    font-size: 8pt;
+  }
+
+  #home-leaderboard-info {
+    left: 100px;
+  }
+
+  .home-rank-ladder-info {
+    font-size: 9pt;
+  }
+
+  #home-leaderboard-info {
+    padding: 15px;
+    left: 115px;
+  }
+
+  .home-rank-ladder-info {
+    font-size: 8pt;
   }
 }
