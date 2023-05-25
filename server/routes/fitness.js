@@ -280,10 +280,11 @@ router.get('/exercise-video', async (req, res) => {
   }
 });
 
-router.get('/personalBest/:userId/:exerciseName', async (req, res) => {
+router.get('/personalBest/:exerciseName', async (req, res) => {
   try {
-    const { userId, exerciseName } = req.params;
-    const user = await UserModel.findById(userId).exec();
+    const userId = req.session.USER_ID;
+    const { exerciseName } = req.params;
+    const user = await userModel.findById(userId).exec();
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -296,16 +297,36 @@ router.get('/personalBest/:userId/:exerciseName', async (req, res) => {
     }
 
     const data = exercise.weeksCompleted.map((week, index) => {
-      const personalBest = Math.max(...week.setsData.map(set => set.weight));
-      const currentWeight = week.setsData[week.setsData.length - 1].weight; // get the weight of the last set
-      return { week: index + 1, personalBest, currentWeight };
+      const weekData = {
+        week: index + 1,
+        personalBest: null,
+        currentWeight: null
+      };
+
+      const personalBestValues = week.setsData
+        .filter(setData => setData.weight !== null)
+        .map(setData => setData.weight);
+
+      if (personalBestValues.length > 0) {
+        weekData.personalBest = Math.max(...personalBestValues);
+      }
+
+      if (week.setsData.length > 0) {
+        weekData.currentWeight = week.setsData[week.setsData.length - 1].weight;
+      }
+
+      return weekData;
     });
 
     res.json(data);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
+
+
+
 
 
 
