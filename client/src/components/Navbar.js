@@ -80,7 +80,7 @@ useEffect(() => {
               ArtificialGains
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <p data-step ='4'data-title ="These are your ArtificialGains points!"data-intro="Watch your gains accumulate here" className='navbar-points'>{points} PTS</p>
+            <p data-title ="These are your ArtificialGains points!"data-intro="Watch your gains accumulate here" className='navbar-points'>{points} PTS</p>
             <Button className='navbar-top-links' color="inherit" component={Link} to="/app/profile">Profile</Button>
             <Button className='navbar-top-links' color="inherit" onClick={endSession}>Logout</Button>
           </Toolbar>
