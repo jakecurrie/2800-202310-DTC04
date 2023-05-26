@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import '../style/MealClassifier.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
@@ -69,44 +70,80 @@ function MealClassifier() {
   const mealOptionsArray = mealOptions.map(meal => ({ value: meal, label: meal }));
 
   return (
-    <div id='imgEst-body-container'>
+    <div id="imgEst-body-container">
       <div id="imgEst-title-container">
         <Link to="/app/nutrition" className="diet-back-button-link">
-          <p className='diet-back-button'>&#60; Go Back</p>
+          <p className="diet-back-button">&#60; Go Back</p>
         </Link>
         <h1 id="imgEst-title-title">Nutrition</h1>
-        <p id="imgEst-title-subtext">Estimate Nutritional Info From A Meal Photo</p>
+        <p id="imgEst-title-subtext">
+          Estimate Nutritional Info From A Meal Photo
+        </p>
       </div>
 
-      <div id='imgEst-file-container'>
-        <form id='imgEst-file-form'>
-          <input id='imgEst-file-input' type="file" onChange={handleFileChange} />
-          <button id='imgEst-file-submit' onClick={handleSubmit}>Submit</button>
+      <div id="imgEst-file-container">
+        <form id="imgEst-file-form">
+          <input
+            id="imgEst-file-input"
+            type="file"
+            onChange={handleFileChange}
+          />
+          <button id="imgEst-file-submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </form>
       </div>
 
-      <div id='imgEst-choose-meal-container'>
+      <div id="imgEst-choose-meal-container">
         <Select
-          id='imgEst-choose-meal-select'
+          id="imgEst-choose-meal-select"
           isMulti
           options={mealOptionsArray}
-          value={selectedMeals.map(meal => ({ value: meal, label: meal }))}
-          onChange={selected => setSelectedMeals(selected.map(x => x.value))}
+          value={selectedMeals.map((meal) => ({ value: meal, label: meal }))}
+          onChange={(selected) =>
+            setSelectedMeals(selected.map((x) => x.value))
+          }
         />
-        <select id='imgEst-choose-meal-size-select' value={selectedMealSize} onChange={handleMealSizeChange}>
+        <select
+          id="imgEst-choose-meal-size-select"
+          value={selectedMealSize}
+          onChange={handleMealSizeChange}
+        >
           <option value="">--Please choose a size--</option>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
         </select>
-        <button id='imgEst-choose-meal-submit' onClick={fetchNutritionInfo}>Fetch Nutrition Info</button>
+        <button id="imgEst-choose-meal-submit" onClick={fetchNutritionInfo}>
+          Fetch Nutrition Info
+        </button>
       </div>
 
       {nutritionInfo && (
-        <div>
-          <h2>Nutrition Info:</h2>
-          <p>{JSON.stringify(nutritionInfo)}</p>
-        </div>
+        <Card className="imgEst-card-container">
+          <CardContent>
+            <Box textAlign="center">
+              <Typography
+                className="imgEst-card-title"
+                gutterBottom
+                variant="h5"
+                component="div"
+              >
+                Nutrition Info
+              </Typography>
+              <Typography
+                className="imgEst-card-info"
+                variant="body2"
+                color="textSecondary"
+                component="div"
+              >
+                {Object.entries(nutritionInfo).map(([key, value]) => (
+                  <div key={key}>{`${key}: ${value}`}</div>
+                ))}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
