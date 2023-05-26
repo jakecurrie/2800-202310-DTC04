@@ -71,6 +71,12 @@ const HomePage = () => {
           </div>
         </div>
         <div className="home-cards">
+          <h2 className="home-card-h2">Points Bar Chart</h2>
+          <div className="home-card-chart">
+            <PointsBarChart />
+          </div>
+        </div>
+        <div className="home-cards">
           <h2 className="home-card-h2">Macronutrient Breakdown</h2>
           <div className="home-card-chart">
             <MacronutrientBreakdown userId={userId} />
@@ -82,18 +88,14 @@ const HomePage = () => {
             <PersonalBestChart userId={userId} exerciseName={exerciseName} />
           </div>
         </div>
+        {/* Remove or comment out the NutritionalIntakeTS component
         <div className="home-cards">
           <h2 className="home-card-h2">Nutritional Intake Time Series</h2>
           <div className="home-card-chart">
             <NutritionalIntakeTS userId={userId} />
           </div>
         </div>
-        <div className="home-cards">
-          <h2 className="home-card-h2">Points Bar Chart</h2>
-          <div className="home-card-chart">
-            <PointsBarChart />
-          </div>
-        </div>
+        */}
       </div>
     </div>
   );
