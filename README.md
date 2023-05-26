@@ -41,7 +41,7 @@ To install Artificial Gains, follow these steps:
 For the server:
 
 3. Navigate to the server directory: `cd server`
-4. Build and run the Docker image: `docker build -t server . && docker run -p 5000:5000 server`
+4. Build and run the Docker image: `docker build -t server . && docker run -p 3001:3001 server`
 
 For the client:
 
