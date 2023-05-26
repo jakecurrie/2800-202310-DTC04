@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
             }).save();
 
             const link = `${process.env.CORS_ORIGIN}/reset-password/${user._id}/${token.token}`;
-            await sendEmail(user.email, "password reset", link);
+            await sendEmail(user.email, "password reset for ArtificialGains", link);
 
             res.send("password reset has been sent successfully");
         } else {
