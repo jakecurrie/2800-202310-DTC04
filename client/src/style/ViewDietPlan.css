@@ -218,6 +218,10 @@
         font-weight: 500;
     }
 
+    .viewDiet-classify-button {
+        width: 45%;
+        font-size: 9pt;
+    }
 
     .viewDiet-card-calories,
     .viewDiet-card-protein {
