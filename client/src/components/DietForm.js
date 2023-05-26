@@ -168,10 +168,10 @@ function DietForm() {
         {renderStep()}
         <div id='fitForm-button-container'>
           {step > 1 && <button id='dietForm-back-button' onClick={handlePrev} type="button">Back</button>}
-          {step < 6 ? (
+          {step < 5 ? (
             <button id='dietForm-next-button' onClick={handleNext} type="button">Next</button>
           ) : (
-            <button id='fitFormdietFormsubmit-button' onClick={handleSubmit} type="submit">Submit</button>
+            <button id='dietForm-submit-button' onClick={handleSubmit} type="submit">Submit</button>
           )}
         </div>
         {/* <div className='dietForm-input-form'>

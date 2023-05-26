@@ -224,8 +224,15 @@
         font-size: 55pt;
     }
 
+    #startFit-complete-container > h5 {
+        margin-top: 0;
+        margin-bottom: 100px;
+    }
+
     #startFit-complete {
-        font-size: 40pt;
+        margin-top: 50px;
+        margin-bottom: 0;
+        font-size: 30pt;
     }
 
     #startFit-title-subtext {
