@@ -8,8 +8,9 @@ Artificial Gains is an AI-powered fitness and nutrition companion that combines 
 2. [Features](#features)
 3. [Tech Stack](#tech-stack)
 4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Contribution](#contribution)
+5. [Contribution](#contribution)
+6. [Contact Information](#contact-information)
+7. [Licensing](#licensing)
 
 ## Introduction
 
@@ -47,12 +48,6 @@ For the client:
 5. Navigate to the client directory: `cd ../client`
 6. Build and run the Docker image: `docker build -t client . && docker run -p 3000:3000 client`
 
-## Usage
-
-To use Artificial Gains, follow these steps:
-
-*TODO: Add usage steps based on how a user would use your product*
-
 ## Contribution
 
 We welcome contributions from the community. If you wish to contribute, please follow these guidelines:
@@ -63,4 +58,18 @@ We welcome contributions from the community. If you wish to contribute, please f
 - Push changes to your fork.
 - Open a pull request.
 
+## Contact Information
+
+For any inquiries, you can reach out to us:
+
+- Jake Currie: jakecurrie1@gmail.com
+- Vishav Josan: Vishav1017@gmail.com
+- Ivan Cheng: ivan.cheng011099@gmail.com
+- SeungJae Baek: sbj7788@gmail.com
+
 Thank you for your interest in our project. We hope you enjoy using Artificial Gains!
+
+## Licensing
+
+This project is licensed under the Artificial Gains License. For more information, call 647-570-7356 and ask for Jake.
+
