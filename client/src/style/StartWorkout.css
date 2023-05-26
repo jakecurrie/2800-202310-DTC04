@@ -25,17 +25,17 @@
     font-size: 70pt;
     font-weight: 700;
     color: #f0eae3;
-    font-family: 'Playfair Display', serif;
-    font-size: 70pt;
-    font-weight: 700;
-    color: #f0eae3;
+}
+
+#startFit-complete {
+    padding-top: 50px;
 }
 
 #startFit-title-subtext {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 35pt;
+    font-size: 30pt;
     font-weight: 100;
     color: #f0eae3;
 }
@@ -146,6 +146,16 @@
     background-color: #f3b98d;
 }
 
+#startFit-points-inc-container {
+    position: absolute;
+    right: 185px;
+    transition: 300ms ease;
+}
+
+#startFit-points-inc {
+    font-size: 20pt;
+    color: #f0eae3;
+}
 
 @media screen and (max-width: 1100px) {
     .startFit-card-rep-set-container, .startFit-complete-button  {
@@ -203,6 +213,10 @@
     .startFit-complete-button {
         font-size: 15pt;
     }
+
+    #startFit-points-inc-container {
+        right: 120px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -210,8 +224,15 @@
         font-size: 55pt;
     }
 
+    #startFit-complete-container > h5 {
+        margin-top: 0;
+        margin-bottom: 100px;
+    }
+
     #startFit-complete {
-        font-size: 40pt;
+        margin-top: 50px;
+        margin-bottom: 0;
+        font-size: 30pt;
     }
 
     #startFit-title-subtext {
@@ -247,4 +268,5 @@
     .startFit-complete-button {
         font-size: 13pt;
     }
+
 }

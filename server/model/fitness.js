@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const fitnessPlanSchema = new mongoose.Schema({
     duration: Number,
+    dateCreated: {default: Date.now, type: Date},
     exercises: [{
         exerciseName: String,
         sets: Number,

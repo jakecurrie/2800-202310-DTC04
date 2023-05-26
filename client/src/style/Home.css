@@ -1,4 +1,4 @@
-#fitness-body-container {
+#home-body-container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   background-color: #181818;
 }
 
-#fitness-title-container {
+#home-title-container {
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
@@ -20,21 +20,21 @@
   border-bottom: 3px solid #f0eae3;
 }
 
-#fitness-title-h1 {
+#home-title-h1 {
   font-family: 'Playfair Display', serif;
   font-size: 70pt;
   font-weight: 700;
   color: #f0eae3;
 }
 
-#fitness-title-welcome {
+#home-title-welcome {
   font-family: 'Inter', sans-serif;
   font-size: 17pt;
   font-weight: 300;
   color: #f0eae3;
 }
 
-#fitness-card-container {
+#home-card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +42,7 @@
   max-width: 100%;
 }
 
-.fitness-cards {
+.home-cards {
   text-decoration: none;
   bottom: 0;
   position: relative;
@@ -55,15 +55,14 @@
   margin-bottom: 40px;
   background-color: #f0eae3;
   border-radius: 25px;
-  cursor: pointer;
   transition: all 200ms ease-in-out;
 }
 
-.fitness-cards:hover {
+.home-cards:hover {
   bottom: 5px;
 }
 
-.fitness-card-h2 {
+.home-card-h2 {
   margin: 0;
   font-family: 'Playfair Display', serif;
   font-size: 35pt;
@@ -71,7 +70,7 @@
   color: #181818;
 }
 
-.fitness-card-p {
+.home-card-p {
   padding: 0;
   font-family: 'Inter', sans-serif;
   font-size: 15pt;
@@ -79,7 +78,7 @@
   color: #181818;
 }
 
-.fitness-card-arrow {
+.home-card-arrow {
   position: absolute;
   right: 50px;
   top: 50%;
@@ -87,6 +86,73 @@
   font-family: 'Inter', sans-serif;
   font-size: 50pt;
   color: #181818;
+}
+
+#home-leaderboard-container {
+  position: relative;
+}
+
+#home-leaderboard-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.home-leaderboard-info-icon {
+  cursor: pointer;
+  font-size: 15pt;
+  color: #585858;
+  margin-left: 10px;
+}
+
+#home-leaderboard-info {
+  position: absolute;
+  z-index: 1;
+  top: 80px;
+  left: 350px;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #beb9b3;
+  transition: 100ms ease;
+}
+
+.home-rank-ladder-info {
+  color: #66615B;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11pt;
+  font-weight: 500;
+}
+
+#home-leaderboard-component-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* for leaderboard component */
+#leaderboard-container {
+  margin-top: 10px;
+  position: relative;
+  width: 100%;
+  border: 2px solid #181818;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+#leaderboard-table {
+  width: 100%;
+}
+
+.leaderboard-table-headers {
+  border-bottom: 1px solid #181818;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 15pt;
+}
+
+.leaderboard-table-data {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11pt;
+  font-weight: 500;
 }
 
 .chart-container {
@@ -103,8 +169,11 @@
   justify-content: center;
 }
 
-.chart-container > h2 {
-  margin: 0 !important;
+.chart-container>h2,
+.home-pb-h2,
+.home-intake-h2,
+.home-macro-h2 {
+  margin: 0 0 5px 0 !important;
   font-size: 20pt;
   font-family: 'Inter', sans-serif !important;
 }
@@ -119,47 +188,119 @@
   margin: 0 !important;
 }
 
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  border: none !important;
+  background-color: #f0eae3 !important;
+  box-shadow: none !important;
+}
+
 @media screen and (max-width: 750px) {
-  .fitness-cards {
+  .home-cards {
     width: 72vw;
   }
 
-  .fitness-card-h2 {
+  .home-card-h2 {
     font-size: 25pt;
     font-weight: 500;
   }
 
-  .fitness-card-p {
+  .chart-container>h2,
+  .home-pb-h2,
+  .home-intake-h2,
+  .home-macro-h2 {
+    font-size: 15pt;
+  }
+
+  .home-card-p {
     font-size: 10pt;
     font-weight: 400;
   }
 
-  .fitness-card-arrow {
+  .home-card-arrow {
     font-size: 40pt;
+  }
+
+  #home-leaderboard-info {
+    left: 240px;
+  }
+
+  .home-rank-ladder-info {
+    font-size: 9pt;
   }
 }
 
 @media screen and (max-width: 550px) {
-  #fitness-title-h1 {
+  #home-title-h1 {
     font-size: 60pt;
   }
 
-  .fitness-cards {
+  .home-cards {
     width: 68vw;
   }
 
-  .fitness-card-h2 {
+  .home-card-h2 {
     font-size: 20pt;
     font-weight: 500;
   }
 
-  .fitness-card-p {
+  .chart-container>h2,
+  .home-pb-h2,
+  .home-intake-h2,
+  .home-macro-h2 {
+    font-size: 12pt;
+  }
+
+  .home-card-p {
     font-size: 9pt;
     font-weight: 400;
   }
 
-  .fitness-card-arrow {
+  .home-card-arrow {
     right: 25px;
     font-size: 25pt;
+  }
+
+  #home-leaderboard-info {
+    top: 60px;
+    left: 180px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .leaderboard-table-headers {
+    font-size: 12pt;
+  }
+
+  .leaderboard-table-data {
+    font-size: 9pt;
+  }
+
+  #home-leaderboard-info {
+    top: 55px;
+    left: 190px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .leaderboard-table-headers {
+    font-size: 10pt;
+  }
+
+  .leaderboard-table-data {
+    font-size: 8pt;
+  }
+
+  #home-leaderboard-info {
+    padding: 15px;
+    top: 70px;
+    left: 140px;
+  }
+
+  .home-rank-ladder-info {
+    font-size: 9pt;
+  }
+
+  .home-rank-ladder-info {
+    font-size: 8pt;
   }
 }

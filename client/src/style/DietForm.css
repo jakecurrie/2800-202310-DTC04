@@ -62,6 +62,10 @@
     border-radius: 5px;
 }
 
+.diet-form-input-allergy {
+    width: 200px !important;
+}
+
 .dietForm-form-title {
     margin: 0 0 5px 0;
     font-family: 'Inter', sans-serif;
@@ -92,14 +96,14 @@
 #dietForm-loading-container {
     box-shadow:0 0 0 1600px rgba(0,0,0,0.65);
     background-color: rgba(0,0,0,0.65);
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translateY(-50%);
     left: 0; 
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 
-    width: 250px;
+    width: 310px;
     transition: 500ms ease;
 }
 
@@ -108,6 +112,33 @@
     font-family: 'Inter', sans-serif;
     font-size: 50pt;
     font-weight: 500;
+}
+
+#dietForm-button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+#dietForm-next-button, #dietForm-submit-button {
+    margin: 0 42px 0 10px;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #181818;
+    color: #f0eae3;
+    font-size: 14pt;
+    font-family: 'Inter', sans-serif;
+}
+
+#dietForm-back-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #181818;
+    font-size: 14pt;
+    font-family: 'Inter', sans-serif;
 }
 
 @media screen and (max-width: 700px) {
@@ -121,6 +152,17 @@
     
     .dietForm-drop-down-select {
         font-size: 10pt;
+    }
+
+    #dietForm-next-button,
+    #dietForm-submit-button {
+        margin: 0 16px 0 10px;
+    }
+
+    #dietForm-next-button, 
+    #dietForm-back-button, 
+    #dietForm-submit-button {
+        font-size: 12pt;
     }
 }
 
@@ -145,6 +187,17 @@
         font-size: 10pt;
         width: 125px;
         padding: 10px 0 10px 0;
+    }
+
+    #dietForm-next-button,
+    #dietForm-submit-button {
+        margin: 0 13px 0 0 ;
+    }
+
+    #dietForm-next-button, 
+    #dietForm-back-button, 
+    #dietForm-submit-button {
+        font-size: 8pt;
     }
 }
 

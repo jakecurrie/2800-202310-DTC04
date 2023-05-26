@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import '../style/NutritionByDesc.css'
@@ -45,6 +46,9 @@ function NutritionByDesc() {
   return (
     <div id="descEst-body-container">
       <div id="descEst-title-container">
+        <Link to="/app/nutrition" className="diet-back-button-link">
+          <p className='diet-back-button'>&#60; Go Back</p>
+        </Link>
         <h1 id="descEst-title-title">Nutrition</h1>
         <p id="descEst-title-subtext">Estimate Calories</p>
       </div>

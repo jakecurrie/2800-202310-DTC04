@@ -1,26 +1,26 @@
-# Stage 1: Python environment for scripts
-FROM python:3.9 AS scripts-env
-WORKDIR /scripts
-COPY ./scripts/requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-COPY ./scripts/ ./ 
+# Using image with both Python and Node.js
+FROM nikolaik/python-nodejs:latest
 
-# Stage 2: Node environment for server
-FROM node:18
+# Set work directory for server
 WORKDIR /app
 
-# Prepare server
+# Install necessary system dependencies
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+
+# Install Python dependencies
+COPY ./scripts/requirements.txt ./scripts/
+RUN pip install --no-cache-dir -r ./scripts/requirements.txt
+
+# Install Node.js dependencies
 COPY package*.json ./
 RUN npm install
 
 # Copy server source code
 COPY . ./
 
-# Copy python scripts from the first stage
-COPY --from=scripts-env /scripts ./scripts
-
 # Expose port for server
 EXPOSE 3001
 
 # Start server
 CMD ["node", "app.js"]
+

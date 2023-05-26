@@ -21,6 +21,7 @@ const indexRouter = require('./routes/index');
 const passwordRouter = require('./routes/passwordReset');
 const nutritionRouter = require('./routes/nutrition');
 const imageRouter = require('./routes/images');
+const userRouter = require('./routes/users');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -86,10 +87,11 @@ async function main() {
     app.use('/api/reset-password', passwordRouter);
     app.use('/api/nutrition', nutritionRouter);
     app.use('/api/images', imageRouter);
+    app.use('/api/users', userRouter);
     
     app.post('/classifyMeal', upload.single('image'), (req, res) => {
       const image = req.file;
-      const python = spawn('python', ['./scripts/meal_classification.py', image.path]);
+      const python = spawn('python3', ['./scripts/meal_classification.py', image.path]);
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
@@ -117,8 +119,9 @@ async function main() {
 });
 
 app.post('/fetchNutrition', (req, res) => {
-  const meal = req.body.meal;
-  const python = spawn('python', ['./scripts/fetch_nutrition.py', meal]);
+  const meals = req.body.meals;
+  const mealSize = req.body.meal_size;
+  const python = spawn('python3', ['./scripts/fetch_nutrition.py', meals, mealSize]);
 
   let scriptOutput = "";
   python.stdout.on('data', function (data) {
@@ -178,7 +181,7 @@ app.post('/login', async (req, res) => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
           req.session.GLOBAL_AUTHENTICATED = true;
           req.session.USER_ID = user.id;
-          res.sendStatus(202);
+          res.status(202).json({ userId: user.id });
         } else {
           res.sendStatus(401);
         }

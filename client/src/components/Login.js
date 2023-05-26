@@ -23,27 +23,37 @@ const Login = ({ setIsLoggedIn }) => {
             mode: 'cors',
             body: JSON.stringify(newUserData),
             headers: {
-                "Content-Type": "application/json"
+              "Content-Type": "application/json"
             },
             credentials: 'include' // enables cookies
-
-        }).then((res) => {
-            console.log(res.status);
-            if (res.status === 202) {
-                setIsLoggedIn(true)
-                return navigate("/app/home");
-            } else if (res.status === 401) {
-                setLoginErrorStyle({ display: "block", marginBottom: 0 })
-                setLoginError("Incorrect Password")
+          })
+            .then((res) => {
+              console.log(res.status);
+              if (res.status === 202) {
+                return res.json(); // Parse the response body as JSON
+              } else if (res.status === 401) {
+                setLoginErrorStyle({ display: "block", marginBottom: 0 });
+                setLoginError("Incorrect Password");
                 console.log(res.status);
-            } else {
-                setLoginErrorStyle({ display: "block", marginBottom: 0 })
-                setLoginError("Incorrect Email")
+                throw new Error('Incorrect Password'); // Throw an error to skip to the catch block
+              } else {
+                setLoginErrorStyle({ display: "block", marginBottom: 0 });
+                setLoginError("Incorrect Email");
                 console.log(res.status);
-            }
-        }).catch((err) => {
-            console.error(err);
-        })
+                throw new Error('Incorrect Email'); // Throw an error to skip to the catch block
+              }
+            })
+            .then((data) => {
+              const userId = data.userId; // Access the user ID from the response data
+              setIsLoggedIn(true);
+              console.log(userId);
+              localStorage.setItem('userId', userId); // Set the user ID in local storage
+              navigate("/app/home");
+            })
+            .catch((error) => {
+              console.error(error);
+              // Handle login error
+            });
     }
 
     return (

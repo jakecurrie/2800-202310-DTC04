@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Select from 'react-select';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import '../style/MealClassifier.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
@@ -7,18 +10,19 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 function MealClassifier() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [mealOptions, setMealOptions] = useState([]);
-  const [selectedMeal, setSelectedMeal] = useState('');
+  const [selectedMeals, setSelectedMeals] = useState([]);
+  const [selectedMealSize, setSelectedMealSize] = useState('');
   const [nutritionInfo, setNutritionInfo] = useState(null);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     setMealOptions([]);
-    setSelectedMeal('');
+    setSelectedMeals([]);
     setNutritionInfo(null);
   }
 
-  const handleMealChange = (event) => {
-    setSelectedMeal(event.target.value);
+  const handleMealSizeChange = (event) => {
+    setSelectedMealSize(event.target.value);
   }
 
   const handleSubmit = (event) => {
@@ -35,7 +39,6 @@ function MealClassifier() {
     })
 
       .then(response => {
-        console.log(response.data);
         if (Array.isArray(response.data)) {
           setMealOptions(response.data);
         } else {
@@ -48,14 +51,15 @@ function MealClassifier() {
   }
 
   const fetchNutritionInfo = () => {
-    if (!selectedMeal) {
-      console.error('No meal selected');
+    if (selectedMeals.length === 0 || !selectedMealSize) {
+      console.error('No meals or meal size selected');
       return;
     }
 
-    axios.post('/fetchNutrition', { meal: selectedMeal })
+    const mealsString = selectedMeals.join(", ");
+
+    axios.post('/fetchNutrition', { meals: mealsString, meal_size: selectedMealSize })
       .then(response => {
-        console.log(response.data);
         setNutritionInfo(response.data);
       })
       .catch(error => {
@@ -63,38 +67,89 @@ function MealClassifier() {
       });
   }
 
+  const mealOptionsArray = mealOptions.map(meal => ({ value: meal, label: meal }));
+
   return (
-    <div id='imgEst-body-container'>
+    <div id="imgEst-body-container">
       <div id="imgEst-title-container">
+        <Link to="/app/nutrition" className="diet-back-button-link">
+          <p className="diet-back-button">&#60; Go Back</p>
+        </Link>
         <h1 id="imgEst-title-title">Nutrition</h1>
-        <p id="imgEst-title-subtext">Estimate Calories</p>
+        <p id="imgEst-title-subtext">
+          Estimate Nutritional Info From A Meal Photo
+        </p>
       </div>
 
-      <div id='imgEst-file-container'>
-        <form id='imgEst-file-form' onSubmit={handleSubmit}>
-          <input id='imgEst-file-input' type="file" onChange={handleFileChange} />
+      <div id="imgEst-file-container">
+        <form id="imgEst-file-form">
+          <input
+            id="imgEst-file-input"
+            type="file"
+            onChange={handleFileChange}
+          />
+          <button id="imgEst-file-submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </form>
-          <button id='imgEst-file-submit' type="submit">Submit</button>
       </div>
 
-      <div id='imgEst-choose-meal-container'>
-        <select id='imgEst-choose-meal-select' value={selectedMeal} onChange={handleMealChange}>
-          <option id='imgEst-choose-meal-option' value="">--Please choose a meal--</option>
-          {mealOptions.map((meal, index) =>
-            <option id='imgEst-choose-meal-option' key={index} value={meal}>{meal}</option>
-          )}
+      <div id="imgEst-choose-meal-container">
+        <Select
+          id="imgEst-choose-meal-select"
+          isMulti
+          options={mealOptionsArray}
+          value={selectedMeals.map((meal) => ({ value: meal, label: meal }))}
+          onChange={(selected) =>
+            setSelectedMeals(selected.map((x) => x.value))
+          }
+        />
+        <select
+          id="imgEst-choose-meal-size-select"
+          value={selectedMealSize}
+          onChange={handleMealSizeChange}
+        >
+          <option value="">--Please choose a size--</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
         </select>
-        <button id='imgEst-choose-meal-submit' onClick={fetchNutritionInfo}>Fetch Nutrition Info</button>
+        <button id="imgEst-choose-meal-submit" onClick={fetchNutritionInfo}>
+          Fetch Nutrition Info
+        </button>
       </div>
 
       {nutritionInfo && (
-        <div>
-          <h2>Nutrition Info:</h2>
-          <p>{JSON.stringify(nutritionInfo)}</p>
-        </div>
+        <Card className="imgEst-card-container">
+          <CardContent>
+            <Box textAlign="center">
+              <Typography
+                className="imgEst-card-title"
+                gutterBottom
+                variant="h5"
+                component="div"
+              >
+                Nutrition Info
+              </Typography>
+              <Typography
+                className="imgEst-card-info"
+                variant="body2"
+                color="textSecondary"
+                component="div"
+              >
+                {Object.entries(nutritionInfo).map(([key, value]) => (
+                  <div key={key}>{`${key}: ${value}`}</div>
+                ))}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
 }
 
 export default MealClassifier;
+
+
+

@@ -25,6 +25,7 @@ const Profile = () => {
   const editorRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const editorSize = 150; // Adjust this value as needed
+  const [forceUpdate, setForceUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,16 +36,16 @@ const Profile = () => {
         });
         const data = await response.json();
         if (data.profilePicture) {
-          setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/${data.profilePicture}`);
+          setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/api/uploads/${data.profilePicture}`);
         }
         setUser(data);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
+  
     fetchData();
-  }, []);
+  }, [forceUpdate]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -62,15 +63,15 @@ const Profile = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const profilePicDataUrl = canvas.toDataURL();
-
+  
       // Convert the Data URL to a Blob
       const response = await fetch(profilePicDataUrl);
       const blob = await response.blob();
-
+  
       // Create a form and append the file
       const formData = new FormData();
       formData.append('profilePicture', blob);
-
+  
       // Post the image to your endpoint
       fetch(`${process.env.REACT_APP_API_BASE_URL}/api/uploadProfilePicture`, {
         method: 'POST',
@@ -80,10 +81,11 @@ const Profile = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data.message);
-          setProfilePic(profilePicDataUrl);
+          setProfilePic(`${process.env.REACT_APP_API_BASE_URL}/api/uploads/${data.filename}`);
+          setForceUpdate(!forceUpdate);
         })
         .catch(console.error);
-
+  
       setShowUploadOption(false);
     }
   };
@@ -95,59 +97,58 @@ const Profile = () => {
 
   return (
     <Container id="profile-body-container">
-      <Row className="mt-4">
-        <Col className="text-center" id="profile-picture-container">
-          <div className="profile-picture">
-            {showUploadOption && uploadedImage ? (
-              <AvatarEditor
-                ref={editorRef}
-                image={uploadedImage}
-                width={editorSize}
-                height={editorSize}
-                border={10}
-                borderRadius={editorSize / 2}
-                color={[255, 255, 255, 0.6]}
-                scale={1}
-              />
-            ) : (
-              <div className="default-profile-picture">
-                <img
-                  src={profilePic}
-                  alt="Profile"
-                  className="resized-profile-picture"
-                  style={{ width: `${editorSize}px`, height: `${editorSize}px` }}
-                />
-              </div>
-            )}
-          </div>
-          <FormGroup className="mt-2">
-            <Input
-              type="file"
-              id="profilePicture"
-              accept=".jpg,.png,.jpeg"
-              onChange={handleImageUpload}
-              style={{ display: 'none' }}
-            />
-            {showUploadOption ? (
-              <>
-                <Button onClick={handleSaveImage} color="primary">
-                  Save
-                </Button>
-                <Button onClick={handleCancelUpload} color="secondary">
-                  Cancel
-                </Button>
-              </>
-            ) : (
-              <label htmlFor="profilePicture" className="upload-button">
-                Upload Photo
-              </label>
-            )}
-          </FormGroup>
-        </Col>
-      </Row>
       <Row className="mt-4" id="profile-title-container">
-        <Col>
-          <Card className="card-profile fitness-cards">
+        <Row className="mt-4">
+          <Col className="text-center" id="profile-picture-container">
+            <div className="profile-picture">
+              {showUploadOption && uploadedImage ? (
+                <AvatarEditor className='profile-profile-image'
+                  ref={editorRef}
+                  image={uploadedImage}
+                  width={editorSize}
+                  height={editorSize}
+                  border={10}
+                  borderRadius={editorSize / 2}
+                  color={[255, 255, 255, 0.6]}
+                  scale={1}
+                />
+              ) : (
+                <div className="default-profile-picture">
+                  <img
+                    src={profilePic}
+                    alt="Profile"
+                    className="resized-profile-picture profile-profile-image"
+                    style={{ width: `${editorSize}px`, height: `${editorSize}px` }}
+                  />
+                </div>
+              )}
+            </div>
+            <FormGroup className="mt-2">
+              <Input
+                type="file"
+                id="profilePicture"
+                accept=".jpg,.png,.jpeg"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }}
+              />
+              {showUploadOption ? (
+                <>
+                  <Button onClick={handleSaveImage} color="primary">
+                    Save
+                  </Button>
+                  <Button onClick={handleCancelUpload} color="secondary">
+                    Cancel
+                  </Button>
+                </>
+              ) : (
+                <label htmlFor="profilePicture" className="upload-button">
+                  Upload Photo
+                </label>
+              )}
+            </FormGroup>
+          </Col>
+        </Row>
+          <Card className="profile-card fitness-cards">
             <CardBody>
               <CardTitle tag="h4" id="profile-title-h4">Profile Information</CardTitle>
               <CardText className="profile-info-text">
@@ -164,7 +165,6 @@ const Profile = () => {
               </CardText>
             </CardBody>
           </Card>
-        </Col>
       </Row>
     </Container>
   );

@@ -22,6 +22,10 @@ import NutritionLand from './components/NutritionLand';
 import ViewDietPlan from './components/ViewDietPlan';
 import NutritionByDesc from './components/NutritionByDesc';
 import HomePage from './components/Home';
+import axios from 'axios';
+
+axios.baseURL = process.env.REACT_APP_API_BASE_URL;
+axios.defaults.withCredentials = true;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -31,6 +35,17 @@ function App() {
   useEffect(() => {
     localStorage.setItem('isLoggedIn', isLoggedIn);
   }, [isLoggedIn]);
+  
+  const [points, setPoints] = useState(0);
+
+  const updatePoints = async () => {
+    try {
+      const response = await axios.get('/api/users/currentPoint')
+      setPoints(response.data);
+    } catch (err) {
+      console.error('Error', err);
+    }
+  };
 
   return (
     <>
@@ -46,12 +61,12 @@ function App() {
         </Route>
 
         {/* need for auth */}
-        <Route path="/app" element={<Navbar setIsLoggedIn={setIsLoggedIn}/>}>
+        <Route path="/app" element={<Navbar setIsLoggedIn={setIsLoggedIn} updatePoints={updatePoints} points={points}/>}>
           <Route path="profile" element={isLoggedIn ? <Profile /> : <Navigate to='/login' />} />
           <Route path="fitness" element={isLoggedIn ? <FitnessLand /> : <Navigate to='/login' />} />
           <Route path="nutrition" element={isLoggedIn ? <NutritionLand /> : <Navigate to='/login' />} />
           <Route path="fitnessgenerator" element={isLoggedIn ? <FitnessForm /> : <Navigate to='/login' />} />
-          <Route path="startworkout" element={isLoggedIn ? <StartWorkout /> : <Navigate to='/login' />} />
+          <Route path="startworkout" element={isLoggedIn ? <StartWorkout updatePoints={updatePoints} /> : <Navigate to='/login' />} />
           <Route path="fitnessplan" element={isLoggedIn ? <FitnessPlan /> : <Navigate to='/login' />} />
           <Route path="viewfitnessplan" element={isLoggedIn ? <ViewFitnessPlan /> : <Navigate to='/login' />} />
           <Route path="dietplangenerator" element={isLoggedIn ? <DietForm /> : <Navigate to='/login' />} />

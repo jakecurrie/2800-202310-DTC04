@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Tooltip, Cell, Legend, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 
 function MacronutrientBreakdown() {
-  const [data, setData] = useState([]);
-  const [selectedDay, setSelectedDay] = useState('05/01');
+  const [data, setData] = useState({});
+  const [selectedDay, setSelectedDay] = useState('Monday');
 
   useEffect(() => {
-    // Fetch data from API or use dummy data
-    const dummyData = {
-      '05/01': [
-        {name: 'Protein', value: 150},
-        {name: 'Carbs', value: 200},
-        {name: 'Fat', value: 80},
-      ],
-      '05/02': [
-        {name: 'Protein', value: 160},
-        {name: 'Carbs', value: 220},
-        {name: 'Fat', value: 90},
-      ],
-      // Add more days as needed...
-    };
-    setData(dummyData);
+    axios.get('/api/nutrition/view-plan')
+      .then(response => {
+        const fetchedData = response.data;
+        const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const formattedData = {};
+
+        daysOfWeek.forEach(day => {
+          formattedData[day] = fetchedData.filter(meal => meal.day === day)
+            .reduce((acc, curr) => ({
+              Protein: (acc.Protein || 0) + curr.protein,
+              Carbs: (acc.Carbs || 0) + curr.carbs,
+              Fat: (acc.Fat || 0) + curr.fat
+            }), {});
+        });
+
+        setData(formattedData);
+      })
+      .catch(error => console.error(error));
   }, []);
 
   const handleDayChange = (event) => {
@@ -31,22 +35,22 @@ function MacronutrientBreakdown() {
 
   return (
     <div>
-      <h2>Macronutrient Breakdown for {selectedDay}</h2>
+      <h2 className='home-macro-h2'>Macronutrient Breakdown for {selectedDay}</h2>
       <select value={selectedDay} onChange={handleDayChange}>
-        <option value="05/01">05/01</option>
-        <option value="05/02">05/02</option>
-        {/* Add more options as needed... */}
+        {
+          Object.keys(data).map(day => <option value={day} key={day}>{day}</option>)
+        }
       </select>
       <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             dataKey="value"
-            data={data[selectedDay] || []}
+            data={Object.entries(data[selectedDay] || []).map(([name, value]) => ({name, value}))}
             fill="#8884d8"
             label
           >
             {
-              data[selectedDay] && data[selectedDay].map((entry, index) => 
+              Object.values(data[selectedDay] || []).map((entry, index) => 
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
             }
           </Pie>
@@ -59,4 +63,5 @@ function MacronutrientBreakdown() {
 }
 
 export default MacronutrientBreakdown;
+
 

@@ -25,7 +25,7 @@ function NutritionTimeSeries() {
 
   return (
     <div className="chart-container">
-      <h2>{selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1)} Intake</h2>
+      <h2 className='home-intake-h2'>{selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1)} Intake</h2>
       <select value={selectedOption} onChange={handleOptionChange}>
         <option value="calories">Calories</option>
         <option value="protein">Protein</option>

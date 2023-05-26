@@ -89,6 +89,22 @@
     color: #181818;
 }
 
+/* for all fitness back buttons */
+.fitness-back-button-link {    
+    text-decoration: none;
+}
+
+.fitness-back-button {
+    display: none;
+    top: 70px;
+    position: absolute;
+    font-family: 'Inter', sans-serif;
+    font-size: 13pt;
+    font-weight: 500;
+    text-decoration: none;
+    color: #f0eae37a;
+}
+
 @media screen and (max-width: 750px) {
     .fitness-cards {
         width: 72vw;
@@ -107,6 +123,12 @@
     
     .fitness-card-arrow {
         font-size: 40pt;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .fitness-back-button {
+        display: block;
     }
 }
 

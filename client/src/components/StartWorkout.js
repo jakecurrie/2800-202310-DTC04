@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/StartWorkout.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
 
 
-const StartWorkout = () => {
+const StartWorkout = ({ updatePoints }) => {
     const [workouts, setWorkouts] = useState([]);
     const [totalSets, setTotalSets] = useState(0);
     const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
@@ -16,20 +17,32 @@ const StartWorkout = () => {
     const [personalBest, setPersonalBest] = useState('');
     const [setsRemaining, setSetsRemaining] = useState(0);
     const [workoutDayComplete, setWorkoutDayComplete] = useState(false);
+    const [pointsGained, setPointsGained] = useState(100);
+    const [pointsGainedOpacity, setPointsGainedOpacity] = useState({ opacity: '0', top: '90px' });
     const initialRender = useRef(true);
     axios.defaults.withCredentials = true;
+
+    const showPointsGained = () => {
+        setPointsGainedOpacity({ opacity: '1', top: '60px' })
+
+        setTimeout(() => {
+            setPointsGainedOpacity({ opacity: '0', top: '30px' })
+        }, 1000)
+        setTimeout(() => {
+            setPointsGainedOpacity({ opacity: '0', top: '90px' })
+        }, 1500)
+    }
+
     axios.post('/api/fitness/complete-day', {
         day: daysOfWeek[currentDayIndex],
         week: 1,
     }).then(response => {
-        console.log(response.data);
         const { workoutDayCompleted } = response.data;
         setWorkoutDayComplete(workoutDayCompleted);
     }).catch(error => {
         console.error('Error during API call', error);
     });
     useEffect(() => {
-
         axios.get('/api/fitness/start-workout').then(response => {
             const workoutsArray = response.data.exercises.filter(item => {
                 return item.day === daysOfWeek[currentDayIndex];
@@ -63,45 +76,6 @@ const StartWorkout = () => {
             }
         }
     }, [workouts, setsRemaining, currentWorkoutIndex]);
-    // useEffect(() => {
-    //     if (workouts.length > 0) {
-    //         let activeWorkoutIndex = currentWorkoutIndex;
-    //         let activeWorkout = workouts[activeWorkoutIndex];
-
-    //         while (activeWorkout && activeWorkout.weeksCompleted?.find(week => week.week === 1)?.setsRemaining === 0) {
-    //             activeWorkoutIndex += 1;
-    //             activeWorkout = workouts[activeWorkoutIndex];
-    //         }
-
-    //         setCurrentWorkoutIndex(activeWorkoutIndex);
-
-    //         if (activeWorkout) {
-    //             const initialPersonalBest = activeWorkout.personalBest || 0;
-    //             setPersonalBest(initialPersonalBest);
-    //             const initialSetsRemaining = activeWorkout.weeksCompleted?.find(week => week.week === 1)?.setsRemaining || 0;
-    //             setSetsRemaining(initialSetsRemaining);
-    //         }
-    //     }
-    // }, [workouts, currentWorkoutIndex]);
-
-
-    // useEffect(() => {
-    //     if (initialRender.current) {
-    //         // If it's the initial render, we update the ref and do nothing
-    //         initialRender.current = false;
-    //     } else if (setsRemaining === 0 && currentWorkoutIndex < workouts.length - 1) {
-    //         // If it's not the initial render and setsRemaining is 0, we increment currentWorkoutIndex
-    //         setCurrentWorkoutIndex(prevWorkoutIndex => prevWorkoutIndex + 1);
-    //     }
-    // }, [setsRemaining, currentWorkoutIndex, workouts.length]);
-
-    // useEffect(() => {
-    //     if (setsRemaining === 0 && currentWorkoutIndex < workouts.length - 1) {
-    //         setCurrentWorkoutIndex(prevWorkoutIndex => prevWorkoutIndex + 1);
-    //     } else {
-
-    //     }
-    // }, [setsRemaining, currentWorkoutIndex, workouts.length]);
 
 
     const handleNextSet = async () => {
@@ -157,7 +131,7 @@ const StartWorkout = () => {
                 .then(response => {
                     // Handle response of the first request
                     console.log(response);
-
+                    updatePoints();
                     return axios.post('/api/fitness/complete-day', {
                         // Provide the necessary data
                         day: daysOfWeek[currentDayIndex],
@@ -167,9 +141,15 @@ const StartWorkout = () => {
                 .then(response => {
                     // Handle response of the second request
                     console.log(response);
-
+                   
+                    setTimeout(() => {
+                        setPointsGained(1000)
+                        showPointsGained();
+                    }, 1500)
+                    updatePoints();
                     // Display a message or update the UI to indicate that the workout day is complete
-                    alert('Workout for the day is completed');
+                    return axios.post('/api/fitness/complete-day/setScore')
+
                 })
                 .catch(error => {
                     // Handle error of the requests
@@ -178,8 +158,34 @@ const StartWorkout = () => {
         } else {
             setSetsRemaining(newSetsRemaining);
         }
+        updatePoints();
+        setPointsGained(100)
+        showPointsGained();
     };
 
+    const fetchYouTubeVideo = async (exerciseName) => {
+        try {
+            console.log(exerciseName)
+            // Make a request to search for videos related to the exercise
+            const response = await axios.get('/api/fitness/exercise-video', {
+                params: {
+                    exerciseName: exerciseName,
+                    part: 'snippet',
+                    maxResults: 1,
+                    q: `exercise and fitness how to properly do ${exerciseName}`,
+                }
+            });
+            // Extract the video ID
+            console.log(response);
+            const videoId = response.data.videoId;
+
+            // Open the video in a new tab
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+        } catch (error) {
+            console.error('Error fetching YouTube video:', error);
+        }
+
+    };
 
     const handleWeightChange = (event) => {
         const enteredWeight = event.target.value;
@@ -191,16 +197,30 @@ const StartWorkout = () => {
     if (workoutDayComplete) {
         return (
             <div id='startFit-body-container'>
-
+                <div id='startFit-points-inc-container' style={pointsGainedOpacity}>
+                    <p id='startFit-points-inc'>+{pointsGained} PTS</p>
+                </div>
                 <div id='startFit-complete-container'>
+                    <Link to="/app/fitness" className="fitness-back-button-link">
+                        <p className='fitness-back-button'>&#60; Go Back</p>
+                    </Link>
                     <h1 id='startFit-complete'>Workout for the day is completed!</h1>
+                </div>
+                <div id='startFit-complete-container'>
+                    <h5 id='startFit-complete'>You've Gained EXTRA 1000 points for finishing todays workout!</h5>
                 </div>
             </div>
         );
     } else
         return (
             <div id='startFit-body-container'>
+                <div id='startFit-points-inc-container' style={pointsGainedOpacity}>
+                    <p id='startFit-points-inc'>+{pointsGained} PTS</p>
+                </div>
                 <div id="startFit-title-container">
+                    <Link to="/app/fitness" className="fitness-back-button-link">
+                        <p className='fitness-back-button'>&#60; Go Back</p>
+                    </Link>
                     <h1 id="startFit-title-title">Fitness</h1>
                     <p id='startFit-title-subtext'>Start Workout</p>
                 </div>
@@ -209,7 +229,7 @@ const StartWorkout = () => {
                         <div className='startFit-cards'>
                             <div className='startFit-card-workout-title'>
                                 <h2 className='startFit-card-h2'>{currentWorkout.exerciseName}</h2>
-                                <FontAwesomeIcon className='startFit-card-play' icon={faCirclePlay} onClick={() => console.log('should play a video')} />
+                                <FontAwesomeIcon className='startFit-card-play' icon={faCirclePlay} onClick={() => fetchYouTubeVideo(currentWorkout.exerciseName)} />
                             </div>
                             <div className='startFit-card-rep-set-container'>
                                 <div className='startFit-card-rp-pb-seperator'>

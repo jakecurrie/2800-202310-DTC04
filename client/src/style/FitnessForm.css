@@ -47,27 +47,64 @@
     margin-bottom: 80px;
 }
 
-.fitForm-drop-down-form,  #fitForm-button-form {
+.fitForm-radio-container,  #fitForm-button-form {
     width: 92%;
     margin-bottom: 35px;
     border-bottom: 1px solid #181818;
     padding-bottom: 15px;
 }
 
-.fitForm-drop-down-title, #fitForm-button-title {
-    margin: 0 0 5px 0;
+.fitForm-radio-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.fitForm-radio-form > div {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #181818;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: 300ms ease;
+    cursor: pointer;
+}
+
+.fitForm-radio-form > div:hover {
+    background-color: #1818181f;
+}
+
+.fitForm-radio-input {
+    background-color: transparent;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.fitForm-radio-label {
+    margin: 0;
+    width: 100%;
+    padding: 20px;
     font-family: 'Inter', sans-serif;
-    font-size: 22pt;
-    font-weight: 200;
+    font-size: 12pt;
+    font-weight: 400;
+    color: #181818;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.fitForm-radio-subtext {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5pt;
+    font-weight: 300;
     color: #181818;
 }
 
-.fitForm-drop-down-select {
-    margin-top: 3px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11pt;
-    border-radius: 5px;
-    border: #131313 1px solid;
+.fitForm-drop-down-title, #fitForm-button-title {
+    margin: 0 0 20px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 23pt;
+    font-weight: 300;
+    color: #181818;
 }
 
 #fitForm-button-lb-container {
@@ -86,29 +123,45 @@
     accent-color: #131313
 }
 
-#fitForm-button-submit {
-    font-size: 12pt;
-    font-family: 'Inter', sans-serif;
-    color: #f0eae3;
-    background-color: #131313;
-    border: none;
-    border-radius: 5px;
-    width: 250px;
-    padding: 10px 0 10px 0;
-}
-
 #fitForm-loading-container {
     box-shadow:0 0 0 1600px rgba(0,0,0,0.65);
     background-color: rgba(0,0,0,0.65);
-    position: absolute;
+    position: fixed;
     top: 50%;
     transform: translateY(-50%);
     left: 0; 
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 
-    width: 250px;
+    width: 310px;
     transition: 500ms ease;
+}
+
+#fitForm-button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+#fitForm-next-button, #fitForm-submit-button {
+    margin: 0 27px 0 10px;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #181818;
+    color: #f0eae3;
+    font-size: 14pt;
+    font-family: 'Inter', sans-serif;
+}
+
+#fitForm-back-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #181818;
+    font-size: 14pt;
+    font-family: 'Inter', sans-serif;
 }
 
 #fitForm-loading-text {
@@ -127,12 +180,23 @@
         font-size: 18pt;
     }
     
-    .fitForm-drop-down-select {
+    .fitForm-button-label, .fitForm-radio-label {
         font-size: 10pt;
     }
-    
-    .fitForm-button-label {
-        font-size: 10pt;
+
+    .fitForm-radio-label {
+        padding: 15px;
+    }
+
+    #fitForm-next-button,
+    #fitForm-submit-button {
+        margin: 0 15px 0 10px;
+    }
+
+    #fitForm-next-button, 
+    #fitForm-back-button, 
+    #fitForm-submit-button {
+        font-size: 12pt;
     }
 }
 
@@ -150,17 +214,22 @@
         font-size: 15pt;
     }
     
-    .fitForm-drop-down-select {
-        font-size: 8pt;
+    .fitForm-radio-label {
+        padding: 10px;
     }
-    
+
     .fitForm-button-label {
         font-size: 8pt;
     }
 
-    #fitForm-button-submit {
-        font-size: 10pt;
-        width: 125px;
-        padding: 10px 0 10px 0;
+    #fitForm-next-button,
+    #fitForm-submit-button {
+        margin: 0 13px 0 0 ;
+    }
+
+    #fitForm-next-button, 
+    #fitForm-back-button, 
+    #fitForm-submit-button {
+        font-size: 8pt;
     }
 }

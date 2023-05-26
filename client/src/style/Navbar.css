@@ -1,0 +1,63 @@
+#dietForm-title-container,
+#dietPlan-title-container,
+#fitForm-title-container,
+#fitness-title-container,
+#fitGen-title-container,
+#home-title-container,
+.land-title-container,
+#imgEst-title-container,
+#descEst-title-container,
+#nutrition-title-container,
+#startFit-title-container,
+#viewDiet-title-container,
+#viewFit-title-container,
+#profile-picture-container {
+    padding-top: 56px;
+}
+
+
+.navbar-top {
+    position: fixed !important;
+    z-index: 1;
+    background-color: #202020 !important;
+}
+
+.navbar-top-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 12pt !important;
+}
+
+.navbar-points, .navbar-top-links {
+    background-color: rgb(80, 80, 80);
+    padding: 5px;
+    margin: 0 20px 0 0 ;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 10pt !important;
+    font-weight: 500;
+}
+
+.navbar-bottom {
+    background-color: #272727 !important;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar-top-title {
+        font-size: 10pt !important;
+    }
+
+    .navbar-points {
+        margin: 0 !important;
+        font-size: 9pt !important;
+    }
+
+    .navbar-top-links {
+        padding: 0 !important;
+        font-size: 8pt !important;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .navbar-points {
+        font-size: 7pt !important;
+    }
+}
